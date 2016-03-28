@@ -10,4 +10,6 @@
 
 @interface HSYConstant : NSObject
 
+extern CGFloat const HSYPaddingScale;
+
 @end

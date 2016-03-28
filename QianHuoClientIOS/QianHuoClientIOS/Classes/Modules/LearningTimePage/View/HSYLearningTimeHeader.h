@@ -1,5 +1,5 @@
 //
-//  HSYBaseTableController.h
+//  HSYLearningTimeHeader.h
 //  QianHuoClientIOS
 //
 //  Created by Sean on 16/3/28.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HSYBaseTableController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface HSYLearningTimeHeader : UITableViewHeaderFooterView
+
+@property (nonatomic, strong) NSString *title;
 
 @end

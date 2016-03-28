@@ -1,0 +1,39 @@
+//
+//  HSYLearningTimeHeader.m
+//  QianHuoClientIOS
+//
+//  Created by Sean on 16/3/28.
+//  Copyright © 2016年 deeepthinking. All rights reserved.
+//
+
+#import "HSYLearningTimeHeader.h"
+#import "UIView+FY.h"
+
+
+@implementation HSYLearningTimeHeader
+
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithReuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self setupUI];
+    }
+    return self;
+}
+
+- (void)setupUI {
+    self.contentView.backgroundColor = FYColorMain;
+}
+
+- (void)setTitle:(NSString *)title {
+    _title = title;
+    self.textLabel.attributedText = [[NSAttributedString alloc] initWithString:title attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:FYLabSize3] ,NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [self setNeedsLayout];
+}
+
+#pragma mark - override
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.textLabel.center = CGPointMake(self.frameWidth / 2, self.frameHeight / 2);
+}
+
+@end

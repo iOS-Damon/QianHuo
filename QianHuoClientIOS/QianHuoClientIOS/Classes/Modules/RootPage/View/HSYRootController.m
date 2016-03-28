@@ -53,7 +53,7 @@
 
 - (void)setupUI {
     UITabBar *tabBar = self.tabBar;
-    tabBar.tintColor = [UIColor redColor];
+    tabBar.tintColor = FYColorMain;
     NSArray *items = [tabBar items];
     
     UITabBarItem *item1 = items[0];

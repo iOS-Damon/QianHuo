@@ -35,6 +35,14 @@
 		147569CC1CA8D232009DB7E7 /* TabbarRestTime.png in Resources */ = {isa = PBXBuildFile; fileRef = 147569CA1CA8D232009DB7E7 /* TabbarRestTime.png */; };
 		147569CF1CA8D898009DB7E7 /* HSYBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569CE1CA8D898009DB7E7 /* HSYBaseController.m */; };
 		147569D21CA8D8C5009DB7E7 /* HSYBaseTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569D11CA8D8C5009DB7E7 /* HSYBaseTableController.m */; };
+		147569D51CA8DDBC009DB7E7 /* HSYBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569D41CA8DDBC009DB7E7 /* HSYBaseModel.m */; };
+		147569D81CA8DDDA009DB7E7 /* HSYBaseViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569D71CA8DDDA009DB7E7 /* HSYBaseViewmodel.m */; };
+		147569DB1CA8E10A009DB7E7 /* HSYLearningTimeViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569DA1CA8E10A009DB7E7 /* HSYLearningTimeViewmodel.m */; };
+		147569DE1CA90074009DB7E7 /* HSYLearningTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569DD1CA90074009DB7E7 /* HSYLearningTimeCell.m */; };
+		147569E11CA91193009DB7E7 /* AvararIOS.png in Resources */ = {isa = PBXBuildFile; fileRef = 147569DF1CA91193009DB7E7 /* AvararIOS.png */; };
+		147569E21CA91193009DB7E7 /* AvatarAndroid.png in Resources */ = {isa = PBXBuildFile; fileRef = 147569E01CA91193009DB7E7 /* AvatarAndroid.png */; };
+		147569E51CA91729009DB7E7 /* HSYLearningTimeHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569E41CA91729009DB7E7 /* HSYLearningTimeHeader.m */; };
+		147569E81CA92935009DB7E7 /* HSYBaseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569E71CA92935009DB7E7 /* HSYBaseTableCell.m */; };
 		37A849702814596453715742 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03DAC4DD205D78414B37B47C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +121,20 @@
 		147569CE1CA8D898009DB7E7 /* HSYBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYBaseController.m; sourceTree = "<group>"; };
 		147569D01CA8D8C5009DB7E7 /* HSYBaseTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYBaseTableController.h; sourceTree = "<group>"; };
 		147569D11CA8D8C5009DB7E7 /* HSYBaseTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYBaseTableController.m; sourceTree = "<group>"; };
+		147569D31CA8DDBC009DB7E7 /* HSYBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYBaseModel.h; sourceTree = "<group>"; };
+		147569D41CA8DDBC009DB7E7 /* HSYBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYBaseModel.m; sourceTree = "<group>"; };
+		147569D61CA8DDDA009DB7E7 /* HSYBaseViewmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYBaseViewmodel.h; sourceTree = "<group>"; };
+		147569D71CA8DDDA009DB7E7 /* HSYBaseViewmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYBaseViewmodel.m; sourceTree = "<group>"; };
+		147569D91CA8E10A009DB7E7 /* HSYLearningTimeViewmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLearningTimeViewmodel.h; sourceTree = "<group>"; };
+		147569DA1CA8E10A009DB7E7 /* HSYLearningTimeViewmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningTimeViewmodel.m; sourceTree = "<group>"; };
+		147569DC1CA90074009DB7E7 /* HSYLearningTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLearningTimeCell.h; sourceTree = "<group>"; };
+		147569DD1CA90074009DB7E7 /* HSYLearningTimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningTimeCell.m; sourceTree = "<group>"; };
+		147569DF1CA91193009DB7E7 /* AvararIOS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AvararIOS.png; sourceTree = "<group>"; };
+		147569E01CA91193009DB7E7 /* AvatarAndroid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AvatarAndroid.png; sourceTree = "<group>"; };
+		147569E31CA91729009DB7E7 /* HSYLearningTimeHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLearningTimeHeader.h; sourceTree = "<group>"; };
+		147569E41CA91729009DB7E7 /* HSYLearningTimeHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningTimeHeader.m; sourceTree = "<group>"; };
+		147569E61CA92935009DB7E7 /* HSYBaseTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYBaseTableCell.h; sourceTree = "<group>"; };
+		147569E71CA92935009DB7E7 /* HSYBaseTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYBaseTableCell.m; sourceTree = "<group>"; };
 		8B86759DBF12AF1C212111CF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E8B623B7F92A53061104487D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -317,6 +339,8 @@
 		147569A51CA8CA03009DB7E7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				147569D31CA8DDBC009DB7E7 /* HSYBaseModel.h */,
+				147569D41CA8DDBC009DB7E7 /* HSYBaseModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -328,6 +352,8 @@
 				147569CE1CA8D898009DB7E7 /* HSYBaseController.m */,
 				147569D01CA8D8C5009DB7E7 /* HSYBaseTableController.h */,
 				147569D11CA8D8C5009DB7E7 /* HSYBaseTableController.m */,
+				147569E61CA92935009DB7E7 /* HSYBaseTableCell.h */,
+				147569E71CA92935009DB7E7 /* HSYBaseTableCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -335,6 +361,8 @@
 		147569A71CA8CA03009DB7E7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				147569D61CA8DDDA009DB7E7 /* HSYBaseViewmodel.h */,
+				147569D71CA8DDDA009DB7E7 /* HSYBaseViewmodel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -423,6 +451,10 @@
 			children = (
 				147569C21CA8CDB6009DB7E7 /* HSYLearningTimeController.h */,
 				147569C31CA8CDB6009DB7E7 /* HSYLearningTimeController.m */,
+				147569DC1CA90074009DB7E7 /* HSYLearningTimeCell.h */,
+				147569DD1CA90074009DB7E7 /* HSYLearningTimeCell.m */,
+				147569E31CA91729009DB7E7 /* HSYLearningTimeHeader.h */,
+				147569E41CA91729009DB7E7 /* HSYLearningTimeHeader.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -430,6 +462,8 @@
 		147569B31CA8CA03009DB7E7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				147569D91CA8E10A009DB7E7 /* HSYLearningTimeViewmodel.h */,
+				147569DA1CA8E10A009DB7E7 /* HSYLearningTimeViewmodel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -505,6 +539,8 @@
 		147569C81CA8D232009DB7E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				147569DF1CA91193009DB7E7 /* AvararIOS.png */,
+				147569E01CA91193009DB7E7 /* AvatarAndroid.png */,
 				147569C91CA8D232009DB7E7 /* TabbarLearnTime.png */,
 				147569CA1CA8D232009DB7E7 /* TabbarRestTime.png */,
 			);
@@ -634,8 +670,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				147569E11CA91193009DB7E7 /* AvararIOS.png in Resources */,
 				147569481CA520A0009DB7E7 /* LaunchScreen.storyboard in Resources */,
 				147569451CA520A0009DB7E7 /* Assets.xcassets in Resources */,
+				147569E21CA91193009DB7E7 /* AvatarAndroid.png in Resources */,
 				147569CC1CA8D232009DB7E7 /* TabbarRestTime.png in Resources */,
 				147569431CA520A0009DB7E7 /* Main.storyboard in Resources */,
 				147569CB1CA8D232009DB7E7 /* TabbarLearnTime.png in Resources */,
@@ -715,22 +753,28 @@
 				147569C41CA8CDB6009DB7E7 /* HSYLearningTimeController.m in Sources */,
 				1475699C1CA54186009DB7E7 /* HSYAttributedString.m in Sources */,
 				147569891CA54155009DB7E7 /* UIImage+FY.m in Sources */,
+				147569DE1CA90074009DB7E7 /* HSYLearningTimeCell.m in Sources */,
 				1475698B1CA54155009DB7E7 /* UIView+FY.m in Sources */,
 				147569791CA53FC7009DB7E7 /* AppDelegate.m in Sources */,
 				147569A31CA8C6D3009DB7E7 /* HSYConstant.m in Sources */,
 				147569871CA54155009DB7E7 /* NSString+FY.m in Sources */,
 				147569991CA54186009DB7E7 /* FYLabel.m in Sources */,
+				147569E51CA91729009DB7E7 /* HSYLearningTimeHeader.m in Sources */,
 				147569C71CA8CDCE009DB7E7 /* HSYRestTimeController.m in Sources */,
 				1475698C1CA54155009DB7E7 /* UIViewController+FY.m in Sources */,
 				147569901CA54173009DB7E7 /* FYUtils.m in Sources */,
+				147569DB1CA8E10A009DB7E7 /* HSYLearningTimeViewmodel.m in Sources */,
 				1475699F1CA8BA19009DB7E7 /* HSYLoading.m in Sources */,
 				147569D21CA8D8C5009DB7E7 /* HSYBaseTableController.m in Sources */,
 				147569CF1CA8D898009DB7E7 /* HSYBaseController.m in Sources */,
+				147569D51CA8DDBC009DB7E7 /* HSYBaseModel.m in Sources */,
 				147569BE1CA8CA26009DB7E7 /* HSYRootController.m in Sources */,
 				1475699A1CA54186009DB7E7 /* HSYAlertBase.m in Sources */,
 				1475693A1CA520A0009DB7E7 /* main.m in Sources */,
 				147569C11CA8CD69009DB7E7 /* HSYNavigationController.m in Sources */,
+				147569E81CA92935009DB7E7 /* HSYBaseTableCell.m in Sources */,
 				1475698A1CA54155009DB7E7 /* UIScreen+FY.m in Sources */,
+				147569D81CA8DDDA009DB7E7 /* HSYBaseViewmodel.m in Sources */,
 				147569881CA54155009DB7E7 /* UIColor+FY.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -875,6 +919,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/QianHuoClientIOS/Classes/Configs/HSYPch.pch";
 				INFOPLIST_FILE = QianHuoClientIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.deeepthinking.QianHuoClientIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -888,6 +933,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/QianHuoClientIOS/Classes/Configs/HSYPch.pch";
 				INFOPLIST_FILE = QianHuoClientIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.deeepthinking.QianHuoClientIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
