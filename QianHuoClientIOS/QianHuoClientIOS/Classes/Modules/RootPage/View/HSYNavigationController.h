@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  HSYNavigationController.h
 //  QianHuoClientIOS
 //
-//  Created by Sean on 16/3/25.
+//  Created by Sean on 16/3/28.
 //  Copyright © 2016年 deeepthinking. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface HSYNavigationController : UINavigationController
 
 @end
-
