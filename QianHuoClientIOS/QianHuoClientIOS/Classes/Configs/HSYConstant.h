@@ -11,5 +11,6 @@
 @interface HSYConstant : NSObject
 
 extern CGFloat const HSYPaddingScale;
+extern NSString * const HSYRootTitle;
 
 @end

@@ -10,4 +10,6 @@
 
 @interface HSYBaseTableController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
+- (void)pullRefreshAction:(id)sender;
+
 @end

@@ -10,16 +10,31 @@
 
 @interface HSYBaseTableController ()
 
+@property (nonatomic, strong) UIRefreshControl *control;
+
 @end
 
 @implementation HSYBaseTableController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupUI];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)setupUI {
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = FYColorMain;
+    [self.refreshControl addTarget:self action:@selector(pullRefreshAction:) forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)pullRefreshAction:(id)sender {
+    NSLog(@"---pullRefreshAction---");
 }
 
 #pragma mark - TableView Delegate

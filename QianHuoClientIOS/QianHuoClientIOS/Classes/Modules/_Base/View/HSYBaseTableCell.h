@@ -10,4 +10,6 @@
 
 @interface HSYBaseTableCell : UITableViewCell
 
+- (void)setupViews;
+
 @end

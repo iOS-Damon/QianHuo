@@ -11,5 +11,6 @@
 @implementation HSYConstant
 
 CGFloat const HSYPaddingScale = 0.01;
+NSString * const HSYRootTitle = @"千货";
 
 @end

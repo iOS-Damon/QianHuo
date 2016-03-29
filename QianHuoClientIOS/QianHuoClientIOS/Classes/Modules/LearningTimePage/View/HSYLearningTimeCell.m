@@ -11,7 +11,7 @@
 #import "FYLabel.h"
 
 static CGFloat const HSYLearningTimeCellPadding = 15;
-static CGFloat const HSYLearningTimeCellImageHeightScale = 0.6;
+static CGFloat const HSYLearningTimeCellImageHeightScale = 0.5;
 
 @interface HSYLearningTimeCell ()
 
@@ -22,15 +22,8 @@ static CGFloat const HSYLearningTimeCellImageHeightScale = 0.6;
 
 @implementation HSYLearningTimeCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setupUI];
-    }
-    return self;
-}
-
-- (void)setupUI {
+- (void)setupViews {
+    [super setupViews];
     
     self.avatarImageView = [[UIImageView alloc] init];
     self.avatarImageView.image = self.avatarImage;

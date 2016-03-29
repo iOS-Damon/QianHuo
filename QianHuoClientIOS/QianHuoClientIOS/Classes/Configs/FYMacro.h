@@ -23,7 +23,8 @@
 #import "UIColor+FY.h"
 #define FYColorGary [UIColor colorWithHexString:@"424242" alpha:1.0]
 #define FYColorLightGary [UIColor colorWithHexString:@"DCDCDC" alpha:1.0]
-#define FYColorMain [UIColor colorWithHexString:@"03A9F4" alpha:1.0]
+#define FYColorMain [UIColor colorWithHexString:@"FFFFFF" alpha:1.0]
+#define FYColorSub [UIColor colorWithHexString:@"03A9F4" alpha:1.0]
 
 #define FYLabSize1 (FYIsPad ? 15 : 10)
 #define FYLabSize2 (FYIsPad ? 18 : 13)

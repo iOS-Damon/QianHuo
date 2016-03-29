@@ -16,7 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationBar.backgroundColor = FYColorMain;
+    self.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: FYColorSub};
+    self.navigationBar.tintColor = FYColorSub;
 }
 
 - (void)didReceiveMemoryWarning {

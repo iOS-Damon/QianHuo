@@ -26,7 +26,7 @@
 
 - (void)setTitle:(NSString *)title {
     _title = title;
-    self.textLabel.attributedText = [[NSAttributedString alloc] initWithString:title attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:FYLabSize3] ,NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.textLabel.attributedText = [[NSAttributedString alloc] initWithString:title attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:FYLabSize3] ,NSForegroundColorAttributeName:FYColorSub}];
     [self setNeedsLayout];
 }
 
