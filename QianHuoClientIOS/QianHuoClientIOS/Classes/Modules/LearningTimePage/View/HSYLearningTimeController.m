@@ -7,19 +7,21 @@
 //
 
 #import "HSYLearningTimeController.h"
-#import "HSYLearningTimeViewmodel.h"
+#import "HSYLearningViewmodel.h"
 #import "HSYLearningTimeCell.h"
 #import "HSYLearningTimeHeader.h"
 #import "UIScreen+FY.h"
+#import "HSYBindingParamProtocol.h"
+#import "FBKVOController.h"
 
 static NSString * const HSYLearningTimeCellID = @"HSYLearningTimeCellID";
 static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 static CGFloat const HSYLearnTimeCellHeightScale = 0.1;
 static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 
-@interface HSYLearningTimeController ()
+@interface HSYLearningTimeController () <HSYBindingParamProtocol>
 
-@property (nonatomic, strong) HSYLearningTimeViewmodel *viewmodel;
+@property (nonatomic, strong) HSYLearningViewmodel *viewmodel;
 
 @end
 
@@ -28,7 +30,8 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.viewmodel = [[HSYLearningTimeViewmodel alloc] init];
+        self.viewmodel = [[HSYLearningViewmodel alloc] init];
+        [self bindingParam];
     }
     return self;
 }
@@ -39,21 +42,23 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
     self.title = HSYRootTitle;
     [self.tableView registerClass:[HSYLearningTimeCell class] forCellReuseIdentifier:HSYLearningTimeCellID];
     [self.tableView registerClass:[HSYLearningTimeHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
+    
+    [self.viewmodel loadNewValue];
 }
 
 #pragma mark - TableView Delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 5;
+    return [self.viewmodel sectionsCount];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return [self.viewmodel rowsCountInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HSYLearningTimeCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
-        cell.title = @"这是一个测试";
-        cell.avatarImage = [UIImage imageNamed:@"AvatarAndroid.png"];
+        cell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
+    cell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
     return cell;
 }
 
@@ -67,12 +72,21 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     HSYLearningTimeHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYLearningTimeHeaderID];
-    header.title = @"今天是23";
+    header.title = [self.viewmodel headerTitleInSection:section];
     return header;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+}
+
+#pragma mark - HSYBindingParamProtocol
+- (void)bindingParam {
+    FBKVOController *KVOController = [FBKVOController controllerWithObserver:self];
+    [KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(HSYLearningTimeController *controller, HSYLearningViewmodel *viewmodel, NSDictionary *change) {
+        
+        [controller.tableView reloadData];
+    }];
 }
 
 @end

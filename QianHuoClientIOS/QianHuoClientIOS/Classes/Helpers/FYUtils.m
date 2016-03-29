@@ -228,6 +228,17 @@
     return dateString;
 }
 
+//获取年月日(xxxx年xx月xx日)
++ (NSString*)stringWithDate:(NSDate*)date {
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSInteger day = [components day];
+    NSInteger month = [components month];
+    NSInteger year = [components year];
+    
+    return [NSString stringWithFormat:@"%ld年%ld月%ld日", (long)year, (long)month, (long)day];
+}
+
 //数组排序
 + (NSArray*)sortArray:(NSArray*)array {
     

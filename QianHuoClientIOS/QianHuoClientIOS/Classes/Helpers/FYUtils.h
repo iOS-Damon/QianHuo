@@ -56,6 +56,9 @@
 //获取系统时间(yyyyMMddHHmmss)
 + (NSString*)systemTime;
 
+//获取年月日(xxxx年xx月xx日)
++ (NSString*)stringWithDate:(NSDate*)date;
+
 //数组排序
 + (NSArray*)sortArray:(NSArray*)array;
 

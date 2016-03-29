@@ -15,12 +15,12 @@
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
-        [self setupUI];
+        [self setupViews];
     }
     return self;
 }
 
-- (void)setupUI {
+- (void)setupViews {
     self.contentView.backgroundColor = FYColorMain;
 }
 
