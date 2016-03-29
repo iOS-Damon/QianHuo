@@ -35,13 +35,10 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = HSYRootTitle;
     [self.tableView registerClass:[HSYLearningTimeCell class] forCellReuseIdentifier:HSYLearningTimeCellID];
     [self.tableView registerClass:[HSYLearningTimeHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - TableView Delegate

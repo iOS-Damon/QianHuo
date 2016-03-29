@@ -16,16 +16,17 @@
 
 @implementation HSYBaseTableController
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupUI];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-- (void)setupUI {
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.refreshControl = [[UIRefreshControl alloc] init];

@@ -22,6 +22,14 @@ static CGFloat const HSYLearningTimeCellImageHeightScale = 0.5;
 
 @implementation HSYLearningTimeCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        
+    }
+    return self;
+}
+
 - (void)setupViews {
     [super setupViews];
     
