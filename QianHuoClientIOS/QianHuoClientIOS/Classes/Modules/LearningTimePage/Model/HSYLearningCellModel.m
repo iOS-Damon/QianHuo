@@ -10,4 +10,14 @@
 
 @implementation HSYLearningCellModel
 
+- (instancetype)initWithParam:(NSDictionary*)param {
+    self = [super init];
+    if (self) {
+        self.type = param[@"type"];
+        self.desc = param[@"desc"];
+        self.url = param[@"url"];
+    }
+    return self;
+}
+
 @end

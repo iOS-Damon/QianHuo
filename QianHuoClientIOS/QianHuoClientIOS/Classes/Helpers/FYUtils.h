@@ -59,6 +59,15 @@
 //获取年月日(xxxx年xx月xx日)
 + (NSString*)stringWithDate:(NSDate*)date;
 
+//获取当前 年
++ (NSInteger)year;
+
+//获取当前 月
++ (NSInteger)month;
+
+//获取当前 日
++ (NSInteger)day;
+
 //数组排序
 + (NSArray*)sortArray:(NSArray*)array;
 

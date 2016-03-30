@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "HSYBaseViewmodel.h"
-#import "HSYTableControllerViewmodelProtocol.h"
+#import "HSYLoadValueProtocol.h"
 
 @interface HSYLearningViewmodel : HSYBaseViewmodel <HSYLoadValueProtocol>
 
-@property (nonatomic, strong) NSMutableArray *dateModels;
+@property (nonatomic, strong) NSArray *dateModels;
 
 - (NSInteger)sectionsCount;
 - (NSString*)headerTitleInSection:(NSInteger)section;

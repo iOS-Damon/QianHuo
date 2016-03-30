@@ -7,15 +7,18 @@
 //
 
 #import "HSYLearningViewmodel.h"
-#import "HSYLearningMultiModel.h"
 #import "HSYBindingParamProtocol.h"
 #import "HSYLearningDateModel.h"
 #import "FBKVOController.h"
 #import "FYUtils.h"
+#import "AFNetworking.h"
 
 @interface HSYLearningViewmodel () <HSYBindingParamProtocol>
 
-@property (nonatomic, strong) HSYLearningDateModel *dateModel;
+@property (nonatomic, strong) FBKVOController *KVOController;
+@property (nonatomic, strong) NSArray *historys;
+@property (nonatomic, strong) NSDate *newestDate;
+@property (nonatomic, strong) NSDate *olderDate;
 
 @end
 
@@ -24,20 +27,19 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.dateModels = [[NSMutableArray alloc] initWithCapacity:5];
-        self.dateModel = [[HSYLearningDateModel alloc] init];
         [self bindingParam];
     }
     return self;
 }
 
+#pragma mark - 让view获取数据
 - (NSInteger)sectionsCount {
     return self.dateModels.count;
 }
 
 - (NSString*)headerTitleInSection:(NSInteger)section {
     HSYLearningDateModel *dateModel = self.dateModels[section];
-    return dateModel.title;
+    return dateModel.headerTitle;
 }
 
 - (NSInteger)rowsCountInSection:(NSInteger)section {
@@ -76,16 +78,10 @@
     return cellModel.url;
 }
 
-#pragma mark - HSYTableControllerViewmodelProtocol
+#pragma mark - HSYLoadValueProtocol
 - (void)loadNewValue {
-    self.dateModel.date = [NSDate date];
-    self.dateModel.title = [FYUtils stringWithDate:self.dateModel.date];
     
-    HSYLearningCellModel *c1 = [[HSYLearningCellModel alloc] init];
-    c1.type = @"iOS";
-    c1.desc = @"的风格好几个号即可";
-    c1.url = @"baidu.com";
-    self.dateModel.cellModels = @[c1];
+    [self requestHistory];
 }
 
 - (void)loadMoreValue {
@@ -94,11 +90,61 @@
 
 #pragma mark - HSYBindingParamProtocol
 - (void)bindingParam {
-    FBKVOController *KVOController = [FBKVOController controllerWithObserver:self];
-    [KVOController observe:self.dateModel keyPath:@"date" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(HSYLearningViewmodel *observer, HSYLearningDateModel *object, NSDictionary *change) {
+    
+    self.KVOController = [FBKVOController controllerWithObserver:self];
+    [self.KVOController observe:self keyPath:@"historys" options:NSKeyValueObservingOptionNew block:^(HSYLearningViewmodel *observer, id object, NSDictionary *change) {
         
-        [self.dateModels addObject:self.dateModel];
+        [observer requestNewValue];
     }];
+}
+
+#pragma mark - 获取网络数据
+- (void)requestHistory {
+    NSURL *url = [NSURL URLWithString:HSYHistoryUrl];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSDictionary *dict = responseObject;
+        NSArray *results = dict[@"results"];
+        self.historys = results;
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        
+    }];
+}
+
+- (void)requestNewValue {
+    
+    HSYLearningViewmodel __weak *weakSelf = self;
+    
+    NSString *dateStr = self.historys[0];
+    NSArray *arr = [dateStr componentsSeparatedByString:@"-"];
+    NSString *year = arr[0];
+    NSString *month = arr[1];
+    NSString *day = arr[2];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@/%@/%@", HSYBaseUrl, year, month, day];
+    FYLog(@"%@", urlStr);
+    
+    NSURL *url = [NSURL URLWithString:urlStr];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        NSDictionary *jsonDict = responseObject;
+        NSDictionary *results = jsonDict[@"results"];
+        
+        HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithParam:results];
+        dateModel.dateStr = dateStr;
+        dateModel.headerTitle = [weakSelf formatWithYear:year month:month day:day];
+        
+        weakSelf.dateModels = @[dateModel];
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+#pragma mark - 获取headerTitle
+- (NSString*)formatWithYear:(NSString*)year month:(NSString*)month day:(NSString*)day {
+    return [NSString stringWithFormat:@"%@年%@月%@日", year, month, day];
 }
 
 @end

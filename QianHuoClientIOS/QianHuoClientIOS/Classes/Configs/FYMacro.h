@@ -20,6 +20,8 @@
 
 #define FYBundle(bundleName, fileName) [NSString stringWithFormat:@"%@.bundle/%@", bundleName, fileName]
 
+#define FYClearNil(text) text == nil ? @"" : text 
+
 #import "UIColor+FY.h"
 #define FYColorGary [UIColor colorWithHexString:@"424242" alpha:1.0]
 #define FYColorLightGary [UIColor colorWithHexString:@"DCDCDC" alpha:1.0]

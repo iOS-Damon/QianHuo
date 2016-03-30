@@ -239,6 +239,27 @@
     return [NSString stringWithFormat:@"%ld年%ld月%ld日", (long)year, (long)month, (long)day];
 }
 
+//获取当前 年
++ (NSInteger)year {
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSInteger year = [components year];
+    return year;
+}
+
+//获取当前 月
++ (NSInteger)month {
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSInteger month = [components month];
+    return month;
+}
+
+//获取当前 日
++ (NSInteger)day {
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSInteger day = [components day];
+    return day;
+}
+
 //数组排序
 + (NSArray*)sortArray:(NSArray*)array {
     

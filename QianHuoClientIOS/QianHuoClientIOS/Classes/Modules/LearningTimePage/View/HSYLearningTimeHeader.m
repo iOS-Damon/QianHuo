@@ -8,6 +8,7 @@
 
 #import "HSYLearningTimeHeader.h"
 #import "UIView+FY.h"
+#import "NSString+FY.h"
 
 
 @implementation HSYLearningTimeHeader
@@ -25,8 +26,8 @@
 }
 
 - (void)setTitle:(NSString *)title {
-    _title = title;
-    self.textLabel.attributedText = [[NSAttributedString alloc] initWithString:title attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:FYLabSize3] ,NSForegroundColorAttributeName:FYColorSub}];
+    _title = FYClearNil(title);
+    self.textLabel.attributedText = [[NSAttributedString alloc] initWithString:_title attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:FYLabSize3] ,NSForegroundColorAttributeName:FYColorSub}];
     [self setNeedsLayout];
 }
 

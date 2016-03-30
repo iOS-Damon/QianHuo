@@ -12,5 +12,7 @@
 
 extern CGFloat const HSYPaddingScale;
 extern NSString * const HSYRootTitle;
+extern NSString * const HSYBaseUrl;
+extern NSString * const HSYHistoryUrl;
 
 @end

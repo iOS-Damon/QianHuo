@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HSYBaseModel.h"
 
-@interface HSYLearningCellModel : NSObject
+@interface HSYLearningCellModel : HSYBaseModel
 
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *desc;
 @property (nonatomic, strong) NSString *url;
+
+- (instancetype)initWithParam:(NSDictionary*)param;
 
 @end

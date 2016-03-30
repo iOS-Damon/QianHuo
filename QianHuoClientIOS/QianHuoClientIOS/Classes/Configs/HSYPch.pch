@@ -11,5 +11,6 @@
 
 #import "FYMacro.h"
 #import "HSYConstant.h"
+#import "FYLog.h"
 
 #endif /* HSYPch_pch */

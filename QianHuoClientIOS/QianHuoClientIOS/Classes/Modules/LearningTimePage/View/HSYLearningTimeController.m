@@ -22,6 +22,7 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 @interface HSYLearningTimeController () <HSYBindingParamProtocol>
 
 @property (nonatomic, strong) HSYLearningViewmodel *viewmodel;
+@property (nonatomic, strong) FBKVOController *KVOController;
 
 @end
 
@@ -43,6 +44,12 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
     [self.tableView registerClass:[HSYLearningTimeCell class] forCellReuseIdentifier:HSYLearningTimeCellID];
     [self.tableView registerClass:[HSYLearningTimeHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
     
+    [self.refreshControl beginRefreshing];
+    [self.viewmodel loadNewValue];
+}
+
+- (void)pullRefreshAction:(id)sender {
+    FYLog(@"---pullRefreshAction---");
     [self.viewmodel loadNewValue];
 }
 
@@ -82,10 +89,11 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 
 #pragma mark - HSYBindingParamProtocol
 - (void)bindingParam {
-    FBKVOController *KVOController = [FBKVOController controllerWithObserver:self];
-    [KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(HSYLearningTimeController *controller, HSYLearningViewmodel *viewmodel, NSDictionary *change) {
+    self.KVOController = [FBKVOController controllerWithObserver:self];
+    [self.KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionNew block:^(HSYLearningTimeController *controller, HSYLearningViewmodel *viewmodel, NSDictionary *change) {
         
         [controller.tableView reloadData];
+        [self.refreshControl endRefreshing];
     }];
 }
 

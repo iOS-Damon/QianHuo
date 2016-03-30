@@ -10,4 +10,5 @@
 
 @interface HSYBaseModel : NSObject
 
+
 @end

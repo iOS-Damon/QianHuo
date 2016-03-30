@@ -7,8 +7,13 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "HSYLearningDateModel.h"
+#import "NSString+FY.h"
 
 @interface QianHuoClientIOSTests : XCTestCase
+
+@property HSYLearningDateModel *dateModel;
+@property NSMutableArray *dateModels;
 
 @end
 
@@ -16,7 +21,8 @@
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    self.dateModel = [[HSYLearningDateModel alloc] init];
+    self.dateModels = [[NSMutableArray alloc] initWithCapacity:5];
 }
 
 - (void)tearDown {
@@ -25,8 +31,7 @@
 }
 
 - (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+    [self.dateModel loadNewValue];
 }
 
 - (void)testPerformanceExample {
