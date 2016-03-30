@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FMDB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>JazzHands.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,7 +42,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2C1ACE50AA8516A7FA084A1DA032D9B1</key>
+		<key>2D6199BAC23A7FD4300FC0CFC167C9E4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ABEE25DF53551353473553415F70D9CD</key>
+		<key>93711DB705119F64B7E7E0D550368BC1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F074C9E4F987E0B6C17AC8822FE92ADB</key>
+		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABEE25DF53551353473553415F70D9CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

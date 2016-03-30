@@ -99,9 +99,11 @@
 
 #pragma mark - 获取网络数据
 - (void)requestHistory {
+    
     NSURL *url = [NSURL URLWithString:HSYHistoryUrl];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
         NSDictionary *dict = responseObject;
         NSArray *results = dict[@"results"];
         self.historys = results;
