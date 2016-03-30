@@ -7,10 +7,12 @@
 //
 
 #import "HSYBaseTableController.h"
+#import "UIView+FY.h"
 
 @interface HSYBaseTableController ()
 
-@property (nonatomic, strong) UIRefreshControl *control;
+@property (nonatomic, assign) BOOL isPullUpRefresh;
+@property (nonatomic, assign) CGFloat scrollViewLastOffsetY;
 
 @end
 
@@ -19,7 +21,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        
+        self.isPullUpRefresh = NO;
     }
     return self;
 }
@@ -31,11 +33,44 @@
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = FYColorMain;
-    [self.refreshControl addTarget:self action:@selector(pullRefreshAction:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(pullDownRefresh:) forControlEvents:UIControlEventValueChanged];
 }
 
-- (void)pullRefreshAction:(id)sender {
-    NSLog(@"---pullRefreshAction---");
+- (void)pullDownRefresh:(id)sender {
+    
+}
+
+- (void)pullUpRefresh:(id)sender {
+    
+}
+
+- (void)endPullUpRefresh {
+    self.isPullUpRefresh = NO;
+}
+
+#pragma mark - Scroll View Delegete
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    CGPoint offset = scrollView.contentOffset;
+    CGFloat offsetY = offset.y;
+    self.scrollViewLastOffsetY = offsetY;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGPoint offset = scrollView.contentOffset;
+    CGFloat offsetY = offset.y;
+    CGFloat viewH = scrollView.frameHeight;
+    CGFloat contentH = scrollView.contentSize.height;
+    
+    if (self.isPullUpRefresh) { //正在下拉刷新
+        return;
+    }
+    
+    if (offsetY - self.scrollViewLastOffsetY > 10) { //向上滑动
+        if (offsetY + viewH >= contentH - viewH * 0.3) { //快到达底部
+            [self pullUpRefresh:nil];
+            self.isPullUpRefresh = YES;
+        }
+    }
 }
 
 #pragma mark - TableView Delegate

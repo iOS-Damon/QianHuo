@@ -17,8 +17,7 @@
 
 @property (nonatomic, strong) FBKVOController *KVOController;
 @property (nonatomic, strong) NSArray *historys;
-@property (nonatomic, strong) NSDate *newestDate;
-@property (nonatomic, strong) NSDate *olderDate;
+@property (nonatomic, assign) int page;
 
 @end
 
@@ -28,6 +27,7 @@
     self = [super init];
     if (self) {
         [self bindingParam];
+        self.page = 0;
     }
     return self;
 }
@@ -80,12 +80,11 @@
 
 #pragma mark - HSYLoadValueProtocol
 - (void)loadNewValue {
-    
     [self requestHistory];
 }
 
 - (void)loadMoreValue {
-
+    [self requestMoreValue];
 }
 
 #pragma mark - HSYBindingParamProtocol
@@ -107,7 +106,8 @@
         NSArray *results = dict[@"results"];
         self.historys = results;
     } failure:^(NSURLSessionTask *operation, NSError *error) {
-        
+        FYLog(@"Error: %@", error);
+        self.requestError = error;
     }];
 }
 
@@ -122,7 +122,6 @@
     NSString *day = arr[2];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@/%@/%@", HSYBaseUrl, year, month, day];
-    FYLog(@"%@", urlStr);
     
     NSURL *url = [NSURL URLWithString:urlStr];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -137,8 +136,49 @@
         
         weakSelf.dateModels = @[dateModel];
         
+        self.page = 1;
+        
     } failure:^(NSURLSessionTask *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        FYLog(@"Error: %@", error);
+        self.requestError = error;
+    }];
+}
+
+- (void)requestMoreValue {
+    HSYLearningViewmodel __weak *weakSelf = self;
+    
+    if (self.page >= self.historys.count) {
+        return;
+    }
+    
+    NSString *dateStr = self.historys[self.page];
+    NSArray *arr = [dateStr componentsSeparatedByString:@"-"];
+    NSString *year = arr[0];
+    NSString *month = arr[1];
+    NSString *day = arr[2];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@/%@/%@", HSYBaseUrl, year, month, day];
+    
+    NSURL *url = [NSURL URLWithString:urlStr];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        NSDictionary *jsonDict = responseObject;
+        NSDictionary *results = jsonDict[@"results"];
+        
+        HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithParam:results];
+        dateModel.dateStr = dateStr;
+        dateModel.headerTitle = [weakSelf formatWithYear:year month:month day:day];
+        
+        NSMutableArray *temp = [weakSelf.dateModels mutableCopy];
+        [temp addObject:dateModel];
+        weakSelf.dateModels = temp;
+        
+        self.page = self.page + 1;
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        FYLog(@"Error: %@", error);
+        self.requestError = error;
     }];
 }
 

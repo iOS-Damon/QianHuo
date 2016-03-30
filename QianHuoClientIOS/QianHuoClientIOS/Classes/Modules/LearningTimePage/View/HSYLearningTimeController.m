@@ -48,9 +48,12 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
     [self.viewmodel loadNewValue];
 }
 
-- (void)pullRefreshAction:(id)sender {
-    FYLog(@"---pullRefreshAction---");
+- (void)pullDownRefresh:(id)sender {
     [self.viewmodel loadNewValue];
+}
+
+- (void)pullUpRefresh:(id)sender {
+    [self.viewmodel loadMoreValue];
 }
 
 #pragma mark - TableView Delegate
@@ -94,6 +97,13 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
         
         [controller.tableView reloadData];
         [self.refreshControl endRefreshing];
+        [self endPullUpRefresh];
+    }];
+    
+    [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYLearningTimeController *controller, HSYLearningViewmodel *viewmodel, NSDictionary *change) {
+        
+        [self.refreshControl endRefreshing];
+        [self endPullUpRefresh];
     }];
 }
 
