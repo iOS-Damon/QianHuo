@@ -45,7 +45,8 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
     [self.tableView registerClass:[HSYLearningTimeHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
     
     [self.refreshControl beginRefreshing];
-    [self.viewmodel loadNewValue];
+    [self.viewmodel loadOldValue];
+//    [self.viewmodel loadNewValue];
 }
 
 - (void)pullDownRefresh:(id)sender {

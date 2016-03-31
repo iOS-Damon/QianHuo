@@ -22,6 +22,8 @@
 
 #define FYClearNil(text) text == nil ? @"" : text 
 
+#define FYEmpty(a) (a == nil || a.count == 0)
+
 #import "UIColor+FY.h"
 #define FYColorGary [UIColor colorWithHexString:@"424242" alpha:1.0]
 #define FYColorLightGary [UIColor colorWithHexString:@"DCDCDC" alpha:1.0]

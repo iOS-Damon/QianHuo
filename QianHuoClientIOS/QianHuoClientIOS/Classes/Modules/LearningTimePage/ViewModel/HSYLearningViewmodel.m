@@ -12,6 +12,10 @@
 #import "FBKVOController.h"
 #import "FYUtils.h"
 #import "AFNetworking.h"
+#import "HSYUserDefaults.h"
+#import "HSYLearningDBModel.h"
+
+static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHistoryID";
 
 @interface HSYLearningViewmodel () <HSYBindingParamProtocol>
 
@@ -79,12 +83,27 @@
 }
 
 #pragma mark - HSYLoadValueProtocol
+- (void)loadOldValue {
+    
+//    self.historys = [HSYUserDefaults objectForKey:HSYLearningViewmodelHistoryID];
+//    if (!FYEmpty(self.historys)) {
+//        [self loadFirstValueFromDB];
+//    }
+    
+    NSArray *historys = [HSYUserDefaults objectForKey:HSYLearningViewmodelHistoryID];
+    if (historys) {
+        self.historys = historys;
+    } else {
+        [self requestHistory];
+    }
+}
+
 - (void)loadNewValue {
     [self requestHistory];
 }
 
 - (void)loadMoreValue {
-    [self requestMoreValue];
+    [self loadMoreValueFromDB];
 }
 
 #pragma mark - HSYBindingParamProtocol
@@ -93,7 +112,7 @@
     self.KVOController = [FBKVOController controllerWithObserver:self];
     [self.KVOController observe:self keyPath:@"historys" options:NSKeyValueObservingOptionNew block:^(HSYLearningViewmodel *observer, id object, NSDictionary *change) {
         
-        [observer requestNewValue];
+        [observer loadFirstValueFromDB];
     }];
 }
 
@@ -106,14 +125,18 @@
         
         NSDictionary *dict = responseObject;
         NSArray *results = dict[@"results"];
+        
         self.historys = results;
+        
+        [HSYUserDefaults setObject:self.historys forKey:HSYLearningViewmodelHistoryID];
+        
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         FYLog(@"Error: %@", error);
         self.requestError = error;
     }];
 }
 
-- (void)requestNewValue {
+- (void)requestFirstValue {
     
     HSYLearningViewmodel __weak *weakSelf = self;
     
@@ -135,8 +158,14 @@
         HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithParam:results];
         dateModel.dateStr = dateStr;
         dateModel.headerTitle = [weakSelf formatWithYear:year month:month day:day];
-        
         weakSelf.dateModels = @[dateModel];
+        
+        //保存到数据库
+        HSYLearningDBModel *dbModel = [[HSYLearningDBModel alloc] init];
+        dbModel.dateStr = dateStr;
+        dbModel.headerTitle = dateModel.headerTitle;
+        dbModel.results = [FYUtils JSONStringWithDictionary:results];
+        [dbModel saveOrUpdate];
         
         self.page = 1;
         
@@ -172,7 +201,14 @@
         dateModel.dateStr = dateStr;
         dateModel.headerTitle = [weakSelf formatWithYear:year month:month day:day];
         
-        NSMutableArray *temp = [weakSelf.dateModels mutableCopy];
+        //保存到数据库
+        HSYLearningDBModel *dbModel = [[HSYLearningDBModel alloc] init];
+        dbModel.dateStr = dateStr;
+        dbModel.headerTitle = dateModel.headerTitle;
+        dbModel.results = [FYUtils JSONStringWithDictionary:results];
+        [dbModel saveOrUpdate];
+        
+        NSMutableArray *temp = [NSMutableArray arrayWithArray:weakSelf.dateModels];
         [temp addObject:dateModel];
         weakSelf.dateModels = temp;
         
@@ -182,6 +218,50 @@
         FYLog(@"Error: %@", error);
         self.requestError = error;
     }];
+}
+
+#pragma mark - 获取数据库数据
+
+- (void)loadFirstValueFromDB {
+    
+    NSString *dateStr = self.historys[0];
+    HSYLearningDBModel *dbModel = [HSYLearningDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
+//    NSArray *dbModel = [HSYLearningDBModel findAll];
+//    FYLog(@"---%@---", dbModel);
+    if (dbModel) {
+        NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
+        
+        HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithParam:dictResult];
+        dateModel.dateStr = dbModel.dateStr;
+        dateModel.headerTitle = dbModel.headerTitle;
+        
+        self.dateModels = @[dateModel];
+        
+        self.page = 1;
+    } else {
+        [self requestFirstValue];
+    }
+}
+
+- (void)loadMoreValueFromDB {
+    NSString *dateStr = self.historys[self.page];
+    HSYLearningDBModel *dbModel = [HSYLearningDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
+    
+    if (dbModel) {
+        NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
+        
+        HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithParam:dictResult];
+        dateModel.dateStr = dbModel.dateStr;
+        dateModel.headerTitle = dbModel.headerTitle;
+        
+        NSMutableArray *temp = [NSMutableArray arrayWithArray:self.dateModels];
+        [temp addObject:dateModel];
+        self.dateModels = temp;
+        
+        self.page = self.page + 1;
+    } else {
+        [self requestMoreValue];
+    }
 }
 
 #pragma mark - 获取headerTitle

@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		143A40951CAA638A007C0B9F /* HSYLearningDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40941CAA638A007C0B9F /* HSYLearningDateModel.m */; };
 		143A409B1CAA9E84007C0B9F /* FYLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A409A1CAA9E84007C0B9F /* FYLog.m */; };
+		143A409E1CABABBA007C0B9F /* HSYUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A409D1CABABBA007C0B9F /* HSYUserDefaults.m */; };
+		143A40A11CABB254007C0B9F /* HSYDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40A01CABB254007C0B9F /* HSYDBHelper.m */; };
+		143A40A41CABB496007C0B9F /* HSYDBColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40A31CABB496007C0B9F /* HSYDBColumn.m */; };
+		143A40B01CABC70B007C0B9F /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40AD1CABC70B007C0B9F /* JKDBHelper.m */; };
+		143A40B11CABC70B007C0B9F /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40AF1CABC70B007C0B9F /* JKDBModel.m */; };
+		143A40B41CABC8E4007C0B9F /* HSYLearningDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40B31CABC8E4007C0B9F /* HSYLearningDBModel.m */; };
 		1475693A1CA520A0009DB7E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569391CA520A0009DB7E7 /* main.m */; };
 		147569431CA520A0009DB7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 147569411CA520A0009DB7E7 /* Main.storyboard */; };
 		147569451CA520A0009DB7E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 147569441CA520A0009DB7E7 /* Assets.xcassets */; };
@@ -72,6 +78,18 @@
 		143A40941CAA638A007C0B9F /* HSYLearningDateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningDateModel.m; sourceTree = "<group>"; };
 		143A40991CAA9E84007C0B9F /* FYLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYLog.h; sourceTree = "<group>"; };
 		143A409A1CAA9E84007C0B9F /* FYLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYLog.m; sourceTree = "<group>"; };
+		143A409C1CABABBA007C0B9F /* HSYUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYUserDefaults.h; sourceTree = "<group>"; };
+		143A409D1CABABBA007C0B9F /* HSYUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYUserDefaults.m; sourceTree = "<group>"; };
+		143A409F1CABB254007C0B9F /* HSYDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYDBHelper.h; sourceTree = "<group>"; };
+		143A40A01CABB254007C0B9F /* HSYDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYDBHelper.m; sourceTree = "<group>"; };
+		143A40A21CABB496007C0B9F /* HSYDBColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYDBColumn.h; sourceTree = "<group>"; };
+		143A40A31CABB496007C0B9F /* HSYDBColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYDBColumn.m; sourceTree = "<group>"; };
+		143A40AC1CABC70B007C0B9F /* JKDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBHelper.h; sourceTree = "<group>"; };
+		143A40AD1CABC70B007C0B9F /* JKDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBHelper.m; sourceTree = "<group>"; };
+		143A40AE1CABC70B007C0B9F /* JKDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBModel.h; sourceTree = "<group>"; };
+		143A40AF1CABC70B007C0B9F /* JKDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBModel.m; sourceTree = "<group>"; };
+		143A40B21CABC8E4007C0B9F /* HSYLearningDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLearningDBModel.h; sourceTree = "<group>"; };
+		143A40B31CABC8E4007C0B9F /* HSYLearningDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningDBModel.m; sourceTree = "<group>"; };
 		147569351CA520A0009DB7E7 /* QianHuoClientIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QianHuoClientIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		147569391CA520A0009DB7E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		147569421CA520A0009DB7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -176,6 +194,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		143A40AB1CABC70B007C0B9F /* DBModel */ = {
+			isa = PBXGroup;
+			children = (
+				143A40AC1CABC70B007C0B9F /* JKDBHelper.h */,
+				143A40AD1CABC70B007C0B9F /* JKDBHelper.m */,
+				143A40AE1CABC70B007C0B9F /* JKDBModel.h */,
+				143A40AF1CABC70B007C0B9F /* JKDBModel.m */,
+			);
+			path = DBModel;
+			sourceTree = "<group>";
+		};
 		1475692C1CA520A0009DB7E7 = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +320,12 @@
 				143A409A1CAA9E84007C0B9F /* FYLog.m */,
 				1475698E1CA54173009DB7E7 /* FYUtils.h */,
 				1475698F1CA54173009DB7E7 /* FYUtils.m */,
+				143A409C1CABABBA007C0B9F /* HSYUserDefaults.h */,
+				143A409D1CABABBA007C0B9F /* HSYUserDefaults.m */,
+				143A409F1CABB254007C0B9F /* HSYDBHelper.h */,
+				143A40A01CABB254007C0B9F /* HSYDBHelper.m */,
+				143A40A21CABB496007C0B9F /* HSYDBColumn.h */,
+				143A40A31CABB496007C0B9F /* HSYDBColumn.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -320,6 +355,7 @@
 		147569751CA53FC7009DB7E7 /* ThirdLibs */ = {
 			isa = PBXGroup;
 			children = (
+				143A40AB1CABC70B007C0B9F /* DBModel */,
 			);
 			path = ThirdLibs;
 			sourceTree = "<group>";
@@ -461,6 +497,8 @@
 				147569EF1CAA6000009DB7E7 /* HSYLearningCellModel.m */,
 				143A40931CAA638A007C0B9F /* HSYLearningDateModel.h */,
 				143A40941CAA638A007C0B9F /* HSYLearningDateModel.m */,
+				143A40B21CABC8E4007C0B9F /* HSYLearningDBModel.h */,
+				143A40B31CABC8E4007C0B9F /* HSYLearningDBModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -770,6 +808,8 @@
 			files = (
 				1475699B1CA54186009DB7E7 /* HSYAlertView.m in Sources */,
 				147569C41CA8CDB6009DB7E7 /* HSYLearningTimeController.m in Sources */,
+				143A40A41CABB496007C0B9F /* HSYDBColumn.m in Sources */,
+				143A40A11CABB254007C0B9F /* HSYDBHelper.m in Sources */,
 				1475699C1CA54186009DB7E7 /* HSYAttributedString.m in Sources */,
 				147569891CA54155009DB7E7 /* UIImage+FY.m in Sources */,
 				147569DE1CA90074009DB7E7 /* HSYLearningTimeCell.m in Sources */,
@@ -780,6 +820,7 @@
 				147569991CA54186009DB7E7 /* FYLabel.m in Sources */,
 				147569E51CA91729009DB7E7 /* HSYLearningTimeHeader.m in Sources */,
 				147569C71CA8CDCE009DB7E7 /* HSYRestTimeController.m in Sources */,
+				143A40B01CABC70B007C0B9F /* JKDBHelper.m in Sources */,
 				1475698C1CA54155009DB7E7 /* UIViewController+FY.m in Sources */,
 				147569F01CAA6000009DB7E7 /* HSYLearningCellModel.m in Sources */,
 				147569901CA54173009DB7E7 /* FYUtils.m in Sources */,
@@ -791,10 +832,13 @@
 				147569D51CA8DDBC009DB7E7 /* HSYBaseModel.m in Sources */,
 				147569BE1CA8CA26009DB7E7 /* HSYRootController.m in Sources */,
 				1475699A1CA54186009DB7E7 /* HSYAlertBase.m in Sources */,
+				143A40B41CABC8E4007C0B9F /* HSYLearningDBModel.m in Sources */,
 				143A40951CAA638A007C0B9F /* HSYLearningDateModel.m in Sources */,
 				1475693A1CA520A0009DB7E7 /* main.m in Sources */,
+				143A40B11CABC70B007C0B9F /* JKDBModel.m in Sources */,
 				147569C11CA8CD69009DB7E7 /* HSYNavigationController.m in Sources */,
 				147569E81CA92935009DB7E7 /* HSYBaseTableCell.m in Sources */,
+				143A409E1CABABBA007C0B9F /* HSYUserDefaults.m in Sources */,
 				1475698A1CA54155009DB7E7 /* UIScreen+FY.m in Sources */,
 				147569D81CA8DDDA009DB7E7 /* HSYBaseViewmodel.m in Sources */,
 				147569881CA54155009DB7E7 /* UIColor+FY.m in Sources */,

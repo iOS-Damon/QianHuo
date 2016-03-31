@@ -60,13 +60,14 @@
     CGFloat offsetY = offset.y;
     CGFloat viewH = scrollView.frameHeight;
     CGFloat contentH = scrollView.contentSize.height;
-    
+    NSLog(@"---%d---", self.isPullUpRefresh);
     if (self.isPullUpRefresh) { //正在下拉刷新
         return;
     }
-    
+    NSLog(@"offsetY = %f scrollViewLastOffsetY = %f", contentH, self.scrollViewLastOffsetY);
     if (offsetY - self.scrollViewLastOffsetY > 10) { //向上滑动
-        if (offsetY + viewH >= contentH - viewH * 0.3) { //快到达底部
+        NSLog(@"contentH = %f  offsetY = %f viewH = %f", contentH, offsetY, viewH);
+        if (contentH - offsetY - viewH < viewH) { //快到达底部
             [self pullUpRefresh:nil];
             self.isPullUpRefresh = YES;
         }
