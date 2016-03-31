@@ -50,6 +50,12 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
     [self.viewmodel loadFirstValue];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    //隐藏工具栏 当每次从子页面返回时
+    self.navigationController.toolbarHidden = YES;
+}
+
 - (void)pullDownRefresh:(id)sender {
     [self.viewmodel loadNewValue];
 }
@@ -91,6 +97,7 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *urlStr = [self.viewmodel rowUrlAtIndexPath:indexPath];
     HSYContentController *contentVC = [[HSYContentController alloc] initWithUrl:urlStr];
+    //隐藏tabbar 当要进入子页面时
     contentVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:contentVC animated:YES];
 }

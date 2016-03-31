@@ -10,12 +10,18 @@
 #import "HSYContentViewmodel.h"
 #import "Masonry.h"
 #import "UIWebView+FY.h"
+#import "UIView+FY.h"
 
 @interface HSYContentController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) NSString *urlStr;
 @property (nonatomic, strong) HSYContentViewmodel *viewmodel;
 @property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) UIButton *backBtn;
+@property (nonatomic, strong) UIButton *forwardBtn;
+
+@property (nonatomic, strong) UIBarButtonItem *backItem;
+@property (nonatomic, strong) UIBarButtonItem *forwardItem;
 
 @end
 
@@ -33,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupWebView];
+    [self setupToolbar];
 }
 
 - (void)setupWebView {
@@ -53,8 +60,53 @@
     [self.webView loadRequest:[self.viewmodel webRequestWithUrl:self.urlStr]];
 }
 
-- (void)dealloc {
-    [self.webView cleanForDealloc];
+- (void)setupToolbar {
+    self.navigationController.toolbarHidden = NO;
+    self.navigationController.toolbar.tintColor = FYColorSub;
+    
+    CGFloat imgViewH = self.navigationController.toolbar.frameHeight * 0.6;
+    
+    self.backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, imgViewH, imgViewH)];
+    [self.backBtn setBackgroundImage:[UIImage imageNamed:@"WebBack.png"] forState:UIControlStateDisabled];
+    [self.backBtn setBackgroundImage:[UIImage imageNamed:@"WebBackNormal.png"] forState:UIControlStateNormal];
+    [self.backBtn addTarget:self action:@selector(webGoBack:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.backItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    self.backItem.enabled = NO;
+    
+    self.forwardBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, imgViewH, imgViewH)];
+    [self.forwardBtn setBackgroundImage:[UIImage imageNamed:@"WebForward.png"] forState:UIControlStateDisabled];
+    [self.forwardBtn setBackgroundImage:[UIImage imageNamed:@"WebForwardNormal.png"] forState:UIControlStateNormal];
+    [self.forwardBtn addTarget:self action:@selector(webGoFrowark:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.forwardItem = [[UIBarButtonItem alloc] initWithCustomView:self.forwardBtn];
+    self.forwardItem.enabled = NO;
+    
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    NSArray *items = @[self.backItem, self.forwardItem, spaceItem, spaceItem, spaceItem];
+    self.toolbarItems = items;
+}
+
+- (void)webGoBack:(id)sender {
+    [self.webView goBack];
+}
+
+- (void)webGoFrowark:(id)sender {
+    [self.webView goForward];
+}
+
+- (void)setToolbarItemsEnable {
+    if ([self.webView canGoBack]) {
+        self.backItem.enabled = YES;
+    } else {
+        self.backItem.enabled = NO;
+    }
+    if ([self.webView canGoForward]) {
+        self.forwardItem.enabled = YES;
+    } else {
+        self.forwardItem.enabled = NO;
+    }
 }
 
 #pragma mark - UIWebViewDelegate
@@ -68,11 +120,20 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    
     [self.webView cleanWhenDidFinishLoad];
+    
+    [self setToolbarItemsEnable];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
 
 }
+
+#pragma mark - dealloc
+- (void)dealloc {
+    [self.webView cleanForDealloc];
+}
+
 
 @end
