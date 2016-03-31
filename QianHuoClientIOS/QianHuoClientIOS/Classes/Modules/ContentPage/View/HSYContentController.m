@@ -9,8 +9,9 @@
 #import "HSYContentController.h"
 #import "HSYContentViewmodel.h"
 #import "Masonry.h"
+#import "UIWebView+FY.h"
 
-@interface HSYContentController ()
+@interface HSYContentController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) NSString *urlStr;
 @property (nonatomic, strong) HSYContentViewmodel *viewmodel;
@@ -32,19 +33,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupWebView];
-    
 }
 
 - (void)setupWebView {
     
     self.webView = [[UIWebView alloc] init];
     self.webView.backgroundColor = [UIColor whiteColor];
+    self.webView.opaque = NO;
+    self.webView.scalesPageToFit = YES;
+    self.webView.scrollView.bounces = YES;
+    self.webView.delegate = self;
+    
     [self.view addSubview:self.webView];
+    
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     
     [self.webView loadRequest:[self.viewmodel webRequestWithUrl:self.urlStr]];
+}
+
+- (void)dealloc {
+    [self.webView cleanForDealloc];
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self.webView cleanWhenDidFinishLoad];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+
 }
 
 @end

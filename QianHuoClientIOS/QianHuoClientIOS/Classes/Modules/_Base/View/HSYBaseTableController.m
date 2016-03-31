@@ -30,6 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //设置返回按钮
+    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] init];
+    backBarButtonItem.title = @"返回";
+    self.navigationItem.backBarButtonItem = backBarButtonItem;
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.refreshControl = [[UIRefreshControl alloc] init];

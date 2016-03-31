@@ -25,6 +25,7 @@
 		143A40DB1CACC61A007C0B9F /* HSYRestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40D91CACC61A007C0B9F /* HSYRestController.m */; };
 		143A40DE1CACC6CE007C0B9F /* HSYContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40DD1CACC6CE007C0B9F /* HSYContentController.m */; };
 		143A40E11CACC76F007C0B9F /* HSYContentViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40E01CACC76F007C0B9F /* HSYContentViewmodel.m */; };
+		143A40E41CAD0B71007C0B9F /* UIWebView+FY.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40E31CAD0B71007C0B9F /* UIWebView+FY.m */; };
 		1475693A1CA520A0009DB7E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569391CA520A0009DB7E7 /* main.m */; };
 		147569431CA520A0009DB7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 147569411CA520A0009DB7E7 /* Main.storyboard */; };
 		147569451CA520A0009DB7E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 147569441CA520A0009DB7E7 /* Assets.xcassets */; };
@@ -114,6 +115,8 @@
 		143A40DD1CACC6CE007C0B9F /* HSYContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYContentController.m; sourceTree = "<group>"; };
 		143A40DF1CACC76F007C0B9F /* HSYContentViewmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYContentViewmodel.h; sourceTree = "<group>"; };
 		143A40E01CACC76F007C0B9F /* HSYContentViewmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYContentViewmodel.m; sourceTree = "<group>"; };
+		143A40E21CAD0B71007C0B9F /* UIWebView+FY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+FY.h"; sourceTree = "<group>"; };
+		143A40E31CAD0B71007C0B9F /* UIWebView+FY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+FY.m"; sourceTree = "<group>"; };
 		147569351CA520A0009DB7E7 /* QianHuoClientIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QianHuoClientIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		147569391CA520A0009DB7E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		147569421CA520A0009DB7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -388,6 +391,8 @@
 				147569841CA54155009DB7E7 /* UIView+FY.m */,
 				147569851CA54155009DB7E7 /* UIViewController+FY.h */,
 				147569861CA54155009DB7E7 /* UIViewController+FY.m */,
+				143A40E21CAD0B71007C0B9F /* UIWebView+FY.h */,
+				143A40E31CAD0B71007C0B9F /* UIWebView+FY.m */,
 			);
 			path = Categorys;
 			sourceTree = "<group>";
@@ -837,6 +842,7 @@
 				143A40CE1CACC5FF007C0B9F /* HSYLearningCellModel.m in Sources */,
 				143A40DB1CACC61A007C0B9F /* HSYRestController.m in Sources */,
 				147569791CA53FC7009DB7E7 /* AppDelegate.m in Sources */,
+				143A40E41CAD0B71007C0B9F /* UIWebView+FY.m in Sources */,
 				147569A31CA8C6D3009DB7E7 /* HSYConstant.m in Sources */,
 				147569871CA54155009DB7E7 /* NSString+FY.m in Sources */,
 				147569991CA54186009DB7E7 /* FYLabel.m in Sources */,
