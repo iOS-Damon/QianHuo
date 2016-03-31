@@ -83,12 +83,7 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
 }
 
 #pragma mark - HSYLoadValueProtocol
-- (void)loadOldValue {
-    
-//    self.historys = [HSYUserDefaults objectForKey:HSYLearningViewmodelHistoryID];
-//    if (!FYEmpty(self.historys)) {
-//        [self loadFirstValueFromDB];
-//    }
+- (void)loadFirstValue {
     
     NSArray *historys = [HSYUserDefaults objectForKey:HSYLearningViewmodelHistoryID];
     if (historys) {
@@ -226,8 +221,7 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
     
     NSString *dateStr = self.historys[0];
     HSYLearningDBModel *dbModel = [HSYLearningDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
-//    NSArray *dbModel = [HSYLearningDBModel findAll];
-//    FYLog(@"---%@---", dbModel);
+    
     if (dbModel) {
         NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
         

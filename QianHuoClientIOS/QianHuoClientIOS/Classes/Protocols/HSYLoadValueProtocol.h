@@ -10,7 +10,7 @@
 
 @protocol HSYLoadValueProtocol <NSObject>
 
-- (void)loadOldValue;
+- (void)loadFirstValue;
 - (void)loadNewValue;
 - (void)loadMoreValue;
 

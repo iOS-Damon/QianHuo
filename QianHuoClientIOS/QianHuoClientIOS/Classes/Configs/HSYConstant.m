@@ -10,9 +10,10 @@
 
 @implementation HSYConstant
 
-CGFloat const HSYPaddingScale = 0.01;
 NSString * const HSYRootTitle = @"千货";
 NSString * const HSYBaseUrl = @"http://gank.io/api/day";
 NSString * const HSYHistoryUrl = @"http://gank.io/api/day/history";
+NSString * const HSYNetworkErrorHint = @"网络或服务器有问题";
+int const HSYHintDuration = 3;
 
 @end

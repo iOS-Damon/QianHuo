@@ -13,6 +13,7 @@
 #import "UIScreen+FY.h"
 #import "HSYBindingParamProtocol.h"
 #import "FBKVOController.h"
+#import "FYHintLayer.h"
 
 static NSString * const HSYLearningTimeCellID = @"HSYLearningTimeCellID";
 static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
@@ -45,8 +46,7 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
     [self.tableView registerClass:[HSYLearningTimeHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
     
     [self.refreshControl beginRefreshing];
-    [self.viewmodel loadOldValue];
-//    [self.viewmodel loadNewValue];
+    [self.viewmodel loadFirstValue];
 }
 
 - (void)pullDownRefresh:(id)sender {
@@ -105,6 +105,9 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
         
         [self.refreshControl endRefreshing];
         [self endPullUpRefresh];
+        
+        FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNetworkErrorHint duration:HSYHintDuration complete:nil];
+        [hint show];
     }];
 }
 

@@ -10,9 +10,10 @@
 
 @interface HSYConstant : NSObject
 
-extern CGFloat const HSYPaddingScale;
 extern NSString * const HSYRootTitle;
 extern NSString * const HSYBaseUrl;
 extern NSString * const HSYHistoryUrl;
+extern NSString * const HSYNetworkErrorHint;
+extern int const HSYHintDuration;
 
 @end

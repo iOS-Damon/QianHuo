@@ -15,6 +15,8 @@
 		143A40B01CABC70B007C0B9F /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40AD1CABC70B007C0B9F /* JKDBHelper.m */; };
 		143A40B11CABC70B007C0B9F /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40AF1CABC70B007C0B9F /* JKDBModel.m */; };
 		143A40B41CABC8E4007C0B9F /* HSYLearningDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40B31CABC8E4007C0B9F /* HSYLearningDBModel.m */; };
+		143A40B71CACC02D007C0B9F /* FYHintLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40B61CACC02D007C0B9F /* FYHintLayer.m */; };
+		143A40BA1CACC1B5007C0B9F /* FYTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40B91CACC1B5007C0B9F /* FYTimer.m */; };
 		1475693A1CA520A0009DB7E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569391CA520A0009DB7E7 /* main.m */; };
 		147569431CA520A0009DB7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 147569411CA520A0009DB7E7 /* Main.storyboard */; };
 		147569451CA520A0009DB7E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 147569441CA520A0009DB7E7 /* Assets.xcassets */; };
@@ -90,6 +92,10 @@
 		143A40AF1CABC70B007C0B9F /* JKDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBModel.m; sourceTree = "<group>"; };
 		143A40B21CABC8E4007C0B9F /* HSYLearningDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLearningDBModel.h; sourceTree = "<group>"; };
 		143A40B31CABC8E4007C0B9F /* HSYLearningDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningDBModel.m; sourceTree = "<group>"; };
+		143A40B51CACC02D007C0B9F /* FYHintLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYHintLayer.h; sourceTree = "<group>"; };
+		143A40B61CACC02D007C0B9F /* FYHintLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYHintLayer.m; sourceTree = "<group>"; };
+		143A40B81CACC1B5007C0B9F /* FYTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYTimer.h; sourceTree = "<group>"; };
+		143A40B91CACC1B5007C0B9F /* FYTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYTimer.m; sourceTree = "<group>"; };
 		147569351CA520A0009DB7E7 /* QianHuoClientIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QianHuoClientIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		147569391CA520A0009DB7E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		147569421CA520A0009DB7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -316,6 +322,8 @@
 		147569721CA53FC7009DB7E7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				143A40B81CACC1B5007C0B9F /* FYTimer.h */,
+				143A40B91CACC1B5007C0B9F /* FYTimer.m */,
 				143A40991CAA9E84007C0B9F /* FYLog.h */,
 				143A409A1CAA9E84007C0B9F /* FYLog.m */,
 				1475698E1CA54173009DB7E7 /* FYUtils.h */,
@@ -363,6 +371,8 @@
 		147569781CA53FC7009DB7E7 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				143A40B51CACC02D007C0B9F /* FYHintLayer.h */,
+				143A40B61CACC02D007C0B9F /* FYHintLayer.m */,
 				1475699D1CA8BA19009DB7E7 /* HSYLoading.h */,
 				1475699E1CA8BA19009DB7E7 /* HSYLoading.m */,
 				147569911CA54186009DB7E7 /* FYLabel.h */,
@@ -828,11 +838,13 @@
 				147569DB1CA8E10A009DB7E7 /* HSYLearningViewmodel.m in Sources */,
 				1475699F1CA8BA19009DB7E7 /* HSYLoading.m in Sources */,
 				147569D21CA8D8C5009DB7E7 /* HSYBaseTableController.m in Sources */,
+				143A40B71CACC02D007C0B9F /* FYHintLayer.m in Sources */,
 				147569CF1CA8D898009DB7E7 /* HSYBaseController.m in Sources */,
 				147569D51CA8DDBC009DB7E7 /* HSYBaseModel.m in Sources */,
 				147569BE1CA8CA26009DB7E7 /* HSYRootController.m in Sources */,
 				1475699A1CA54186009DB7E7 /* HSYAlertBase.m in Sources */,
 				143A40B41CABC8E4007C0B9F /* HSYLearningDBModel.m in Sources */,
+				143A40BA1CACC1B5007C0B9F /* FYTimer.m in Sources */,
 				143A40951CAA638A007C0B9F /* HSYLearningDateModel.m in Sources */,
 				1475693A1CA520A0009DB7E7 /* main.m in Sources */,
 				143A40B11CABC70B007C0B9F /* JKDBModel.m in Sources */,
