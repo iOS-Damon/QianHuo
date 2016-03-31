@@ -51,35 +51,8 @@
 }
 
 - (void)endPullUpRefresh {
-//    self.isPullUpRefresh = NO;
     [self.tableView.infiniteScrollingView stopAnimating];
 }
-
-#pragma mark - Scroll View Delegete
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-//    CGPoint offset = scrollView.contentOffset;
-//    CGFloat offsetY = offset.y;
-//    self.scrollViewLastOffsetY = offsetY;
-//}
-//
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    CGPoint offset = scrollView.contentOffset;
-//    CGFloat offsetY = offset.y;
-//    CGFloat viewH = scrollView.frameHeight;
-//    CGFloat contentH = scrollView.contentSize.height;
-//    NSLog(@"---%d---", self.isPullUpRefresh);
-//    if (self.isPullUpRefresh) { //正在下拉刷新
-//        return;
-//    }
-//    NSLog(@"offsetY = %f scrollViewLastOffsetY = %f", contentH, self.scrollViewLastOffsetY);
-//    if (offsetY - self.scrollViewLastOffsetY > 10) { //向上滑动
-//        NSLog(@"contentH = %f  offsetY = %f viewH = %f", contentH, offsetY, viewH);
-//        if (contentH - offsetY - viewH < viewH) { //快到达底部
-//            [self pullUpRefresh:nil];
-//            self.isPullUpRefresh = YES;
-//        }
-//    }
-//}
 
 #pragma mark - TableView Delegate
 /**

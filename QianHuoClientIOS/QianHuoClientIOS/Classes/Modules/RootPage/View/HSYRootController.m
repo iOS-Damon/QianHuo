@@ -42,13 +42,13 @@
 #pragma mark - 布局
 
 - (void)setupVC {
-    HSYLearningController *learningTimeVC = [[HSYLearningController alloc] init];
-    HSYNavigationController *learningTimeNav = [[HSYNavigationController alloc] initWithRootViewController:learningTimeVC];
-    [self addChildViewController:learningTimeNav];
+    HSYLearningController *learningVC = [[HSYLearningController alloc] init];
+    HSYNavigationController *learningNav = [[HSYNavigationController alloc] initWithRootViewController:learningVC];
+    [self addChildViewController:learningNav];
     
-    HSYRestController *restTimeVC = [[HSYRestController alloc] init];
-    HSYNavigationController *restTimeNav = [[HSYNavigationController alloc] initWithRootViewController:restTimeVC];
-    [self addChildViewController:restTimeNav];
+    HSYRestController *restVC = [[HSYRestController alloc] init];
+    HSYNavigationController *restNav = [[HSYNavigationController alloc] initWithRootViewController:restVC];
+    [self addChildViewController:restNav];
 }
 
 - (void)setupUI {

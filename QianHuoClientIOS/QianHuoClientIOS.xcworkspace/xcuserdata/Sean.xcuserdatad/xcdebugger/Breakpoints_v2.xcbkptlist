@@ -180,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QianHuoClientIOS/Classes/Modules/_Base/View/HSYBaseTableController.m"
-            timestampString = "481082353.925254"
+            timestampString = "481089218.86823"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "-endPullUpRefresh"
             landmarkType = "5">
          </BreakpointContent>

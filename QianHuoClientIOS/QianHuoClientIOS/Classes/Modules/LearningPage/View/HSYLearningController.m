@@ -14,6 +14,7 @@
 #import "HSYBindingParamProtocol.h"
 #import "FBKVOController.h"
 #import "FYHintLayer.h"
+#import "HSYContentController.h"
 
 static NSString * const HSYLearningTimeCellID = @"HSYLearningTimeCellID";
 static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
@@ -89,7 +90,9 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *urlStr = [self.viewmodel rowUrlAtIndexPath:indexPath];
-    
+    HSYContentController *contentVC = [[HSYContentController alloc] initWithUrl:urlStr];
+    contentVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:contentVC animated:YES];
 }
 
 #pragma mark - HSYBindingParamProtocol
