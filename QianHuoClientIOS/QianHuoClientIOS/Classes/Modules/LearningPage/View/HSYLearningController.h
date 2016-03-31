@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "HSYBaseTableController.h"
 
-@interface HSYLearningTimeController : HSYBaseTableController 
+@interface HSYLearningController : HSYBaseTableController 
 
 @end

@@ -6,12 +6,12 @@
 //  Copyright © 2016年 deeepthinking. All rights reserved.
 //
 
-#import "HSYLearningTimeHeader.h"
+#import "HSYLearningHeader.h"
 #import "UIView+FY.h"
 #import "NSString+FY.h"
 
 
-@implementation HSYLearningTimeHeader
+@implementation HSYLearningHeader
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithReuseIdentifier:reuseIdentifier];

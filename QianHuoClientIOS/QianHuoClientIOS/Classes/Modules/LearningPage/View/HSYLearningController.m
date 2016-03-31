@@ -6,10 +6,10 @@
 //  Copyright © 2016年 deeepthinking. All rights reserved.
 //
 
-#import "HSYLearningTimeController.h"
+#import "HSYLearningController.h"
 #import "HSYLearningViewmodel.h"
-#import "HSYLearningTimeCell.h"
-#import "HSYLearningTimeHeader.h"
+#import "HSYLearningCell.h"
+#import "HSYLearningHeader.h"
 #import "UIScreen+FY.h"
 #import "HSYBindingParamProtocol.h"
 #import "FBKVOController.h"
@@ -20,14 +20,14 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 static CGFloat const HSYLearnTimeCellHeightScale = 0.1;
 static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 
-@interface HSYLearningTimeController () <HSYBindingParamProtocol>
+@interface HSYLearningController () <HSYBindingParamProtocol>
 
 @property (nonatomic, strong) HSYLearningViewmodel *viewmodel;
 @property (nonatomic, strong) FBKVOController *KVOController;
 
 @end
 
-@implementation HSYLearningTimeController
+@implementation HSYLearningController
 
 - (instancetype)init {
     self = [super init];
@@ -42,8 +42,8 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
     [super viewDidLoad];
     
     self.title = HSYRootTitle;
-    [self.tableView registerClass:[HSYLearningTimeCell class] forCellReuseIdentifier:HSYLearningTimeCellID];
-    [self.tableView registerClass:[HSYLearningTimeHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
+    [self.tableView registerClass:[HSYLearningCell class] forCellReuseIdentifier:HSYLearningTimeCellID];
+    [self.tableView registerClass:[HSYLearningHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
     
     [self.refreshControl beginRefreshing];
     [self.viewmodel loadFirstValue];
@@ -67,7 +67,7 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HSYLearningTimeCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
+    HSYLearningCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
         cell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
     cell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
     return cell;
@@ -82,26 +82,27 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    HSYLearningTimeHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYLearningTimeHeaderID];
+    HSYLearningHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYLearningTimeHeaderID];
     header.title = [self.viewmodel headerTitleInSection:section];
     return header;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *urlStr = [self.viewmodel rowUrlAtIndexPath:indexPath];
     
 }
 
 #pragma mark - HSYBindingParamProtocol
 - (void)bindingParam {
     self.KVOController = [FBKVOController controllerWithObserver:self];
-    [self.KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionNew block:^(HSYLearningTimeController *controller, HSYLearningViewmodel *viewmodel, NSDictionary *change) {
+    [self.KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *controller, HSYLearningViewmodel *viewmodel, NSDictionary *change) {
         
         [controller.tableView reloadData];
         [self.refreshControl endRefreshing];
         [self endPullUpRefresh];
     }];
     
-    [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYLearningTimeController *controller, HSYLearningViewmodel *viewmodel, NSDictionary *change) {
+    [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *controller, HSYLearningViewmodel *viewmodel, NSDictionary *change) {
         
         [self.refreshControl endRefreshing];
         [self endPullUpRefresh];

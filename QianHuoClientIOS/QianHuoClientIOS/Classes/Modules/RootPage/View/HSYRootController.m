@@ -8,8 +8,8 @@
 
 #import "HSYRootController.h"
 #import "HSYNavigationController.h"
-#import "HSYLearningTimeController.h"
-#import "HSYRestTimeController.h"
+#import "HSYLearningController.h"
+#import "HSYRestController.h"
 
 @interface HSYRootController ()
 
@@ -42,11 +42,11 @@
 #pragma mark - 布局
 
 - (void)setupVC {
-    HSYLearningTimeController *learningTimeVC = [[HSYLearningTimeController alloc] init];
+    HSYLearningController *learningTimeVC = [[HSYLearningController alloc] init];
     HSYNavigationController *learningTimeNav = [[HSYNavigationController alloc] initWithRootViewController:learningTimeVC];
     [self addChildViewController:learningTimeNav];
     
-    HSYRestTimeController *restTimeVC = [[HSYRestTimeController alloc] init];
+    HSYRestController *restTimeVC = [[HSYRestController alloc] init];
     HSYNavigationController *restTimeNav = [[HSYNavigationController alloc] initWithRootViewController:restTimeVC];
     [self addChildViewController:restTimeNav];
 }

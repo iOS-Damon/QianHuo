@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HSYBaseTableCell.h"
 
-@interface HSYLearningTimeCell : HSYBaseTableCell
+@interface HSYLearningCell : HSYBaseTableCell
 
 @property (nonatomic, strong) UIImage *avatarImage;
 @property (nonatomic, strong) NSString *title;

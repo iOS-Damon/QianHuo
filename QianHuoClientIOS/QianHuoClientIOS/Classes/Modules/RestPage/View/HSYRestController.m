@@ -6,13 +6,13 @@
 //  Copyright © 2016年 deeepthinking. All rights reserved.
 //
 
-#import "HSYRestTimeController.h"
+#import "HSYRestController.h"
 
-@interface HSYRestTimeController ()
+@interface HSYRestController ()
 
 @end
 
-@implementation HSYRestTimeController
+@implementation HSYRestController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -164,11 +164,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QianHuoClientIOS/Classes/Modules/LearningTimePage/View/HSYLearningTimeController.m"
-            timestampString = "481083985.773017"
+            timestampString = "481084724.427562"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "-bindingParam"
             landmarkType = "5">
          </BreakpointContent>
