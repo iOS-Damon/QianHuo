@@ -83,4 +83,7 @@
 // 生成设备ID
 + (NSString*)deviceID;
 
+//剪裁图片成正方形
++ (UIImage*)cutImageToSquare:(UIImage*)image;
+
 @end

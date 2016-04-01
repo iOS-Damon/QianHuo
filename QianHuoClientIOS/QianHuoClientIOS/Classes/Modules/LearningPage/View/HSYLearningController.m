@@ -8,8 +8,8 @@
 
 #import "HSYLearningController.h"
 #import "HSYLearningViewmodel.h"
-#import "HSYLearningCell.h"
-#import "HSYLearningHeader.h"
+#import "HSYCommonCell.h"
+#import "HSYCommonHeader.h"
 #import "UIScreen+FY.h"
 #import "HSYBindingParamProtocol.h"
 #import "FBKVOController.h"
@@ -18,8 +18,6 @@
 
 static NSString * const HSYLearningTimeCellID = @"HSYLearningTimeCellID";
 static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
-static CGFloat const HSYLearnTimeCellHeightScale = 0.2;
-static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 
 @interface HSYLearningController () <HSYBindingParamProtocol>
 
@@ -43,8 +41,8 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
     [super viewDidLoad];
     
     self.title = HSYRootTitle;
-    [self.tableView registerClass:[HSYLearningCell class] forCellReuseIdentifier:HSYLearningTimeCellID];
-    [self.tableView registerClass:[HSYLearningHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
+    [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYLearningTimeCellID];
+    [self.tableView registerClass:[HSYCommonHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
     
     [self.refreshControl beginRefreshing];
     [self.viewmodel loadFirstValue];
@@ -74,22 +72,22 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HSYLearningCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
+    HSYCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
     cell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
     cell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [UIScreen screenLongSide] * HSYLearnTimeCellHeightScale;
+    return [UIScreen screenLongSide] * HSYCommonCellHeightScale;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [UIScreen screenLongSide] * HSYHeaderHeightScale;
+    return [UIScreen screenLongSide] * HSYCommonHeaderHeightScale;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    HSYLearningHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYLearningTimeHeaderID];
+    HSYCommonHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYLearningTimeHeaderID];
     header.title = [self.viewmodel headerTitleInSection:section];
     return header;
 }

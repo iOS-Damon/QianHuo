@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HSYLearningHeader : UITableViewHeaderFooterView
+@interface HSYCommonHeader : UITableViewHeaderFooterView
 
 @property (nonatomic, strong) NSString *title;
 

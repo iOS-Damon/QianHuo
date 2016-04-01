@@ -6,12 +6,12 @@
 //  Copyright © 2016年 deeepthinking. All rights reserved.
 //
 
-#import "HSYLearningHeader.h"
+#import "HSYCommonHeader.h"
 #import "UIView+FY.h"
 #import "NSString+FY.h"
 #import "Masonry.h"
 
-@implementation HSYLearningHeader
+@implementation HSYCommonHeader
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithReuseIdentifier:reuseIdentifier];

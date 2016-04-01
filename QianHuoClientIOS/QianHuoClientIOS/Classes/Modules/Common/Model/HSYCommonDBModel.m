@@ -6,8 +6,8 @@
 //  Copyright © 2016年 deeepthinking. All rights reserved.
 //
 
-#import "HSYLearningDBModel.h"
+#import "HSYCommonDBModel.h"
 
-@implementation HSYLearningDBModel
+@implementation HSYCommonDBModel
 
 @end

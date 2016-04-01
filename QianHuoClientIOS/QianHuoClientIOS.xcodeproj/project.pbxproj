@@ -17,10 +17,7 @@
 		143A40BA1CACC1B5007C0B9F /* FYTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40B91CACC1B5007C0B9F /* FYTimer.m */; };
 		143A40CE1CACC5FF007C0B9F /* HSYLearningCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40BE1CACC5FF007C0B9F /* HSYLearningCellModel.m */; };
 		143A40CF1CACC5FF007C0B9F /* HSYLearningDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40C01CACC5FF007C0B9F /* HSYLearningDateModel.m */; };
-		143A40D01CACC5FF007C0B9F /* HSYLearningDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40C21CACC5FF007C0B9F /* HSYLearningDBModel.m */; };
-		143A40D11CACC5FF007C0B9F /* HSYLearningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40C61CACC5FF007C0B9F /* HSYLearningCell.m */; };
 		143A40D21CACC5FF007C0B9F /* HSYLearningController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40C81CACC5FF007C0B9F /* HSYLearningController.m */; };
-		143A40D31CACC5FF007C0B9F /* HSYLearningHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40CA1CACC5FF007C0B9F /* HSYLearningHeader.m */; };
 		143A40D41CACC5FF007C0B9F /* HSYLearningViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40CD1CACC5FF007C0B9F /* HSYLearningViewmodel.m */; };
 		143A40DB1CACC61A007C0B9F /* HSYRestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40D91CACC61A007C0B9F /* HSYRestController.m */; };
 		143A40DE1CACC6CE007C0B9F /* HSYContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40DD1CACC6CE007C0B9F /* HSYContentController.m */; };
@@ -45,7 +42,11 @@
 		143A41181CAE1B0D007C0B9F /* HSYRestDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A41171CAE1B0D007C0B9F /* HSYRestDateModel.m */; };
 		143A411B1CAE1E51007C0B9F /* HSYRestViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A411A1CAE1E51007C0B9F /* HSYRestViewmodel.m */; };
 		143A411E1CAE2296007C0B9F /* HSYRestFuliCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A411D1CAE2296007C0B9F /* HSYRestFuliCell.m */; };
-		143A41211CAE22AD007C0B9F /* HSYRestVedioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A41201CAE22AD007C0B9F /* HSYRestVedioCell.m */; };
+		143A41281CAE41EE007C0B9F /* HSYCommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A41271CAE41EE007C0B9F /* HSYCommonCell.m */; };
+		143A412B1CAE4224007C0B9F /* HSYCommonHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A412A1CAE4224007C0B9F /* HSYCommonHeader.m */; };
+		143A412E1CAE51CF007C0B9F /* HSYCommonDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A412D1CAE51CF007C0B9F /* HSYCommonDBModel.m */; };
+		143A41311CAE641D007C0B9F /* WFWebImageShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A41301CAE641D007C0B9F /* WFWebImageShowView.m */; };
+		143A41331CAE650C007C0B9F /* Placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A41321CAE650C007C0B9F /* Placeholder@2x.png */; };
 		1475693A1CA520A0009DB7E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569391CA520A0009DB7E7 /* main.m */; };
 		147569431CA520A0009DB7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 147569411CA520A0009DB7E7 /* Main.storyboard */; };
 		147569451CA520A0009DB7E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 147569441CA520A0009DB7E7 /* Assets.xcassets */; };
@@ -116,14 +117,8 @@
 		143A40BE1CACC5FF007C0B9F /* HSYLearningCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningCellModel.m; sourceTree = "<group>"; };
 		143A40BF1CACC5FF007C0B9F /* HSYLearningDateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLearningDateModel.h; sourceTree = "<group>"; };
 		143A40C01CACC5FF007C0B9F /* HSYLearningDateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningDateModel.m; sourceTree = "<group>"; };
-		143A40C11CACC5FF007C0B9F /* HSYLearningDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLearningDBModel.h; sourceTree = "<group>"; };
-		143A40C21CACC5FF007C0B9F /* HSYLearningDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningDBModel.m; sourceTree = "<group>"; };
-		143A40C51CACC5FF007C0B9F /* HSYLearningCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLearningCell.h; sourceTree = "<group>"; };
-		143A40C61CACC5FF007C0B9F /* HSYLearningCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningCell.m; sourceTree = "<group>"; };
 		143A40C71CACC5FF007C0B9F /* HSYLearningController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLearningController.h; sourceTree = "<group>"; };
 		143A40C81CACC5FF007C0B9F /* HSYLearningController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningController.m; sourceTree = "<group>"; };
-		143A40C91CACC5FF007C0B9F /* HSYLearningHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLearningHeader.h; sourceTree = "<group>"; };
-		143A40CA1CACC5FF007C0B9F /* HSYLearningHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningHeader.m; sourceTree = "<group>"; };
 		143A40CC1CACC5FF007C0B9F /* HSYLearningViewmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLearningViewmodel.h; sourceTree = "<group>"; };
 		143A40CD1CACC5FF007C0B9F /* HSYLearningViewmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLearningViewmodel.m; sourceTree = "<group>"; };
 		143A40D81CACC61A007C0B9F /* HSYRestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYRestController.h; sourceTree = "<group>"; };
@@ -159,8 +154,15 @@
 		143A411A1CAE1E51007C0B9F /* HSYRestViewmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYRestViewmodel.m; sourceTree = "<group>"; };
 		143A411C1CAE2296007C0B9F /* HSYRestFuliCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYRestFuliCell.h; sourceTree = "<group>"; };
 		143A411D1CAE2296007C0B9F /* HSYRestFuliCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYRestFuliCell.m; sourceTree = "<group>"; };
-		143A411F1CAE22AD007C0B9F /* HSYRestVedioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYRestVedioCell.h; sourceTree = "<group>"; };
-		143A41201CAE22AD007C0B9F /* HSYRestVedioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYRestVedioCell.m; sourceTree = "<group>"; };
+		143A41261CAE41EE007C0B9F /* HSYCommonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYCommonCell.h; sourceTree = "<group>"; };
+		143A41271CAE41EE007C0B9F /* HSYCommonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYCommonCell.m; sourceTree = "<group>"; };
+		143A41291CAE4224007C0B9F /* HSYCommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYCommonHeader.h; sourceTree = "<group>"; };
+		143A412A1CAE4224007C0B9F /* HSYCommonHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYCommonHeader.m; sourceTree = "<group>"; };
+		143A412C1CAE51CF007C0B9F /* HSYCommonDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYCommonDBModel.h; sourceTree = "<group>"; };
+		143A412D1CAE51CF007C0B9F /* HSYCommonDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYCommonDBModel.m; sourceTree = "<group>"; };
+		143A412F1CAE641D007C0B9F /* WFWebImageShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWebImageShowView.h; sourceTree = "<group>"; };
+		143A41301CAE641D007C0B9F /* WFWebImageShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWebImageShowView.m; sourceTree = "<group>"; };
+		143A41321CAE650C007C0B9F /* Placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Placeholder@2x.png"; sourceTree = "<group>"; };
 		147569351CA520A0009DB7E7 /* QianHuoClientIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QianHuoClientIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		147569391CA520A0009DB7E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		147569421CA520A0009DB7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -278,8 +280,6 @@
 				143A40BE1CACC5FF007C0B9F /* HSYLearningCellModel.m */,
 				143A40BF1CACC5FF007C0B9F /* HSYLearningDateModel.h */,
 				143A40C01CACC5FF007C0B9F /* HSYLearningDateModel.m */,
-				143A40C11CACC5FF007C0B9F /* HSYLearningDBModel.h */,
-				143A40C21CACC5FF007C0B9F /* HSYLearningDBModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -287,12 +287,8 @@
 		143A40C41CACC5FF007C0B9F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				143A40C51CACC5FF007C0B9F /* HSYLearningCell.h */,
-				143A40C61CACC5FF007C0B9F /* HSYLearningCell.m */,
 				143A40C71CACC5FF007C0B9F /* HSYLearningController.h */,
 				143A40C81CACC5FF007C0B9F /* HSYLearningController.m */,
-				143A40C91CACC5FF007C0B9F /* HSYLearningHeader.h */,
-				143A40CA1CACC5FF007C0B9F /* HSYLearningHeader.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -336,8 +332,6 @@
 				143A40D91CACC61A007C0B9F /* HSYRestController.m */,
 				143A411C1CAE2296007C0B9F /* HSYRestFuliCell.h */,
 				143A411D1CAE2296007C0B9F /* HSYRestFuliCell.m */,
-				143A411F1CAE22AD007C0B9F /* HSYRestVedioCell.h */,
-				143A41201CAE22AD007C0B9F /* HSYRestVedioCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -347,6 +341,43 @@
 			children = (
 				143A41191CAE1E51007C0B9F /* HSYRestViewmodel.h */,
 				143A411A1CAE1E51007C0B9F /* HSYRestViewmodel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		143A41221CAE416D007C0B9F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				143A41231CAE416D007C0B9F /* Model */,
+				143A41241CAE416D007C0B9F /* View */,
+				143A41251CAE416D007C0B9F /* ViewModel */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		143A41231CAE416D007C0B9F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				143A412C1CAE51CF007C0B9F /* HSYCommonDBModel.h */,
+				143A412D1CAE51CF007C0B9F /* HSYCommonDBModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		143A41241CAE416D007C0B9F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				143A41291CAE4224007C0B9F /* HSYCommonHeader.h */,
+				143A412A1CAE4224007C0B9F /* HSYCommonHeader.m */,
+				143A41261CAE41EE007C0B9F /* HSYCommonCell.h */,
+				143A41271CAE41EE007C0B9F /* HSYCommonCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		143A41251CAE416D007C0B9F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -483,6 +514,7 @@
 		147569731CA53FC7009DB7E7 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				143A41221CAE416D007C0B9F /* Common */,
 				143A40D51CACC61A007C0B9F /* RestPage */,
 				143A40BB1CACC5FF007C0B9F /* LearningPage */,
 				147569A41CA8CA03009DB7E7 /* _Base */,
@@ -513,6 +545,8 @@
 		147569781CA53FC7009DB7E7 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				143A412F1CAE641D007C0B9F /* WFWebImageShowView.h */,
+				143A41301CAE641D007C0B9F /* WFWebImageShowView.m */,
 				143A40EF1CADF167007C0B9F /* HSYLoadingManage.h */,
 				143A40F01CADF167007C0B9F /* HSYLoadingManage.m */,
 				143A40B51CACC02D007C0B9F /* FYHintLayer.h */,
@@ -680,6 +714,7 @@
 				143A40F81CADFFAD007C0B9F /* AvatarIntroduce.png */,
 				143A40F61CADFE49007C0B9F /* AvatarResource.png */,
 				143A40FC1CAE016D007C0B9F /* AvatarApp.png */,
+				143A41321CAE650C007C0B9F /* Placeholder@2x.png */,
 				143A40FE1CAE0300007C0B9F /* AvatarHtml.png */,
 				143A40ED1CADF10D007C0B9F /* Logo.png */,
 				143A40E91CAD2375007C0B9F /* WebBackNormal.png */,
@@ -829,6 +864,7 @@
 				143A40F71CADFE49007C0B9F /* AvatarResource.png in Resources */,
 				147569451CA520A0009DB7E7 /* Assets.xcassets in Resources */,
 				143A410F1CAE18CE007C0B9F /* AvatarVedio.png in Resources */,
+				143A41331CAE650C007C0B9F /* Placeholder@2x.png in Resources */,
 				143A40EC1CAD2375007C0B9F /* WebForwardNormal.png in Resources */,
 				143A410D1CAE1547007C0B9F /* TabbarRest@2x.png in Resources */,
 				143A40E71CAD1606007C0B9F /* WebBack.png in Resources */,
@@ -925,7 +961,6 @@
 				143A40B01CABC70B007C0B9F /* JKDBHelper.m in Sources */,
 				1475698C1CA54155009DB7E7 /* UIViewController+FY.m in Sources */,
 				147569901CA54173009DB7E7 /* FYUtils.m in Sources */,
-				143A40D11CACC5FF007C0B9F /* HSYLearningCell.m in Sources */,
 				143A40DE1CACC6CE007C0B9F /* HSYContentController.m in Sources */,
 				143A409B1CAA9E84007C0B9F /* FYLog.m in Sources */,
 				1475699F1CA8BA19009DB7E7 /* HSYLoading.m in Sources */,
@@ -935,20 +970,21 @@
 				143A40F11CADF167007C0B9F /* HSYLoadingManage.m in Sources */,
 				143A41181CAE1B0D007C0B9F /* HSYRestDateModel.m in Sources */,
 				143A40B71CACC02D007C0B9F /* FYHintLayer.m in Sources */,
+				143A412E1CAE51CF007C0B9F /* HSYCommonDBModel.m in Sources */,
 				147569CF1CA8D898009DB7E7 /* HSYBaseController.m in Sources */,
 				143A41151CAE1A95007C0B9F /* HSYRestVedioModel.m in Sources */,
 				147569D51CA8DDBC009DB7E7 /* HSYBaseModel.m in Sources */,
 				147569BE1CA8CA26009DB7E7 /* HSYRootController.m in Sources */,
 				143A40E11CACC76F007C0B9F /* HSYContentViewmodel.m in Sources */,
 				143A411B1CAE1E51007C0B9F /* HSYRestViewmodel.m in Sources */,
+				143A412B1CAE4224007C0B9F /* HSYCommonHeader.m in Sources */,
 				1475699A1CA54186009DB7E7 /* HSYAlertBase.m in Sources */,
 				143A40BA1CACC1B5007C0B9F /* FYTimer.m in Sources */,
 				1475693A1CA520A0009DB7E7 /* main.m in Sources */,
-				143A41211CAE22AD007C0B9F /* HSYRestVedioCell.m in Sources */,
 				143A40B11CABC70B007C0B9F /* JKDBModel.m in Sources */,
+				143A41281CAE41EE007C0B9F /* HSYCommonCell.m in Sources */,
+				143A41311CAE641D007C0B9F /* WFWebImageShowView.m in Sources */,
 				147569C11CA8CD69009DB7E7 /* HSYNavigationController.m in Sources */,
-				143A40D31CACC5FF007C0B9F /* HSYLearningHeader.m in Sources */,
-				143A40D01CACC5FF007C0B9F /* HSYLearningDBModel.m in Sources */,
 				147569E81CA92935009DB7E7 /* HSYBaseTableCell.m in Sources */,
 				143A409E1CABABBA007C0B9F /* HSYUserDefaults.m in Sources */,
 				1475698A1CA54155009DB7E7 /* UIScreen+FY.m in Sources */,

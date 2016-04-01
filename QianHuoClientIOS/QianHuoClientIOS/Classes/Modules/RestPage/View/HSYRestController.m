@@ -7,16 +7,26 @@
 //
 
 #import "HSYRestController.h"
-#import "HSYLoadValueProtocol.h"
 #import "HSYRestFuliCell.h"
 #import "UIScreen+FY.h"
-#import "HSYLearningHeader.h"
+#import "HSYCommonHeader.h"
+#import "HSYCommonCell.h"
+#import "HSYRestViewmodel.h"
+#import "HSYBindingParamProtocol.h"
+#import "FBKVOController.h"
+#import "FYHintLayer.h"
+#import "HSYContentController.h"
+#import "UIScreen+FY.h"
+#import "WFWebImageShowView.h"
 
 static NSString * const HSYRestFuliCellID = @"HSYRestFuliCellID";
+static NSString * const HSYRestVedioCellID = @"HSYRestVedioCellID";
 static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
-static CGFloat const HSYRestFuliCellHeightScale = 0.4;
 
-@interface HSYRestController () <HSYLoadValueProtocol>
+@interface HSYRestController () <HSYBindingParamProtocol>
+
+@property (nonatomic, strong) HSYRestViewmodel *viewmodel;
+@property (nonatomic, strong) FBKVOController *KVOController;
 
 @end
 
@@ -25,7 +35,8 @@ static CGFloat const HSYRestFuliCellHeightScale = 0.4;
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
-        
+        self.viewmodel = [[HSYRestViewmodel alloc] init];
+        [self bindingParam];
     }
     return self;
 }
@@ -33,63 +44,106 @@ static CGFloat const HSYRestFuliCellHeightScale = 0.4;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = HSYRootTitle;
+    
     [self.tableView registerClass:[HSYRestFuliCell class] forCellReuseIdentifier:HSYRestFuliCellID];
-    [self.tableView registerClass:[HSYLearningHeader class] forHeaderFooterViewReuseIdentifier:HSYRestHeaderID];
+    [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYRestVedioCellID];
+    [self.tableView registerClass:[HSYCommonHeader class] forHeaderFooterViewReuseIdentifier:HSYRestHeaderID];
+    
+    [self.refreshControl beginRefreshing];
+    [self.viewmodel loadFirstValue];
 }
 
-- (void)loadFirstValue {
-
-}
-
-- (void)loadNewValue {
-
-}
-
-- (void)loadMoreValue {
-
-}
-
+#pragma mark - Override HSYBaseTableController
 - (void)pullDownRefresh:(id)sender {
-
+    [self.viewmodel loadNewValue];
 }
 
 - (void)pullUpRefresh:(id)sender {
+    [self.viewmodel loadMoreValue];
+}
 
+#pragma mark - HSYBindingParamProtocol
+- (void)bindingParam {
+    self.KVOController = [FBKVOController controllerWithObserver:self];
+    [self.KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observe, HSYRestViewmodel *object, NSDictionary *change) {
+        
+        [observe.tableView reloadData];
+        [self.refreshControl endRefreshing];
+        [self endPullUpRefresh];
+    }];
+    
+    [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observe, HSYRestViewmodel *object, NSDictionary *change) {
+        
+        [self.refreshControl endRefreshing];
+        [self endPullUpRefresh];
+        
+        FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNetworkErrorHint duration:HSYHintDuration complete:nil];
+        [hint show];
+    }];
 }
 
 #pragma mark - TableView Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [self.viewmodel sectionsCount];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return [self.viewmodel rowsCountInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    HSYRestFuliCell *fuliCell = [tableView dequeueReusableCellWithIdentifier:HSYRestFuliCellID forIndexPath:indexPath];
-    
-    return fuliCell;
+    if (indexPath.row < [self.viewmodel rowsFuliCountInSection:indexPath.section]) {
+        HSYRestFuliCell *fuliCell = [tableView dequeueReusableCellWithIdentifier:HSYRestFuliCellID forIndexPath:indexPath];
+        fuliCell.url = [self.viewmodel rowUrlAtIndexPath:indexPath];
+        return fuliCell;
+    } else {
+        HSYCommonCell *vedioCell = [tableView dequeueReusableCellWithIdentifier:HSYRestVedioCellID forIndexPath:indexPath];
+        vedioCell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
+        vedioCell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
+        return vedioCell;
+    }
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [UIScreen screenLongSide] * HSYRestFuliCellHeightScale;
+    if (indexPath.row < [self.viewmodel rowsFuliCountInSection:indexPath.section]) {
+        return [UIScreen screenShortSide];
+    } else {
+        return [UIScreen screenLongSide] * HSYCommonCellHeightScale;
+    }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [UIScreen screenLongSide] * HSYHeaderHeightScale;
+    return [UIScreen screenLongSide] * HSYCommonHeaderHeightScale;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    HSYLearningHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYRestHeaderID];
-    header.title = @"2016年03月29日";
+    HSYCommonHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYRestHeaderID];
+    header.title = [self.viewmodel headerTitleInSection:section];
     return header;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    NSString *urlStr = [self.viewmodel rowUrlAtIndexPath:indexPath];
+    
+    if (indexPath.row < [self.viewmodel rowsFuliCountInSection:indexPath.section]) {
+        
+        WFWebImageShowView *showImageView = [[WFWebImageShowView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen screenWidth], [UIScreen screenHeight] - 50) imageUrl:urlStr];
+        
+        [showImageView show:[[UIApplication sharedApplication] keyWindow] didFinish:^{
+            [showImageView removeFromSuperview];
+        }];
+    } else {
+        HSYContentController *contentVC = [[HSYContentController alloc] initWithUrl:urlStr];
+        //隐藏tabbar 当要进入子页面时
+        contentVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:contentVC animated:YES];
+    }
 }
 
 @end

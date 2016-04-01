@@ -338,6 +338,36 @@
     return deviceId;
 }
 
+//剪裁图片成正方形
++ (UIImage*)cutImageToSquare:(UIImage*)image {
+    CGFloat w = image.size.width;
+    CGFloat h = image.size.height;
+    
+    CGFloat newW = 0;
+    CGFloat newH = 0;
+    CGFloat newX = 0;
+    CGFloat newY = 0;
+    
+    if (w > h) {
+        newW = h;
+        newH = h;
+        newX = newW / 2 - w / 2;
+        newY = 0;
+    } else {
+        newW = w;
+        newH = w;
+        newX = 0;
+        newY = newH / 2 - h / 2;
+    }
+    
+    //剪裁图片
+    UIGraphicsBeginImageContext(CGSizeMake(newW, newH));
+    [image drawInRect:CGRectMake(newX, newY, w, h)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    return newImage;
+}
+
 @end
 
 

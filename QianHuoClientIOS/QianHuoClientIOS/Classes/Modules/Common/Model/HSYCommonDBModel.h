@@ -8,7 +8,7 @@
 
 #import "JKDBModel.h"
 
-@interface HSYLearningDBModel : JKDBModel
+@interface HSYCommonDBModel : JKDBModel
 
 @property (nonatomic, strong) NSString *dateStr;
 @property (nonatomic, strong) NSString *headerTitle;

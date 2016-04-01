@@ -17,4 +17,6 @@
 @property (nonatomic, strong) NSArray *fuliModels;
 @property (nonatomic, strong) NSArray *vedioModels;
 
+- (instancetype)initWithParam:(NSDictionary*)param;
+
 @end

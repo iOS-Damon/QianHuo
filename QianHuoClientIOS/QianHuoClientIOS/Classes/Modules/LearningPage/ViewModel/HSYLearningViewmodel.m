@@ -13,7 +13,7 @@
 #import "FYUtils.h"
 #import "AFNetworking.h"
 #import "HSYUserDefaults.h"
-#import "HSYLearningDBModel.h"
+#import "HSYCommonDBModel.h"
 
 static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHistoryID";
 
@@ -87,7 +87,7 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
 #pragma mark - HSYLoadValueProtocol
 - (void)loadFirstValue {
     
-    NSArray *historys = [HSYUserDefaults objectForKey:HSYLearningViewmodelHistoryID];
+    NSArray *historys = [HSYUserDefaults objectForKey:HSYHistoryID];
     if (historys) {
         self.historys = historys;
     } else {
@@ -125,7 +125,7 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
         
         self.historys = results;
         
-        [HSYUserDefaults setObject:self.historys forKey:HSYLearningViewmodelHistoryID];
+        [HSYUserDefaults setObject:self.historys forKey:HSYHistoryID];
         
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         FYLog(@"Error: %@", error);
@@ -158,7 +158,7 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
         weakSelf.dateModels = @[dateModel];
         
         //保存到数据库
-        HSYLearningDBModel *dbModel = [[HSYLearningDBModel alloc] init];
+        HSYCommonDBModel *dbModel = [[HSYCommonDBModel alloc] init];
         dbModel.dateStr = dateStr;
         dbModel.headerTitle = dateModel.headerTitle;
         dbModel.results = [FYUtils JSONStringWithDictionary:results];
@@ -199,7 +199,7 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
         dateModel.headerTitle = [weakSelf formatWithYear:year month:month day:day];
         
         //保存到数据库
-        HSYLearningDBModel *dbModel = [[HSYLearningDBModel alloc] init];
+        HSYCommonDBModel *dbModel = [[HSYCommonDBModel alloc] init];
         dbModel.dateStr = dateStr;
         dbModel.headerTitle = dateModel.headerTitle;
         dbModel.results = [FYUtils JSONStringWithDictionary:results];
@@ -222,7 +222,7 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
 - (void)loadFirstValueFromDB {
     
     NSString *dateStr = self.historys[0];
-    HSYLearningDBModel *dbModel = [HSYLearningDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
+    HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
     
     if (dbModel) {
         NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
@@ -241,7 +241,7 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
 
 - (void)loadMoreValueFromDB {
     NSString *dateStr = self.historys[self.page];
-    HSYLearningDBModel *dbModel = [HSYLearningDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
+    HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
     
     if (dbModel) {
         NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];

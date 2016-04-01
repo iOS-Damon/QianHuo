@@ -8,6 +8,8 @@
 
 #import "HSYRestFuliCell.h"
 #import "Masonry.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "FYUtils.h"
 
 static CGFloat const HSYRestFuliCellImgViewPadding = 5;
 
@@ -33,7 +35,7 @@ static CGFloat const HSYRestFuliCellImgViewPadding = 5;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.fuliImgView = [[UIImageView alloc] init];
-    self.fuliImgView.backgroundColor = [UIColor blueColor];
+    self.fuliImgView.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.fuliImgView];
     [self.fuliImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         UIEdgeInsets insets = UIEdgeInsetsMake(HSYRestFuliCellImgViewPadding, HSYRestFuliCellImgViewPadding, HSYRestFuliCellImgViewPadding + HSYBaseTableCellSeparatorPadding, HSYRestFuliCellImgViewPadding);
@@ -44,6 +46,12 @@ static CGFloat const HSYRestFuliCellImgViewPadding = 5;
 - (void)setUrl:(NSString *)url {
     _url = url;
     
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadImageWithURL:[NSURL URLWithString:url] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        NSLog(@"receivedSize---%ld---expectedSize---%ld", receivedSize, expectedSize);
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        self.fuliImgView.image = [FYUtils cutImageToSquare:image];
+    }];
 }
 
 @end

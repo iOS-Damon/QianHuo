@@ -6,7 +6,7 @@
 //  Copyright © 2016年 deeepthinking. All rights reserved.
 //
 
-#import "HSYLearningCell.h"
+#import "HSYCommonCell.h"
 #import "Masonry.h"
 #import "FYLabel.h"
 #import "UIView+FY.h"
@@ -14,14 +14,14 @@
 static CGFloat const HSYLearningTimeCellPadding = 15;
 static CGFloat const HSYLearningTimeCellImageHeightScale = 0.3;
 
-@interface HSYLearningCell ()
+@interface HSYCommonCell ()
 
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 
 @end
 
-@implementation HSYLearningCell
+@implementation HSYCommonCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

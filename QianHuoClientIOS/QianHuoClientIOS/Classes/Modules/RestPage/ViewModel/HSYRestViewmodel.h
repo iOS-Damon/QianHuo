@@ -17,6 +17,9 @@
 - (NSInteger)sectionsCount;
 - (NSString*)headerTitleInSection:(NSInteger)section;
 - (NSInteger)rowsCountInSection:(NSInteger)section;
+- (NSInteger)rowsFuliCountInSection:(NSInteger)section;
+- (NSInteger)rowsVedioCountInSection:(NSInteger)section;
+
 - (UIImage*)rowAvatarAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowDescAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowUrlAtIndexPath:(NSIndexPath *)indexPath;
