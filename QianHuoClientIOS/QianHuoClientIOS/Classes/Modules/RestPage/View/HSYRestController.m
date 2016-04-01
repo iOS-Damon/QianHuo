@@ -18,6 +18,7 @@
 #import "HSYContentController.h"
 #import "UIScreen+FY.h"
 #import "WFWebImageShowView.h"
+#import "UIImageView+MHFacebookImageViewer.h"
 
 static NSString * const HSYRestFuliCellID = @"HSYRestFuliCellID";
 static NSString * const HSYRestVedioCellID = @"HSYRestVedioCellID";

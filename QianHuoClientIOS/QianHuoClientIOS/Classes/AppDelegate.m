@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "HSYRootController.h"
+#import "WFLaunchController.h"
 
 @interface AppDelegate ()
 
@@ -25,6 +26,9 @@
     self.window.rootViewController = rootVC;
     
     [self.window makeKeyAndVisible];
+    
+    WFLaunchController *launchVC = [[WFLaunchController alloc] init];
+    [self.window addSubview:launchVC.view];
     
     return YES;
 }

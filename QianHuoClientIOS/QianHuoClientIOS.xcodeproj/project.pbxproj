@@ -47,6 +47,13 @@
 		143A412E1CAE51CF007C0B9F /* HSYCommonDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A412D1CAE51CF007C0B9F /* HSYCommonDBModel.m */; };
 		143A41311CAE641D007C0B9F /* WFWebImageShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A41301CAE641D007C0B9F /* WFWebImageShowView.m */; };
 		143A41331CAE650C007C0B9F /* Placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A41321CAE650C007C0B9F /* Placeholder@2x.png */; };
+		143A413C1CAE6E0A007C0B9F /* MHFacebookImageViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A41361CAE6E0A007C0B9F /* MHFacebookImageViewer.m */; };
+		143A413D1CAE6E0A007C0B9F /* Done.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A41381CAE6E0A007C0B9F /* Done.png */; };
+		143A413E1CAE6E0A007C0B9F /* Done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A41391CAE6E0A007C0B9F /* Done@2x.png */; };
+		143A413F1CAE6E0A007C0B9F /* UIImageView+MHFacebookImageViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A413B1CAE6E0A007C0B9F /* UIImageView+MHFacebookImageViewer.m */; };
+		143A41421CAE758A007C0B9F /* WFLaunchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A41411CAE758A007C0B9F /* WFLaunchController.m */; };
+		143A41441CAE773B007C0B9F /* LaunchFirst.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A41431CAE773B007C0B9F /* LaunchFirst.png */; };
+		143A41461CAE77FA007C0B9F /* LaunchSecond.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A41451CAE77FA007C0B9F /* LaunchSecond.png */; };
 		1475693A1CA520A0009DB7E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569391CA520A0009DB7E7 /* main.m */; };
 		147569431CA520A0009DB7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 147569411CA520A0009DB7E7 /* Main.storyboard */; };
 		147569451CA520A0009DB7E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 147569441CA520A0009DB7E7 /* Assets.xcassets */; };
@@ -163,6 +170,16 @@
 		143A412F1CAE641D007C0B9F /* WFWebImageShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWebImageShowView.h; sourceTree = "<group>"; };
 		143A41301CAE641D007C0B9F /* WFWebImageShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWebImageShowView.m; sourceTree = "<group>"; };
 		143A41321CAE650C007C0B9F /* Placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Placeholder@2x.png"; sourceTree = "<group>"; };
+		143A41351CAE6E0A007C0B9F /* MHFacebookImageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFacebookImageViewer.h; sourceTree = "<group>"; };
+		143A41361CAE6E0A007C0B9F /* MHFacebookImageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFacebookImageViewer.m; sourceTree = "<group>"; };
+		143A41381CAE6E0A007C0B9F /* Done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Done.png; sourceTree = "<group>"; };
+		143A41391CAE6E0A007C0B9F /* Done@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Done@2x.png"; sourceTree = "<group>"; };
+		143A413A1CAE6E0A007C0B9F /* UIImageView+MHFacebookImageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+MHFacebookImageViewer.h"; sourceTree = "<group>"; };
+		143A413B1CAE6E0A007C0B9F /* UIImageView+MHFacebookImageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+MHFacebookImageViewer.m"; sourceTree = "<group>"; };
+		143A41401CAE758A007C0B9F /* WFLaunchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFLaunchController.h; sourceTree = "<group>"; };
+		143A41411CAE758A007C0B9F /* WFLaunchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFLaunchController.m; sourceTree = "<group>"; };
+		143A41431CAE773B007C0B9F /* LaunchFirst.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchFirst.png; sourceTree = "<group>"; };
+		143A41451CAE77FA007C0B9F /* LaunchSecond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchSecond.png; sourceTree = "<group>"; };
 		147569351CA520A0009DB7E7 /* QianHuoClientIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QianHuoClientIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		147569391CA520A0009DB7E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		147569421CA520A0009DB7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -382,6 +399,27 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		143A41341CAE6E0A007C0B9F /* MHFBImageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				143A41351CAE6E0A007C0B9F /* MHFacebookImageViewer.h */,
+				143A41361CAE6E0A007C0B9F /* MHFacebookImageViewer.m */,
+				143A41371CAE6E0A007C0B9F /* Resources */,
+				143A413A1CAE6E0A007C0B9F /* UIImageView+MHFacebookImageViewer.h */,
+				143A413B1CAE6E0A007C0B9F /* UIImageView+MHFacebookImageViewer.m */,
+			);
+			path = MHFBImageViewController;
+			sourceTree = "<group>";
+		};
+		143A41371CAE6E0A007C0B9F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				143A41381CAE6E0A007C0B9F /* Done.png */,
+				143A41391CAE6E0A007C0B9F /* Done@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		1475692C1CA520A0009DB7E7 = {
 			isa = PBXGroup;
 			children = (
@@ -537,6 +575,9 @@
 		147569751CA53FC7009DB7E7 /* ThirdLibs */ = {
 			isa = PBXGroup;
 			children = (
+				143A41401CAE758A007C0B9F /* WFLaunchController.h */,
+				143A41411CAE758A007C0B9F /* WFLaunchController.m */,
+				143A41341CAE6E0A007C0B9F /* MHFBImageViewController */,
 				143A40AB1CABC70B007C0B9F /* DBModel */,
 			);
 			path = ThirdLibs;
@@ -716,6 +757,8 @@
 				143A40FC1CAE016D007C0B9F /* AvatarApp.png */,
 				143A41321CAE650C007C0B9F /* Placeholder@2x.png */,
 				143A40FE1CAE0300007C0B9F /* AvatarHtml.png */,
+				143A41431CAE773B007C0B9F /* LaunchFirst.png */,
+				143A41451CAE77FA007C0B9F /* LaunchSecond.png */,
 				143A40ED1CADF10D007C0B9F /* Logo.png */,
 				143A40E91CAD2375007C0B9F /* WebBackNormal.png */,
 				143A40EA1CAD2375007C0B9F /* WebForwardNormal.png */,
@@ -862,6 +905,8 @@
 				143A410B1CAE14EF007C0B9F /* TabbarLearn@2x.png in Resources */,
 				147569481CA520A0009DB7E7 /* LaunchScreen.storyboard in Resources */,
 				143A40F71CADFE49007C0B9F /* AvatarResource.png in Resources */,
+				143A413D1CAE6E0A007C0B9F /* Done.png in Resources */,
+				143A41441CAE773B007C0B9F /* LaunchFirst.png in Resources */,
 				147569451CA520A0009DB7E7 /* Assets.xcassets in Resources */,
 				143A410F1CAE18CE007C0B9F /* AvatarVedio.png in Resources */,
 				143A41331CAE650C007C0B9F /* Placeholder@2x.png in Resources */,
@@ -869,6 +914,8 @@
 				143A410D1CAE1547007C0B9F /* TabbarRest@2x.png in Resources */,
 				143A40E71CAD1606007C0B9F /* WebBack.png in Resources */,
 				147569431CA520A0009DB7E7 /* Main.storyboard in Resources */,
+				143A413E1CAE6E0A007C0B9F /* Done@2x.png in Resources */,
+				143A41461CAE77FA007C0B9F /* LaunchSecond.png in Resources */,
 				143A40E81CAD1606007C0B9F /* WebForward.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -946,6 +993,7 @@
 				143A40D41CACC5FF007C0B9F /* HSYLearningViewmodel.m in Sources */,
 				143A40A41CABB496007C0B9F /* HSYDBColumn.m in Sources */,
 				143A40A11CABB254007C0B9F /* HSYDBHelper.m in Sources */,
+				143A413C1CAE6E0A007C0B9F /* MHFacebookImageViewer.m in Sources */,
 				1475699C1CA54186009DB7E7 /* HSYAttributedString.m in Sources */,
 				147569891CA54155009DB7E7 /* UIImage+FY.m in Sources */,
 				1475698B1CA54155009DB7E7 /* UIView+FY.m in Sources */,
@@ -955,6 +1003,7 @@
 				147569791CA53FC7009DB7E7 /* AppDelegate.m in Sources */,
 				143A40E41CAD0B71007C0B9F /* UIWebView+FY.m in Sources */,
 				147569A31CA8C6D3009DB7E7 /* HSYConstant.m in Sources */,
+				143A41421CAE758A007C0B9F /* WFLaunchController.m in Sources */,
 				147569871CA54155009DB7E7 /* NSString+FY.m in Sources */,
 				147569991CA54186009DB7E7 /* FYLabel.m in Sources */,
 				143A40CF1CACC5FF007C0B9F /* HSYLearningDateModel.m in Sources */,
@@ -970,6 +1019,7 @@
 				143A40F11CADF167007C0B9F /* HSYLoadingManage.m in Sources */,
 				143A41181CAE1B0D007C0B9F /* HSYRestDateModel.m in Sources */,
 				143A40B71CACC02D007C0B9F /* FYHintLayer.m in Sources */,
+				143A413F1CAE6E0A007C0B9F /* UIImageView+MHFacebookImageViewer.m in Sources */,
 				143A412E1CAE51CF007C0B9F /* HSYCommonDBModel.m in Sources */,
 				147569CF1CA8D898009DB7E7 /* HSYBaseController.m in Sources */,
 				143A41151CAE1A95007C0B9F /* HSYRestVedioModel.m in Sources */,
