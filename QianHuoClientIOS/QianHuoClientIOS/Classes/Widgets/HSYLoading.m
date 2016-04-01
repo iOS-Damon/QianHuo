@@ -10,6 +10,8 @@
 #import "UIColor+FY.h"
 #import "UIView+FY.h"
 
+static NSString * const HSYLoadingImage = @"Logo.png";
+
 @interface HSYLoading ()
 
 @end
@@ -47,12 +49,12 @@
     [loadingLayer setShadowOpacity:0.2];
     [self.layer addSublayer:loadingLayer];
     
-    CGFloat imageLayerWidth = loadingLayerWidth * 0.8;
+    CGFloat imageLayerWidth = loadingLayerWidth * 0.4;
     CALayer *imageLayer = [CALayer layer];
     [imageLayer setFrame:CGRectMake(0, 0, imageLayerWidth, imageLayerWidth)];
     [imageLayer setPosition:CGPointMake(loadingLayer.frame.size.width / 2, loadingLayer.frame.size.height / 2)];
     [imageLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
-    UIImage *loadingImage = [UIImage imageNamed:@"hsy_loading.png"];
+    UIImage *loadingImage = [UIImage imageNamed:HSYLoadingImage];
     [imageLayer setContents:(id)[loadingImage CGImage]];
     [loadingLayer addSublayer:imageLayer];
     

@@ -11,6 +11,9 @@
 #import "Masonry.h"
 #import "UIWebView+FY.h"
 #import "UIView+FY.h"
+#import "HSYLoadingManage.h"
+
+static NSString * const HSYContentControllerLoadingID = @"HSYContentControllerLoadingID";
 
 @interface HSYContentController () <UIWebViewDelegate>
 
@@ -82,9 +85,11 @@
     self.forwardItem = [[UIBarButtonItem alloc] initWithCustomView:self.forwardBtn];
     self.forwardItem.enabled = NO;
     
+    UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(webRefresh:)];
+    
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    NSArray *items = @[self.backItem, self.forwardItem, spaceItem, spaceItem, spaceItem];
+    NSArray *items = @[self.backItem, self.forwardItem, spaceItem, spaceItem, refreshItem];
     self.toolbarItems = items;
 }
 
@@ -94,6 +99,10 @@
 
 - (void)webGoFrowark:(id)sender {
     [self.webView goForward];
+}
+
+- (void)webRefresh:(id)sender {
+    [self.webView reload];
 }
 
 - (void)setToolbarItemsEnable {
@@ -116,7 +125,7 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-
+    [[HSYLoadingManage sharedInstance] showLoadingForParentView:self.view withKey:HSYContentControllerLoadingID];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -124,6 +133,8 @@
     [self.webView cleanWhenDidFinishLoad];
     
     [self setToolbarItemsEnable];
+    
+    [[HSYLoadingManage sharedInstance] hideLoadingWithKey:HSYContentControllerLoadingID];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
