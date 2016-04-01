@@ -9,7 +9,7 @@
 #import "HSYLearningHeader.h"
 #import "UIView+FY.h"
 #import "NSString+FY.h"
-
+#import "Masonry.h"
 
 @implementation HSYLearningHeader
 
@@ -22,7 +22,16 @@
 }
 
 - (void)setupViews {
-    self.contentView.backgroundColor = FYColorMain;
+    self.contentView.backgroundColor = FYColorLightGary;
+    
+    UIView *separatorLineBottom = [[UIView alloc] init];
+    separatorLineBottom.backgroundColor = FYColorGary;
+    [self.contentView addSubview:separatorLineBottom];
+    [separatorLineBottom mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(self.contentView.mas_width);
+        make.height.mas_equalTo(0.5);
+        make.bottom.equalTo(self.contentView.mas_bottom);
+    }];
 }
 
 - (void)setTitle:(NSString *)title {

@@ -56,13 +56,14 @@
     tabBar.tintColor = FYColorSub;
     NSArray *items = [tabBar items];
     
-    UITabBarItem *item1 = items[0];
-    item1.title = @"学习时间";
-    item1.image = [UIImage imageNamed:@"TabbarLearnTime.png"];
+    UITabBarItem *item0 = items[0];
+    item0.title = @"学习时间";
+    item0.image = [UIImage imageNamed:@"TabbarLearn.png"];
+
     
-    UITabBarItem *item2 = items[1];
-    item2.title = @"休息时间";
-    item2.image = [UIImage imageNamed:@"TabbarRestTime.png"];
+    UITabBarItem *item1 = items[1];
+    item1.title = @"休息时间";
+    item1.image = [UIImage imageNamed:@"TabbarRest.png"];
 }
 
 @end

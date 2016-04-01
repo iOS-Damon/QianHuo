@@ -12,8 +12,6 @@
 
 @interface HSYBaseTableCell ()
 
-@property (nonatomic, strong) UIView *separatorLine;
-
 @end
 
 @implementation HSYBaseTableCell
@@ -36,14 +34,23 @@
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
-    self.separatorLine = [[UIView alloc] init];
-    self.separatorLine.backgroundColor = FYColorGary;
-    [separatorBg addSubview:self.separatorLine];
-    [self.separatorLine mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *separatorLineTop = [[UIView alloc] init];
+    separatorLineTop.backgroundColor = FYColorGary;
+    [separatorBg addSubview:separatorLineTop];
+    [separatorLineTop mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(separatorBg.mas_width);
         make.height.mas_equalTo(0.5);
         make.top.equalTo(separatorBg.mas_top);
     }];
+    
+//    UIView *separatorLineBottom = [[UIView alloc] init];
+//    separatorLineBottom.backgroundColor = FYColorGary;
+//    [separatorBg addSubview:separatorLineBottom];
+//    [separatorLineBottom mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(separatorBg.mas_width);
+//        make.height.mas_equalTo(0.5);
+//        make.bottom.equalTo(separatorBg.mas_bottom);
+//    }];
 }
 
 @end

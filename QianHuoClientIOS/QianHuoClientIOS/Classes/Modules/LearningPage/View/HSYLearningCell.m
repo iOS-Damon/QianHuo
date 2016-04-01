@@ -9,6 +9,7 @@
 #import "HSYLearningCell.h"
 #import "Masonry.h"
 #import "FYLabel.h"
+#import "UIView+FY.h"
 
 static CGFloat const HSYLearningTimeCellPadding = 15;
 static CGFloat const HSYLearningTimeCellImageHeightScale = 0.3;
@@ -16,7 +17,7 @@ static CGFloat const HSYLearningTimeCellImageHeightScale = 0.3;
 @interface HSYLearningCell ()
 
 @property (nonatomic, strong) UIImageView *avatarImageView;
-@property (nonatomic, strong) FYLabel *titleLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
 
 @end
 
@@ -43,17 +44,24 @@ static CGFloat const HSYLearningTimeCellImageHeightScale = 0.3;
         make.centerY.equalTo(self.contentView.mas_centerY);
     }];
     
-    self.titleLabel = [[FYLabel alloc] initWithString:self.title size:FYLabSize3 color:FYColorBlack];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    self.titleLabel.text = self.title;
+    self.titleLabel.textColor = FYColorBlack;
+    self.titleLabel.font = [UIFont fontWithName:@"ArialRoundedMTBold" size:FYLabSize3];
+    self.titleLabel.numberOfLines = 0;
+    self.titleLabel.textAlignment = NSTextAlignmentLeft;
+    self.titleLabel.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.left.equalTo(self.avatarImageView.mas_right).offset(HSYLearningTimeCellPadding);
+        make.right.equalTo(self.contentView.mas_right).offset( - HSYLearningTimeCellPadding);
     }];
 }
 
 - (void)setTitle:(NSString *)title {
     _title = title;
-    [self.titleLabel setStringAndLeft:title];
+    self.titleLabel.text = title;
 }
 
 - (void)setAvatarImage:(UIImage *)avatarImage {
