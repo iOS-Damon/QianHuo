@@ -27,13 +27,22 @@
 }
 
 - (void)setupViews {
-    self.separatorLine = [[UIView alloc] init];
-    self.separatorLine.backgroundColor = FYColorSub;
-    [self.contentView addSubview:self.separatorLine];
-    [self.separatorLine mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *separatorBg = [[UIView alloc] init];
+    separatorBg.backgroundColor = FYColorLightGary;
+    [self.contentView addSubview:separatorBg];
+    [separatorBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(self.contentView.mas_width);
-        make.height.mas_equalTo(0.5);
+        make.height.mas_equalTo(6);
         make.bottom.equalTo(self.contentView.mas_bottom);
+    }];
+    
+    self.separatorLine = [[UIView alloc] init];
+    self.separatorLine.backgroundColor = FYColorGary;
+    [separatorBg addSubview:self.separatorLine];
+    [self.separatorLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(separatorBg.mas_width);
+        make.height.mas_equalTo(0.5);
+        make.top.equalTo(separatorBg.mas_top);
     }];
 }
 

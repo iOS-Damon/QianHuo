@@ -19,15 +19,51 @@
         NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:5];
         
         NSArray *android = param[@"Android"];
-        for (NSDictionary *dict in android) {
-            HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
-            [temp addObject:cellModel];
+        if(!FYEmpty(android)) {
+            for (NSDictionary *dict in android) {
+                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
+                [temp addObject:cellModel];
+            }
         }
         
         NSArray *ios = param[@"iOS"];
-        for (NSDictionary *dict in ios) {
-            HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
-            [temp addObject:cellModel];
+        if(!FYEmpty(android)) {
+            for (NSDictionary *dict in ios) {
+                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
+                [temp addObject:cellModel];
+            }
+        }
+        
+        NSArray *app = param[@"App"];
+        if(!FYEmpty(android)) {
+            for (NSDictionary *dict in app) {
+                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
+                [temp addObject:cellModel];
+            }
+        }
+        
+        NSArray *html = param[@"前端"];
+        if(!FYEmpty(android)) {
+            for (NSDictionary *dict in html) {
+                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
+                [temp addObject:cellModel];
+            }
+        }
+        
+        NSArray *resource = param[@"拓展资源"];
+        if(!FYEmpty(android)) {
+            for (NSDictionary *dict in resource) {
+                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
+                [temp addObject:cellModel];
+            }
+        }
+        
+        NSArray *introduce = param[@"瞎推荐"];
+        if(!FYEmpty(android)) {
+            for (NSDictionary *dict in introduce) {
+                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
+                [temp addObject:cellModel];
+            }
         }
         
         self.cellModels = temp;

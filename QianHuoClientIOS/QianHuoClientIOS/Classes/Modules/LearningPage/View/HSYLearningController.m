@@ -18,7 +18,7 @@
 
 static NSString * const HSYLearningTimeCellID = @"HSYLearningTimeCellID";
 static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
-static CGFloat const HSYLearnTimeCellHeightScale = 0.1;
+static CGFloat const HSYLearnTimeCellHeightScale = 0.2;
 static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 
 @interface HSYLearningController () <HSYBindingParamProtocol>

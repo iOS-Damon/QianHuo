@@ -11,7 +11,7 @@
 #import "FYLabel.h"
 
 static CGFloat const HSYLearningTimeCellPadding = 15;
-static CGFloat const HSYLearningTimeCellImageHeightScale = 0.5;
+static CGFloat const HSYLearningTimeCellImageHeightScale = 0.3;
 
 @interface HSYLearningCell ()
 
@@ -43,7 +43,7 @@ static CGFloat const HSYLearningTimeCellImageHeightScale = 0.5;
         make.centerY.equalTo(self.contentView.mas_centerY);
     }];
     
-    self.titleLabel = [[FYLabel alloc] initWithString:self.title size:FYLabSize3 color:FYColorGary];
+    self.titleLabel = [[FYLabel alloc] initWithString:self.title size:FYLabSize3 color:FYColorBlack];
     [self.contentView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);

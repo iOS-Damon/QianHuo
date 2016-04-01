@@ -59,13 +59,15 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
     } else if([cellModel.type isEqualToString:@"iOS"]) {
         return [UIImage imageNamed:@"AvatarIOS.png"];
     } else if([cellModel.type isEqualToString:@"App"]) {
-        return [UIImage imageNamed:@""];
+        return [UIImage imageNamed:@"AvatarApp.png"];
     } else if([cellModel.type isEqualToString:@"前端"]) {
-        return [UIImage imageNamed:@""];
+        return [UIImage imageNamed:@"AvatarHtml.png"];
     } else if([cellModel.type isEqualToString:@"拓展资源"]) {
-        return [UIImage imageNamed:@""];
+        return [UIImage imageNamed:@"AvatarResource.png"];
+    } else if([cellModel.type isEqualToString:@"瞎推荐"]) {
+        return [UIImage imageNamed:@"AvatarIntroduce.png"];
     } else {
-    
+        return [UIImage imageNamed:@""];
     }
     return [UIImage imageNamed:@""];
 }
