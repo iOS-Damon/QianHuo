@@ -39,6 +39,13 @@
 		143A41011CAE0E35007C0B9F /* AvatarAndroid.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A41001CAE0E35007C0B9F /* AvatarAndroid.png */; };
 		143A410B1CAE14EF007C0B9F /* TabbarLearn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A410A1CAE14EF007C0B9F /* TabbarLearn@2x.png */; };
 		143A410D1CAE1547007C0B9F /* TabbarRest@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A410C1CAE1547007C0B9F /* TabbarRest@2x.png */; };
+		143A410F1CAE18CE007C0B9F /* AvatarVedio.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A410E1CAE18CE007C0B9F /* AvatarVedio.png */; };
+		143A41121CAE1936007C0B9F /* HSYRestFuliModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A41111CAE1936007C0B9F /* HSYRestFuliModel.m */; };
+		143A41151CAE1A95007C0B9F /* HSYRestVedioModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A41141CAE1A95007C0B9F /* HSYRestVedioModel.m */; };
+		143A41181CAE1B0D007C0B9F /* HSYRestDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A41171CAE1B0D007C0B9F /* HSYRestDateModel.m */; };
+		143A411B1CAE1E51007C0B9F /* HSYRestViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A411A1CAE1E51007C0B9F /* HSYRestViewmodel.m */; };
+		143A411E1CAE2296007C0B9F /* HSYRestFuliCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A411D1CAE2296007C0B9F /* HSYRestFuliCell.m */; };
+		143A41211CAE22AD007C0B9F /* HSYRestVedioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A41201CAE22AD007C0B9F /* HSYRestVedioCell.m */; };
 		1475693A1CA520A0009DB7E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569391CA520A0009DB7E7 /* main.m */; };
 		147569431CA520A0009DB7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 147569411CA520A0009DB7E7 /* Main.storyboard */; };
 		147569451CA520A0009DB7E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 147569441CA520A0009DB7E7 /* Assets.xcassets */; };
@@ -141,6 +148,19 @@
 		143A41001CAE0E35007C0B9F /* AvatarAndroid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AvatarAndroid.png; sourceTree = "<group>"; };
 		143A410A1CAE14EF007C0B9F /* TabbarLearn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabbarLearn@2x.png"; sourceTree = "<group>"; };
 		143A410C1CAE1547007C0B9F /* TabbarRest@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabbarRest@2x.png"; sourceTree = "<group>"; };
+		143A410E1CAE18CE007C0B9F /* AvatarVedio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AvatarVedio.png; sourceTree = "<group>"; };
+		143A41101CAE1936007C0B9F /* HSYRestFuliModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYRestFuliModel.h; sourceTree = "<group>"; };
+		143A41111CAE1936007C0B9F /* HSYRestFuliModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYRestFuliModel.m; sourceTree = "<group>"; };
+		143A41131CAE1A95007C0B9F /* HSYRestVedioModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYRestVedioModel.h; sourceTree = "<group>"; };
+		143A41141CAE1A95007C0B9F /* HSYRestVedioModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYRestVedioModel.m; sourceTree = "<group>"; };
+		143A41161CAE1B0D007C0B9F /* HSYRestDateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYRestDateModel.h; sourceTree = "<group>"; };
+		143A41171CAE1B0D007C0B9F /* HSYRestDateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYRestDateModel.m; sourceTree = "<group>"; };
+		143A41191CAE1E51007C0B9F /* HSYRestViewmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYRestViewmodel.h; sourceTree = "<group>"; };
+		143A411A1CAE1E51007C0B9F /* HSYRestViewmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYRestViewmodel.m; sourceTree = "<group>"; };
+		143A411C1CAE2296007C0B9F /* HSYRestFuliCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYRestFuliCell.h; sourceTree = "<group>"; };
+		143A411D1CAE2296007C0B9F /* HSYRestFuliCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYRestFuliCell.m; sourceTree = "<group>"; };
+		143A411F1CAE22AD007C0B9F /* HSYRestVedioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYRestVedioCell.h; sourceTree = "<group>"; };
+		143A41201CAE22AD007C0B9F /* HSYRestVedioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYRestVedioCell.m; sourceTree = "<group>"; };
 		147569351CA520A0009DB7E7 /* QianHuoClientIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QianHuoClientIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		147569391CA520A0009DB7E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		147569421CA520A0009DB7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -299,6 +319,12 @@
 		143A40D61CACC61A007C0B9F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				143A41101CAE1936007C0B9F /* HSYRestFuliModel.h */,
+				143A41111CAE1936007C0B9F /* HSYRestFuliModel.m */,
+				143A41131CAE1A95007C0B9F /* HSYRestVedioModel.h */,
+				143A41141CAE1A95007C0B9F /* HSYRestVedioModel.m */,
+				143A41161CAE1B0D007C0B9F /* HSYRestDateModel.h */,
+				143A41171CAE1B0D007C0B9F /* HSYRestDateModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -308,6 +334,10 @@
 			children = (
 				143A40D81CACC61A007C0B9F /* HSYRestController.h */,
 				143A40D91CACC61A007C0B9F /* HSYRestController.m */,
+				143A411C1CAE2296007C0B9F /* HSYRestFuliCell.h */,
+				143A411D1CAE2296007C0B9F /* HSYRestFuliCell.m */,
+				143A411F1CAE22AD007C0B9F /* HSYRestVedioCell.h */,
+				143A41201CAE22AD007C0B9F /* HSYRestVedioCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -315,6 +345,8 @@
 		143A40DA1CACC61A007C0B9F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				143A41191CAE1E51007C0B9F /* HSYRestViewmodel.h */,
+				143A411A1CAE1E51007C0B9F /* HSYRestViewmodel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -644,6 +676,7 @@
 		147569C81CA8D232009DB7E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				143A410E1CAE18CE007C0B9F /* AvatarVedio.png */,
 				143A40F81CADFFAD007C0B9F /* AvatarIntroduce.png */,
 				143A40F61CADFE49007C0B9F /* AvatarResource.png */,
 				143A40FC1CAE016D007C0B9F /* AvatarApp.png */,
@@ -795,6 +828,7 @@
 				147569481CA520A0009DB7E7 /* LaunchScreen.storyboard in Resources */,
 				143A40F71CADFE49007C0B9F /* AvatarResource.png in Resources */,
 				147569451CA520A0009DB7E7 /* Assets.xcassets in Resources */,
+				143A410F1CAE18CE007C0B9F /* AvatarVedio.png in Resources */,
 				143A40EC1CAD2375007C0B9F /* WebForwardNormal.png in Resources */,
 				143A410D1CAE1547007C0B9F /* TabbarRest@2x.png in Resources */,
 				143A40E71CAD1606007C0B9F /* WebBack.png in Resources */,
@@ -895,16 +929,22 @@
 				143A40DE1CACC6CE007C0B9F /* HSYContentController.m in Sources */,
 				143A409B1CAA9E84007C0B9F /* FYLog.m in Sources */,
 				1475699F1CA8BA19009DB7E7 /* HSYLoading.m in Sources */,
+				143A411E1CAE2296007C0B9F /* HSYRestFuliCell.m in Sources */,
+				143A41121CAE1936007C0B9F /* HSYRestFuliModel.m in Sources */,
 				147569D21CA8D8C5009DB7E7 /* HSYBaseTableController.m in Sources */,
 				143A40F11CADF167007C0B9F /* HSYLoadingManage.m in Sources */,
+				143A41181CAE1B0D007C0B9F /* HSYRestDateModel.m in Sources */,
 				143A40B71CACC02D007C0B9F /* FYHintLayer.m in Sources */,
 				147569CF1CA8D898009DB7E7 /* HSYBaseController.m in Sources */,
+				143A41151CAE1A95007C0B9F /* HSYRestVedioModel.m in Sources */,
 				147569D51CA8DDBC009DB7E7 /* HSYBaseModel.m in Sources */,
 				147569BE1CA8CA26009DB7E7 /* HSYRootController.m in Sources */,
 				143A40E11CACC76F007C0B9F /* HSYContentViewmodel.m in Sources */,
+				143A411B1CAE1E51007C0B9F /* HSYRestViewmodel.m in Sources */,
 				1475699A1CA54186009DB7E7 /* HSYAlertBase.m in Sources */,
 				143A40BA1CACC1B5007C0B9F /* FYTimer.m in Sources */,
 				1475693A1CA520A0009DB7E7 /* main.m in Sources */,
+				143A41211CAE22AD007C0B9F /* HSYRestVedioCell.m in Sources */,
 				143A40B11CABC70B007C0B9F /* JKDBModel.m in Sources */,
 				147569C11CA8CD69009DB7E7 /* HSYNavigationController.m in Sources */,
 				143A40D31CACC5FF007C0B9F /* HSYLearningHeader.m in Sources */,

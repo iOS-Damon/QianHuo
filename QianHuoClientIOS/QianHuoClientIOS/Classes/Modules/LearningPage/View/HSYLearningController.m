@@ -30,8 +30,8 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 
 @implementation HSYLearningController
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    self = [super initWithStyle:style];
     if (self) {
         self.viewmodel = [[HSYLearningViewmodel alloc] init];
         [self bindingParam];
@@ -75,7 +75,7 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HSYLearningCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
-        cell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
+    cell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
     cell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
     return cell;
 }
@@ -85,7 +85,7 @@ static CGFloat const HSYLearnTimeHeaderHeightScale = 0.05;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [UIScreen screenLongSide] * HSYLearnTimeHeaderHeightScale;
+    return [UIScreen screenLongSide] * HSYHeaderHeightScale;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

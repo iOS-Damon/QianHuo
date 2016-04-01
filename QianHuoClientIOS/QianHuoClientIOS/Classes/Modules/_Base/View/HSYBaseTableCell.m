@@ -30,7 +30,7 @@
     [self.contentView addSubview:separatorBg];
     [separatorBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(self.contentView.mas_width);
-        make.height.mas_equalTo(6);
+        make.height.mas_equalTo(HSYBaseTableCellSeparatorPadding);
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
@@ -42,15 +42,6 @@
         make.height.mas_equalTo(0.5);
         make.top.equalTo(separatorBg.mas_top);
     }];
-    
-//    UIView *separatorLineBottom = [[UIView alloc] init];
-//    separatorLineBottom.backgroundColor = FYColorGary;
-//    [separatorBg addSubview:separatorLineBottom];
-//    [separatorLineBottom mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.equalTo(separatorBg.mas_width);
-//        make.height.mas_equalTo(0.5);
-//        make.bottom.equalTo(separatorBg.mas_bottom);
-//    }];
 }
 
 @end

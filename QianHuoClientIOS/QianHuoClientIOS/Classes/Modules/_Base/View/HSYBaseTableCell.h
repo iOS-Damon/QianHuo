@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static CGFloat const HSYBaseTableCellSeparatorPadding = 6;
+
 @interface HSYBaseTableCell : UITableViewCell
 
 - (void)setupViews;

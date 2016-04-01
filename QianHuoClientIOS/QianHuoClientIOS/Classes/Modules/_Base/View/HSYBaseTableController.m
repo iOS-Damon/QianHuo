@@ -19,8 +19,8 @@
 
 @implementation HSYBaseTableController
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    self = [super initWithStyle:style];
     if (self) {
         self.isPullUpRefresh = NO;
     }

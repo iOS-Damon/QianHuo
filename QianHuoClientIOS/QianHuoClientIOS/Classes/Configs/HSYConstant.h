@@ -15,5 +15,6 @@ extern NSString * const HSYBaseUrl;
 extern NSString * const HSYHistoryUrl;
 extern NSString * const HSYNetworkErrorHint;
 extern int const HSYHintDuration;
+extern CGFloat const HSYHeaderHeightScale;
 
 @end
