@@ -40,7 +40,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = HSYRootTitle;
+    self.navigationItem.title = HSYRootTitle;
     [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYLearningTimeCellID];
     [self.tableView registerClass:[HSYCommonHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
     

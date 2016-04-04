@@ -60,7 +60,6 @@
     item0.title = @"学习时间";
     item0.image = [UIImage imageNamed:@"TabbarLearn.png"];
 
-    
     UITabBarItem *item1 = items[1];
     item1.title = @"休息时间";
     item1.image = [UIImage imageNamed:@"TabbarRest.png"];
