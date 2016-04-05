@@ -25,6 +25,9 @@ extern NSString * const HSYHistoryID;
 //网络有问题的提示语
 extern NSString * const HSYNetworkErrorHint;
 
+//没有更多提示语
+extern NSString * const HSYNoMoreHint;
+
 //提示语显示的时间
 extern int const HSYHintDuration;
 

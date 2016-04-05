@@ -103,21 +103,22 @@ static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffs
 - (void)loadFirstValue {
     
     NSArray *historys = [HSYUserDefaults objectForKey:HSYHistoryID];
-    if (historys) {
+    if (!FYEmpty(historys)) {
         self.historys = historys;
     } else {
         [self requestHistory];
     }
+    self.isFirstLoad = YES;
 }
 
 - (void)loadNewValue {
     [self requestHistory];
-    self.isFirstLoad = NO;
+//    self.isFirstLoad = NO;
 }
 
 - (void)loadMoreValue {
     [self loadMoreValueFromDB];
-    self.isFirstLoad = NO;
+//    self.isFirstLoad = NO;
 }
 
 #pragma mark - HSYBindingParamProtocol
@@ -151,6 +152,10 @@ static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffs
 }
 
 - (void)requestFirstValue {
+    
+    if (FYEmpty(self.historys)) {
+        return;
+    }
     
     HSYLearningViewmodel __weak *weakSelf = self;
     
@@ -238,23 +243,6 @@ static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffs
 
 - (void)loadFirstValueFromDB {
     
-//    NSString *dateStr = self.historys[0];
-//    HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
-//    
-//    if (dbModel) {
-//        NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
-//        
-//        HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithParam:dictResult];
-//        dateModel.dateStr = dbModel.dateStr;
-//        dateModel.headerTitle = dbModel.headerTitle;
-//        
-//        self.dateModels = @[dateModel];
-//        
-//        self.page = 1;
-//    } else {
-//        [self requestFirstValue];
-//    }
-    
     NSInteger page = [HSYUserDefaults integerForKey:HSYLearningViewmodelSectionID] + 1;
     NSArray *dbModels = [HSYCommonDBModel findWithFormat:@" LIMIT %ld", page];
     if (dbModels) {
@@ -279,6 +267,11 @@ static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffs
 }
 
 - (void)loadMoreValueFromDB {
+    
+    if (self.page >= self.historys.count) {
+        return;
+    }
+    
     NSString *dateStr = self.historys[self.page];
     HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
     

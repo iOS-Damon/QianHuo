@@ -10,8 +10,12 @@
 
 @interface HSYBaseViewmodel : NSObject
 
+//请求错误
+@property (nonatomic, strong) NSError *requestError;
 //记录是否第一次加载
 @property (nonatomic, assign) BOOL isFirstLoad;
+//是否所有数据已经加载完毕，不能再下拉
+@property (nonatomic, assign) BOOL noMore;
 
 - (void)saveSection:(NSInteger)section;
 - (void)saveOffsetY:(CGFloat)offsetY;

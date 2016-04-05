@@ -105,25 +105,28 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 #pragma mark - HSYBindingParamProtocol
 - (void)bindingParam {
     self.KVOController = [FBKVOController controllerWithObserver:self];
-    [self.KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *controller, HSYLearningViewmodel *viewmodel, NSDictionary *change) {
+    [self.KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
         
-        [controller.tableView reloadData];
-        [self.refreshControl endRefreshing];
-        [self endPullUpRefresh];
-        
-        if (self.viewmodel.isFirstLoad) {
-            CGFloat offsetY = [self.viewmodel loadOffsetY];
-            self.tableView.contentOffset = CGPointMake(0, offsetY);
-        }
+        [observer.tableView reloadData];
+        [observer.refreshControl endRefreshing];
+        [observer endPullUpRefresh];
     }];
     
-    [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *controller, HSYLearningViewmodel *viewmodel, NSDictionary *change) {
+    [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
         
-        [self.refreshControl endRefreshing];
-        [self endPullUpRefresh];
+        [observer.refreshControl endRefreshing];
+        [observer endPullUpRefresh];
         
         FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNetworkErrorHint duration:HSYHintDuration complete:nil];
         [hint show];
+    }];
+    
+    [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
+        
+        if(object.isFirstLoad) {
+            CGFloat offsetY = [self.viewmodel loadOffsetY];
+            observer.tableView.contentOffset = CGPointMake(0, offsetY);
+        }
     }];
 }
 

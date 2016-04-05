@@ -72,12 +72,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         [observe.tableView reloadData];
         [self.refreshControl endRefreshing];
         [self endPullUpRefresh];
-        
-        if (self.viewmodel.isFirstLoad) {
-            CGFloat offsetY = [self.viewmodel loadOffsetY];
-            self.tableView.contentOffset = CGPointMake(0, offsetY);
-        }
-
     }];
     
     [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observe, HSYRestViewmodel *object, NSDictionary *change) {
@@ -87,6 +81,23 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         
         FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNetworkErrorHint duration:HSYHintDuration complete:nil];
         [hint show];
+    }];
+    
+    [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
+        
+        if(object.isFirstLoad) {
+            CGFloat offsetY = [self.viewmodel loadOffsetY];
+            observer.tableView.contentOffset = CGPointMake(0, offsetY);
+        }
+    }];
+    
+    [self.KVOController observe:self.viewmodel keyPath:@"noMore" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
+        
+        if(object.noMore) {
+            [self endPullUpRefresh];
+            FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNoMoreHint duration:HSYHintDuration complete:nil];
+            [hint show];
+        }
     }];
 }
 

@@ -12,7 +12,8 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.isFirstLoad = YES;
+        self.isFirstLoad = NO;
+        self.noMore = NO;
     }
     return self;
 }

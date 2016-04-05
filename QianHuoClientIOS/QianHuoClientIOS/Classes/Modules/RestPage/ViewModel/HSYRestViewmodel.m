@@ -117,21 +117,20 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
 #pragma mark - HSYLoadValueProtocol
 - (void)loadFirstValue {
     NSArray *historys = [HSYUserDefaults objectForKey:HSYHistoryID];
-    if (historys) {
+    if (!FYEmpty(historys)) {
         self.historys = historys;
     } else {
         [self requestHistory];
     }
+    self.isFirstLoad = YES;
 }
 
 - (void)loadNewValue {
     [self loadFirstValueFromDB];
-    self.isFirstLoad = NO;
 }
 
 - (void)loadMoreValue {
     [self loadMoreValueFromDB];
-    self.isFirstLoad = NO;
 }
 
 #pragma mark - HSYBindingParamProtocol
@@ -166,6 +165,10 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
 - (void)requestFirstValue {
     
     HSYRestViewmodel __weak *weakSelf = self;
+    
+    if (FYEmpty(self.historys)) {
+        return;
+    }
     
     NSString *dateStr = self.historys[0];
     NSArray *arr = [dateStr componentsSeparatedByString:@"-"];
@@ -275,6 +278,12 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
 }
 
 - (void)loadMoreValueFromDB {
+    
+    if (self.page >= self.historys.count) {
+        self.noMore = YES;
+        return;
+    }
+    
     NSString *dateStr = self.historys[self.page];
     HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
     

@@ -12,7 +12,6 @@
 @interface HSYRestViewmodel : HSYBaseViewmodel <HSYLoadValueProtocol>
 
 @property (nonatomic, strong) NSArray *dateModels;
-@property (nonatomic, strong) NSError *requestError;
 
 - (NSInteger)sectionsCount;
 - (NSString*)headerTitleInSection:(NSInteger)section;
