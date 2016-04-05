@@ -50,8 +50,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //隐藏工具栏 当每次从子页面返回时
-    self.navigationController.toolbarHidden = YES;
+    self.navigationController.toolbar.hidden = YES;
 }
 
 - (void)pullDownRefresh:(id)sender {

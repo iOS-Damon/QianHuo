@@ -55,6 +55,11 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
     [self.viewmodel loadFirstValue];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.navigationController.toolbar.hidden = YES;
+}
+
 #pragma mark - Override HSYBaseTableController
 - (void)pullDownRefresh:(id)sender {
     [self.viewmodel loadNewValue];

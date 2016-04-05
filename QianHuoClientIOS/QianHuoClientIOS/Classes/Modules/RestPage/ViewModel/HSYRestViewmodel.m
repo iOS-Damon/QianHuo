@@ -256,7 +256,7 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
     
     NSInteger page = [HSYUserDefaults integerForKey:HSYRestViewmodelSectionID] + 1;
     NSArray *dbModels = [HSYCommonDBModel findWithFormat:@" LIMIT %ld", page];
-    if (dbModels) {
+    if (!FYEmpty(dbModels)) {
         NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:5];
         
         for (HSYCommonDBModel *dbModel in dbModels) {

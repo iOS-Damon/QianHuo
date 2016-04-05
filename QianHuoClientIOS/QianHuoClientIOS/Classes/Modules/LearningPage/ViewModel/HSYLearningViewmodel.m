@@ -113,12 +113,10 @@ static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffs
 
 - (void)loadNewValue {
     [self requestHistory];
-//    self.isFirstLoad = NO;
 }
 
 - (void)loadMoreValue {
     [self loadMoreValueFromDB];
-//    self.isFirstLoad = NO;
 }
 
 #pragma mark - HSYBindingParamProtocol
@@ -134,6 +132,8 @@ static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffs
 #pragma mark - 获取网络数据
 - (void)requestHistory {
     
+    HSYLearningViewmodel __weak *weakSelf = self;
+    
     NSURL *url = [NSURL URLWithString:HSYHistoryUrl];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
@@ -141,13 +141,13 @@ static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffs
         NSDictionary *dict = responseObject;
         NSArray *results = dict[@"results"];
         
-        self.historys = results;
+        weakSelf.historys = results;
         
-        [HSYUserDefaults setObject:self.historys forKey:HSYHistoryID];
+        [HSYUserDefaults setObject:weakSelf.historys forKey:HSYHistoryID];
         
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         FYLog(@"Error: %@", error);
-        self.requestError = error;
+        weakSelf.requestError = error;
     }];
 }
 
@@ -245,7 +245,7 @@ static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffs
     
     NSInteger page = [HSYUserDefaults integerForKey:HSYLearningViewmodelSectionID] + 1;
     NSArray *dbModels = [HSYCommonDBModel findWithFormat:@" LIMIT %ld", page];
-    if (dbModels) {
+    if (!FYEmpty(dbModels)) {
         NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:5];
         
         for (HSYCommonDBModel *dbModel in dbModels) {
