@@ -15,6 +15,9 @@
 #import "AFNetworking.h"
 #import "HSYUserDefaults.h"
 
+static NSString * const HSYRestViewmodelSectionID = @"HSYRestViewmodelSectionID";
+static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
+
 @interface HSYRestViewmodel () <HSYBindingParamProtocol>
 
 @property (nonatomic, strong) FBKVOController *KVOController;
@@ -98,6 +101,19 @@
     return @"";
 }
 
+- (void)saveSection:(NSInteger)section {
+    [HSYUserDefaults setInteger:section forKey:HSYRestViewmodelSectionID];
+}
+
+- (void)saveOffsetY:(CGFloat)offsetY {
+    [HSYUserDefaults setFloat:offsetY forKey:HSYRestViewmodelOffsetY];
+}
+
+- (CGFloat)loadOffsetY {
+    CGFloat offsetY = [HSYUserDefaults floatForKey:HSYRestViewmodelOffsetY];
+    return offsetY;
+}
+
 #pragma mark - HSYLoadValueProtocol
 - (void)loadFirstValue {
     NSArray *historys = [HSYUserDefaults objectForKey:HSYHistoryID];
@@ -110,10 +126,12 @@
 
 - (void)loadNewValue {
     [self loadFirstValueFromDB];
+    self.isFirstLoad = NO;
 }
 
 - (void)loadMoreValue {
     [self loadMoreValueFromDB];
+    self.isFirstLoad = NO;
 }
 
 #pragma mark - HSYBindingParamProtocol
@@ -233,22 +251,27 @@
 
 - (void)loadFirstValueFromDB {
     
-    NSString *dateStr = self.historys[0];
-    HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
-    
-    if (dbModel) {
-        NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
+    NSInteger page = [HSYUserDefaults integerForKey:HSYRestViewmodelSectionID] + 1;
+    NSArray *dbModels = [HSYCommonDBModel findWithFormat:@" LIMIT %ld", page];
+    if (dbModels) {
+        NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:5];
         
-        HSYRestDateModel *dateModel = [[HSYRestDateModel alloc] initWithParam:dictResult];
-        dateModel.dateStr = dbModel.dateStr;
-        dateModel.headerTitle = dbModel.headerTitle;
+        for (HSYCommonDBModel *dbModel in dbModels) {
+            NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
+            
+            HSYRestDateModel *dateModel = [[HSYRestDateModel alloc] initWithParam:dictResult];
+            dateModel.dateStr = dbModel.dateStr;
+            dateModel.headerTitle = dbModel.headerTitle;
+            
+            [temp addObject:dateModel];
+        }
         
-        self.dateModels = @[dateModel];
-        
-        self.page = 1;
+        self.dateModels = temp;
     } else {
         [self requestFirstValue];
     }
+    
+    self.page = (int)page;
 }
 
 - (void)loadMoreValueFromDB {

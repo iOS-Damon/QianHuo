@@ -15,7 +15,8 @@
 #import "HSYUserDefaults.h"
 #import "HSYCommonDBModel.h"
 
-static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHistoryID";
+static NSString * const HSYLearningViewmodelSectionID = @"HSYLearningViewmodelSectionID";
+static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffsetY";
 
 @interface HSYLearningViewmodel () <HSYBindingParamProtocol>
 
@@ -84,6 +85,20 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
     return cellModel.url;
 }
 
+- (void)saveSection:(NSInteger)section {
+    [HSYUserDefaults setInteger:section forKey:HSYLearningViewmodelSectionID];
+}
+
+- (void)saveOffsetY:(CGFloat)offsetY {
+    [HSYUserDefaults setFloat:offsetY forKey:HSYLearningViewmodelOffsetY];
+}
+
+- (CGFloat)loadOffsetY {
+    CGFloat offsetY = [HSYUserDefaults floatForKey:HSYLearningViewmodelOffsetY];
+    return offsetY;
+}
+
+
 #pragma mark - HSYLoadValueProtocol
 - (void)loadFirstValue {
     
@@ -97,10 +112,12 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
 
 - (void)loadNewValue {
     [self requestHistory];
+    self.isFirstLoad = NO;
 }
 
 - (void)loadMoreValue {
     [self loadMoreValueFromDB];
+    self.isFirstLoad = NO;
 }
 
 #pragma mark - HSYBindingParamProtocol
@@ -221,22 +238,44 @@ static NSString * const HSYLearningViewmodelHistoryID = @"HSYLearningViewmodelHi
 
 - (void)loadFirstValueFromDB {
     
-    NSString *dateStr = self.historys[0];
-    HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
+//    NSString *dateStr = self.historys[0];
+//    HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
+//    
+//    if (dbModel) {
+//        NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
+//        
+//        HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithParam:dictResult];
+//        dateModel.dateStr = dbModel.dateStr;
+//        dateModel.headerTitle = dbModel.headerTitle;
+//        
+//        self.dateModels = @[dateModel];
+//        
+//        self.page = 1;
+//    } else {
+//        [self requestFirstValue];
+//    }
     
-    if (dbModel) {
-        NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
+    NSInteger page = [HSYUserDefaults integerForKey:HSYLearningViewmodelSectionID] + 1;
+    NSArray *dbModels = [HSYCommonDBModel findWithFormat:@" LIMIT %ld", page];
+    if (dbModels) {
+        NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:5];
         
-        HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithParam:dictResult];
-        dateModel.dateStr = dbModel.dateStr;
-        dateModel.headerTitle = dbModel.headerTitle;
+        for (HSYCommonDBModel *dbModel in dbModels) {
+            NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
+            
+            HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithParam:dictResult];
+            dateModel.dateStr = dbModel.dateStr;
+            dateModel.headerTitle = dbModel.headerTitle;
+            
+            [temp addObject:dateModel];
+        }
         
-        self.dateModels = @[dateModel];
-        
-        self.page = 1;
+        self.dateModels = temp;
     } else {
         [self requestFirstValue];
     }
+    
+    self.page = (int)page;
 }
 
 - (void)loadMoreValueFromDB {

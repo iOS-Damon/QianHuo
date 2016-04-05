@@ -42,11 +42,11 @@
 #pragma mark - 布局
 
 - (void)setupVC {
-    HSYLearningController *learningVC = [[HSYLearningController alloc] initWithStyle:UITableViewStylePlain];
+    HSYLearningController *learningVC = [[HSYLearningController alloc] init];
     HSYNavigationController *learningNav = [[HSYNavigationController alloc] initWithRootViewController:learningVC];
     [self addChildViewController:learningNav];
     
-    HSYRestController *restVC = [[HSYRestController alloc] initWithStyle:UITableViewStylePlain];
+    HSYRestController *restVC = [[HSYRestController alloc] init];
     HSYNavigationController *restNav = [[HSYNavigationController alloc] initWithRootViewController:restVC];
     [self addChildViewController:restNav];
 }

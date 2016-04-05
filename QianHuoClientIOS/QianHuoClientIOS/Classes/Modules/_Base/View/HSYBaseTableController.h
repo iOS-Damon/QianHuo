@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HSYBaseTableController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface HSYBaseTableController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 - (void)pullDownRefresh:(id)sender;
 - (void)pullUpRefresh:(id)sender;

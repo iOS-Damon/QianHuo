@@ -4,11 +4,19 @@
 # use_frameworks!
 
 source 'https://github.com/CocoaPods/Specs.git'
-
+#网络请求
 pod 'AFNetworking', '~> 3.0'
+#KVO
 pod 'KVOController'
+#自动布局
 pod 'Masonry', '~> 0.6.4'
+#闪屏
 pod 'JazzHands', '~> 2.0.8'
+#图片下载
 pod 'SDWebImage', '~> 3.7.3'
+#数据库
 pod 'FMDB'
+#上拉刷新
 pod 'SVPullToRefresh'
+#图片进度条
+pod 'UCZProgressView'

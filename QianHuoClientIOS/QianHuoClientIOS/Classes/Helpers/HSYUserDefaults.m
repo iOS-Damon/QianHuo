@@ -21,4 +21,26 @@
     return [ud objectForKey:key];
 }
 
++ (void)setInteger:(NSInteger)integer forKey:(NSString*)key {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setInteger:integer forKey:key];
+    [ud synchronize];
+}
+
++ (NSInteger)integerForKey:(NSString*)key {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    return [ud integerForKey:key];
+}
+
++ (void)setFloat:(CGFloat)sFloat forKey:(NSString*)key {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setFloat:sFloat forKey:key];
+    [ud synchronize];
+}
+
++ (CGFloat)floatForKey:(NSString*)key {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    return [ud floatForKey:key];
+}
+
 @end

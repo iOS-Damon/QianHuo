@@ -28,8 +28,8 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 
 @implementation HSYLearningController
 
-- (instancetype)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
+- (instancetype)init {
+    self = [super init];
     if (self) {
         self.viewmodel = [[HSYLearningViewmodel alloc] init];
         [self bindingParam];
@@ -87,6 +87,8 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    [self.viewmodel saveSection:section];
+    
     HSYCommonHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYLearningTimeHeaderID];
     header.title = [self.viewmodel headerTitleInSection:section];
     return header;
@@ -108,6 +110,11 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
         [controller.tableView reloadData];
         [self.refreshControl endRefreshing];
         [self endPullUpRefresh];
+        
+        if (self.viewmodel.isFirstLoad) {
+            CGFloat offsetY = [self.viewmodel loadOffsetY];
+            self.tableView.contentOffset = CGPointMake(0, offsetY);
+        }
     }];
     
     [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *controller, HSYLearningViewmodel *viewmodel, NSDictionary *change) {
@@ -118,6 +125,12 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
         FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNetworkErrorHint duration:HSYHintDuration complete:nil];
         [hint show];
     }];
+}
+
+#pragma mark - Scroller View Delegate
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGPoint point = scrollView.contentOffset;
+    [self.viewmodel saveOffsetY:point.y];
 }
 
 @end

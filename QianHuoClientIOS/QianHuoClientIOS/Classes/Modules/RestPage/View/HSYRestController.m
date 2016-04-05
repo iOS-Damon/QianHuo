@@ -33,8 +33,8 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 
 @implementation HSYRestController
 
-- (instancetype)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
+- (instancetype)init {
+    self = [super init];
     if (self) {
         self.viewmodel = [[HSYRestViewmodel alloc] init];
         [self bindingParam];
@@ -72,6 +72,12 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         [observe.tableView reloadData];
         [self.refreshControl endRefreshing];
         [self endPullUpRefresh];
+        
+        if (self.viewmodel.isFirstLoad) {
+            CGFloat offsetY = [self.viewmodel loadOffsetY];
+            self.tableView.contentOffset = CGPointMake(0, offsetY);
+        }
+
     }];
     
     [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observe, HSYRestViewmodel *object, NSDictionary *change) {
@@ -111,6 +117,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < [self.viewmodel rowsFuliCountInSection:indexPath.section]) {
+        //以屏幕的短边 作为cell的高
         return [UIScreen screenShortSide];
     } else {
         return [UIScreen screenLongSide] * HSYCommonCellHeightScale;
@@ -123,6 +130,10 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    //记录当前正在浏览的section 下次打开直接加载到此section
+    [self.viewmodel saveSection:section];
+    
     HSYCommonHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYRestHeaderID];
     header.title = [self.viewmodel headerTitleInSection:section];
     return header;
@@ -145,6 +156,12 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         contentVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:contentVC animated:YES];
     }
+}
+
+#pragma mark - Scroller View Delegate
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGPoint point = scrollView.contentOffset;
+    [self.viewmodel saveOffsetY:point.y];
 }
 
 @end

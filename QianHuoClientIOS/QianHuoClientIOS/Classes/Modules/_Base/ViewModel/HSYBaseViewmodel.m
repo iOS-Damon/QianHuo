@@ -10,4 +10,23 @@
 
 @implementation HSYBaseViewmodel
 
+- (instancetype)init {
+    if (self = [super init]) {
+        self.isFirstLoad = YES;
+    }
+    return self;
+}
+
+- (void)saveSection:(NSInteger)section {
+
+}
+
+- (void)saveOffsetY:(CGFloat)offsetY {
+
+}
+
+- (CGFloat)loadOffsetY {
+    return 0;
+}
+
 @end

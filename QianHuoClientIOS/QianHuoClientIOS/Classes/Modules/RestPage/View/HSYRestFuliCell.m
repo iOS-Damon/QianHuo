@@ -48,7 +48,7 @@ static CGFloat const HSYRestFuliCellImgViewPadding = 5;
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     [manager downloadImageWithURL:[NSURL URLWithString:url] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-        NSLog(@"receivedSize---%ld---expectedSize---%ld", receivedSize, expectedSize);
+        
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
         self.fuliImgView.image = [FYUtils cutImageToSquare:image];
     }];

@@ -32,6 +32,7 @@
 #define FYColorMain [UIColor colorWithHexString:@"FFFFFF" alpha:1.0]
 #define FYColorSub [UIColor colorWithHexString:@"03A9F4" alpha:1.0]
 #define FYColorShadow [UIColor colorWithHexString:@"000000" alpha:0.65]
+#define FYColorLightShadow [UIColor colorWithHexString:@"CFD8DC" alpha:0.65]
 
 #define FYLabSize1 (FYIsPad ? 15 : 10)
 #define FYLabSize2 (FYIsPad ? 18 : 13)

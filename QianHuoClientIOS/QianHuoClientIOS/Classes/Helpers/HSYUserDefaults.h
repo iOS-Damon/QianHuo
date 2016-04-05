@@ -13,4 +13,10 @@
 + (void)setObject:(id)object forKey:(NSString*)key;
 + (id)objectForKey:(NSString*)key;
 
++ (void)setInteger:(NSInteger)integer forKey:(NSString*)key;
++ (NSInteger)integerForKey:(NSString*)key;
+
++ (void)setFloat:(CGFloat)sFloat forKey:(NSString*)key;
++ (CGFloat)floatForKey:(NSString*)key;
+
 @end

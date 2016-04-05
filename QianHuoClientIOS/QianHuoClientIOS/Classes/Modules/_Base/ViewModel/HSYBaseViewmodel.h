@@ -10,4 +10,11 @@
 
 @interface HSYBaseViewmodel : NSObject
 
+//记录是否第一次加载
+@property (nonatomic, assign) BOOL isFirstLoad;
+
+- (void)saveSection:(NSInteger)section;
+- (void)saveOffsetY:(CGFloat)offsetY;
+- (CGFloat)loadOffsetY;
+
 @end
