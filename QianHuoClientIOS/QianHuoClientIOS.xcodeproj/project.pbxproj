@@ -57,6 +57,7 @@
 		143A41541CAE9997007C0B9F /* LaunchFirst.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A41531CAE9997007C0B9F /* LaunchFirst.png */; };
 		143A41581CAE9A54007C0B9F /* LaunchSecond.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A41571CAE9A54007C0B9F /* LaunchSecond.png */; };
 		143A415C1CB349BF007C0B9F /* ReturnToTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 143A415B1CB349BF007C0B9F /* ReturnToTop.png */; };
+		144593AA1CB4A4300065F659 /* BlurEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 144593A91CB4A4300065F659 /* BlurEffect.png */; };
 		1475693A1CA520A0009DB7E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569391CA520A0009DB7E7 /* main.m */; };
 		147569431CA520A0009DB7E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 147569411CA520A0009DB7E7 /* Main.storyboard */; };
 		147569451CA520A0009DB7E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 147569441CA520A0009DB7E7 /* Assets.xcassets */; };
@@ -186,6 +187,7 @@
 		143A41531CAE9997007C0B9F /* LaunchFirst.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchFirst.png; sourceTree = "<group>"; };
 		143A41571CAE9A54007C0B9F /* LaunchSecond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchSecond.png; sourceTree = "<group>"; };
 		143A415B1CB349BF007C0B9F /* ReturnToTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ReturnToTop.png; sourceTree = "<group>"; };
+		144593A91CB4A4300065F659 /* BlurEffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlurEffect.png; sourceTree = "<group>"; };
 		147569351CA520A0009DB7E7 /* QianHuoClientIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QianHuoClientIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		147569391CA520A0009DB7E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		147569421CA520A0009DB7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -758,6 +760,7 @@
 		147569C81CA8D232009DB7E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				144593A91CB4A4300065F659 /* BlurEffect.png */,
 				143A415B1CB349BF007C0B9F /* ReturnToTop.png */,
 				143A41471CAE7A1A007C0B9F /* Logo.png */,
 				143A410E1CAE18CE007C0B9F /* AvatarVedio.png */,
@@ -906,6 +909,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				143A40FD1CAE016D007C0B9F /* AvatarApp.png in Resources */,
+				144593AA1CB4A4300065F659 /* BlurEffect.png in Resources */,
 				147569E11CA91193009DB7E7 /* AvatarIOS.png in Resources */,
 				143A41581CAE9A54007C0B9F /* LaunchSecond.png in Resources */,
 				143A40F91CADFFAD007C0B9F /* AvatarIntroduce.png in Resources */,

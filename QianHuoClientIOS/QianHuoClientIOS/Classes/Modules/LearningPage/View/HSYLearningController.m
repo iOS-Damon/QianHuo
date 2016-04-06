@@ -50,7 +50,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.navigationController.toolbar.hidden = YES;
+    self.navigationController.toolbarHidden = YES;
 }
 
 - (void)pullDownRefresh:(id)sender {

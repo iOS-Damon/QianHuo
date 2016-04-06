@@ -18,7 +18,6 @@ static CGFloat const HSYRestFuliCellImgViewPadding = 5;
 
 @property (nonatomic, strong) UIImageView *fuliImgView;
 @property (nonatomic, strong) UCZProgressView *progressView;
-//@property (nonatomic, strong) NSMutableDictionary *progresses;
 
 @end
 
@@ -27,15 +26,13 @@ static CGFloat const HSYRestFuliCellImgViewPadding = 5;
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-//        self.progresses = [[NSMutableDictionary alloc] initWithCapacity:5];
+
     }
     return self;
 }
 
 - (void)setupViews {
     [super setupViews];
-    
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.fuliImgView = [[UIImageView alloc] init];
     self.fuliImgView.backgroundColor = [UIColor clearColor];
@@ -58,33 +55,17 @@ static CGFloat const HSYRestFuliCellImgViewPadding = 5;
     
     HSYRestFuliCell __weak *weakSelf = self;
     
-    self.fuliImgView.image = [UIImage imageNamed:@""];
-    
-//    NSNumber *progress = self.progresses[url];
-//    if (progress) {
-//        self.progressView.progress = [progress floatValue];
-//    }
+    self.fuliImgView.image = [UIImage imageNamed:@"BlurEffect.png"];
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     [manager downloadImageWithURL:[NSURL URLWithString:url] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
         
-        CGFloat scale = (float)receivedSize / (float)expectedSize;
-        NSLog(@"scale------%f", scale - 0.01);
-        
-//        [self.progresses setObject:[NSNumber numberWithFloat:scale - 0.01] forKey:url];
-        
-        weakSelf.progressView.progress = scale - 0.01;
+        weakSelf.progressView.progress = 0;
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
         
         weakSelf.fuliImgView.image = [FYUtils cutImageToSquare:image];
         weakSelf.progressView.progress = 1.0;
-//        [self.progresses removeObjectForKey:url];
     }];
-}
-
-- (void)setImage:(UIImage *)image {
-    _image = image;
-    self.fuliImgView.image = image;
 }
 
 @end

@@ -62,7 +62,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.navigationController.toolbar.hidden = YES;
+    self.navigationController.toolbarHidden = YES;
 }
 
 #pragma mark - Override HSYBaseTableController
@@ -71,7 +71,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 }
 
 - (void)pullUpRefresh:(id)sender {
-//    [self.viewmodel loadMoreValue];
+
 }
 
 #pragma mark - HSYBindingParamProtocol

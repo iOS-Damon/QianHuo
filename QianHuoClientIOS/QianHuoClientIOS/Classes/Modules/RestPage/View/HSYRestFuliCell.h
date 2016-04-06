@@ -11,6 +11,5 @@
 @interface HSYRestFuliCell : HSYBaseTableCell
 
 @property (nonatomic, strong) NSString *url;
-@property (nonatomic, strong) UIImage *image;
 
 @end
