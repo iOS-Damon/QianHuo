@@ -43,4 +43,15 @@
     return [ud floatForKey:key];
 }
 
++ (void)setBool:(BOOL)b forKey:(NSString*)key {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setBool:b forKey:key];
+    [ud synchronize];
+}
+
++ (BOOL)BoolForKey:(NSString*)key {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    return [ud boolForKey:key];
+}
+
 @end

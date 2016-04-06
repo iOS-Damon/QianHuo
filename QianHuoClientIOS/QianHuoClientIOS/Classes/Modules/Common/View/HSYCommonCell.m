@@ -69,4 +69,13 @@ static CGFloat const HSYLearningTimeCellImageHeightScale = 0.3;
     self.avatarImageView.image = avatarImage;
 }
 
+- (void)setHasRead:(BOOL)hasRead {
+    _hasRead = hasRead;
+    if (hasRead) {
+        self.titleLabel.textColor = FYColorGary;
+    } else {
+        self.titleLabel.textColor = FYColorBlack;
+    }
+}
+
 @end

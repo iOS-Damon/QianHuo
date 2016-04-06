@@ -13,5 +13,6 @@
 
 @property (nonatomic, strong) UIImage *avatarImage;
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, assign) BOOL hasRead;
 
 @end

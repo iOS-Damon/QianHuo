@@ -20,5 +20,7 @@
 - (void)saveSection:(NSInteger)section;
 - (void)saveOffsetY:(CGFloat)offsetY;
 - (CGFloat)loadOffsetY;
+- (void)saveHasReadIndexPath:(NSIndexPath*)path;
+- (BOOL)indexPathHasRead:(NSIndexPath*)path;
 
 @end

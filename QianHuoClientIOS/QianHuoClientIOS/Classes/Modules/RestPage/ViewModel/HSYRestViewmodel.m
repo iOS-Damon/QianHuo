@@ -160,9 +160,15 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
 #pragma mark - HSYBindingParamProtocol
 - (void)bindingParam {
     self.KVOController = [FBKVOController controllerWithObserver:self];
-    [self.KVOController observe:self keyPath:@"historys" options:NSKeyValueObservingOptionNew block:^(HSYRestViewmodel *observer, id object, NSDictionary *change) {
+    [self.KVOController observe:self keyPath:@"historys" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestViewmodel *observer, id object, NSDictionary *change) {
         
-        [observer loadFirstValueFromDB];
+        NSArray *newHistory = change[NSKeyValueChangeNewKey];
+        NSArray *oldHistory = change[NSKeyValueChangeOldKey];
+        
+        if ([oldHistory isEqual:[NSNull null]]) {
+            [observer loadFirstValueFromDB];
+        }
+        
     }];
 }
 

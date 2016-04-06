@@ -19,4 +19,7 @@
 + (void)setFloat:(CGFloat)sFloat forKey:(NSString*)key;
 + (CGFloat)floatForKey:(NSString*)key;
 
++ (void)setBool:(BOOL)b forKey:(NSString*)key;
++ (BOOL)BoolForKey:(NSString*)key;
+
 @end

@@ -30,4 +30,12 @@
     return 0;
 }
 
+- (void)saveHasReadIndexPath:(NSIndexPath*)path {
+
+}
+
+- (BOOL)indexPathHasRead:(NSIndexPath*)path {
+    return NO;
+}
+
 @end

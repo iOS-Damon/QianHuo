@@ -74,6 +74,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
     HSYCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
     cell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
     cell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
+    cell.hasRead = [self.viewmodel indexPathHasRead:indexPath];
     return cell;
 }
 
@@ -99,6 +100,8 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
     //隐藏tabbar 当要进入子页面时
     contentVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:contentVC animated:YES];
+    
+    [self.viewmodel saveHasReadIndexPath:indexPath];
 }
 
 #pragma mark - HSYBindingParamProtocol

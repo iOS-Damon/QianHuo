@@ -17,6 +17,7 @@
 
 static NSString * const HSYLearningViewmodelSectionID = @"HSYLearningViewmodelSectionID";
 static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffsetY";
+static NSString * const HSYLearningViewmodelHasReadID = @"HSYLearningViewmodelHasReadID";
 
 @interface HSYLearningViewmodel () <HSYBindingParamProtocol>
 
@@ -85,6 +86,8 @@ static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffs
     return cellModel.url;
 }
 
+#pragma mark - override
+
 - (void)saveSection:(NSInteger)section {
     [HSYUserDefaults setInteger:section forKey:HSYLearningViewmodelSectionID];
 }
@@ -98,6 +101,15 @@ static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffs
     return offsetY;
 }
 
+- (void)saveHasReadIndexPath:(NSIndexPath *)path {
+    NSString *pathID = [NSString stringWithFormat:@"%@%ld%ld", HSYLearningViewmodelHasReadID, (long)path.section, (long)path.row];
+    [HSYUserDefaults setBool:YES forKey:pathID];
+}
+
+- (BOOL)indexPathHasRead:(NSIndexPath *)path {
+    NSString *pathID = [NSString stringWithFormat:@"%@%ld%ld", HSYLearningViewmodelHasReadID, (long)path.section, (long)path.row];
+    return [HSYUserDefaults BoolForKey:pathID];
+}
 
 #pragma mark - HSYLoadValueProtocol
 - (void)loadFirstValue {
