@@ -19,6 +19,7 @@
 #import "UIScreen+FY.h"
 #import "WFWebImageShowView.h"
 #import "UIImageView+MHFacebookImageViewer.h"
+#import "UIView+FY.h"
 
 static NSString * const HSYRestFuliCellID = @"HSYRestFuliCellID";
 static NSString * const HSYRestVedioCellID = @"HSYRestVedioCellID";
@@ -28,6 +29,8 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 
 @property (nonatomic, strong) HSYRestViewmodel *viewmodel;
 @property (nonatomic, strong) FBKVOController *KVOController;
+@property (nonatomic, assign) CGFloat lastY;
+@property (nonatomic, assign) BOOL isRefreshing;
 
 @end
 
@@ -37,6 +40,8 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
     self = [super init];
     if (self) {
         self.viewmodel = [[HSYRestViewmodel alloc] init];
+        self.lastY = 0;
+        self.isRefreshing = NO;
         [self bindingParam];
     }
     return self;
@@ -66,26 +71,31 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 }
 
 - (void)pullUpRefresh:(id)sender {
-    [self.viewmodel loadMoreValue];
+//    [self.viewmodel loadMoreValue];
 }
 
 #pragma mark - HSYBindingParamProtocol
 - (void)bindingParam {
     self.KVOController = [FBKVOController controllerWithObserver:self];
-    [self.KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observe, HSYRestViewmodel *object, NSDictionary *change) {
+    [self.KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
         
-        [observe.tableView reloadData];
-        [self.refreshControl endRefreshing];
-        [self endPullUpRefresh];
+        [observer.tableView reloadData];
+        
+        [observer.refreshControl endRefreshing];
+        [observer endPullUpRefresh];
+        
+        observer.isRefreshing = NO;
     }];
     
-    [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observe, HSYRestViewmodel *object, NSDictionary *change) {
+    [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
         
-        [self.refreshControl endRefreshing];
-        [self endPullUpRefresh];
+        [observer.refreshControl endRefreshing];
+        [observer endPullUpRefresh];
         
         FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNetworkErrorHint duration:HSYHintDuration complete:nil];
         [hint show];
+        
+        observer.isRefreshing = NO;
     }];
     
     [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
@@ -99,9 +109,11 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
     [self.KVOController observe:self.viewmodel keyPath:@"noMore" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
         
         if(object.noMore) {
-            [self endPullUpRefresh];
+            [observer endPullUpRefresh];
             FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNoMoreHint duration:HSYHintDuration complete:nil];
             [hint show];
+            
+            observer.isRefreshing = NO;
         }
     }];
 }
@@ -175,6 +187,30 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 }
 
 #pragma mark - Scroller View Delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [super scrollViewDidScroll:scrollView];
+    CGFloat viewH = scrollView.frameHeight;
+    CGFloat contentH = scrollView.contentSize.height;
+    CGFloat offsetY = scrollView.contentOffset.y;
+    CGFloat bottomH = contentH - offsetY - viewH;
+    NSLog(@"bottomH===%f", bottomH);
+    CGFloat pageH = [UIScreen screenLongSide];
+    NSLog(@"pageH===%f", pageH);
+    
+    if (offsetY - self.lastY > 0) { // 正在下拉
+        NSLog(@"---正在下拉---");
+        if (bottomH <= pageH) {
+            NSLog(@"---可以刷新吗---%d", self.isRefreshing);
+            if (!self.isRefreshing) {
+                NSLog(@"---刷新---");
+                self.isRefreshing = YES;
+                [self.viewmodel loadMoreValue];
+            }
+        }
+    }
+    self.lastY = offsetY;
+}
+
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     CGPoint point = scrollView.contentOffset;
     [self.viewmodel saveOffsetY:point.y];

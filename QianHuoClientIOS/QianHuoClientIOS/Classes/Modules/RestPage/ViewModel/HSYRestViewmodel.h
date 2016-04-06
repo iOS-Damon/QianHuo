@@ -22,5 +22,8 @@
 - (UIImage*)rowAvatarAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowDescAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowUrlAtIndexPath:(NSIndexPath *)indexPath;
+- (UIImage*)rowImageAtIndexPath:(NSIndexPath*)indexPath;
+
+- (NSIndexSet*)sectionShouldRefresh;
 
 @end

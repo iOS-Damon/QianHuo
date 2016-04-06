@@ -14,6 +14,7 @@
 #import "HSYRestDateModel.h"
 #import "AFNetworking.h"
 #import "HSYUserDefaults.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString * const HSYRestViewmodelSectionID = @"HSYRestViewmodelSectionID";
 static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
@@ -101,6 +102,24 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
     return @"";
 }
 
+- (UIImage*)rowImageAtIndexPath:(NSIndexPath*)indexPath {
+    HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
+    if (indexPath.row < dateModel.fuliModels.count) {
+        HSYRestFuliModel *fuliModel = dateModel.fuliModels[indexPath.row];
+        
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager downloadImageWithURL:[NSURL URLWithString:fuliModel.url] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            CGFloat scale = (float)receivedSize / (float)expectedSize;
+            NSLog(@"scale------%f", scale - 0.01);
+            
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            
+        }];
+
+    }
+    return [UIImage imageNamed:@""];
+}
+
 - (void)saveSection:(NSInteger)section {
     [HSYUserDefaults setInteger:section forKey:HSYRestViewmodelSectionID];
 }
@@ -112,6 +131,11 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
 - (CGFloat)loadOffsetY {
     CGFloat offsetY = [HSYUserDefaults floatForKey:HSYRestViewmodelOffsetY];
     return offsetY;
+}
+
+- (NSIndexSet*)sectionShouldRefresh {
+    NSIndexSet *section = [[NSIndexSet alloc] initWithIndex:self.dateModels.count - 1];
+    return section;
 }
 
 #pragma mark - HSYLoadValueProtocol

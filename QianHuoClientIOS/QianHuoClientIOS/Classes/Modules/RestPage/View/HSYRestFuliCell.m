@@ -18,6 +18,7 @@ static CGFloat const HSYRestFuliCellImgViewPadding = 5;
 
 @property (nonatomic, strong) UIImageView *fuliImgView;
 @property (nonatomic, strong) UCZProgressView *progressView;
+//@property (nonatomic, strong) NSMutableDictionary *progresses;
 
 @end
 
@@ -26,7 +27,7 @@ static CGFloat const HSYRestFuliCellImgViewPadding = 5;
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
+//        self.progresses = [[NSMutableDictionary alloc] initWithCapacity:5];
     }
     return self;
 }
@@ -45,23 +46,45 @@ static CGFloat const HSYRestFuliCellImgViewPadding = 5;
     }];
     
     self.progressView = [[UCZProgressView alloc] init];
-    self.progressView.blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+    self.progressView.blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     [self.contentView addSubview:self.progressView];
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        UIEdgeInsets insets = UIEdgeInsetsMake(HSYRestFuliCellImgViewPadding, HSYRestFuliCellImgViewPadding, HSYRestFuliCellImgViewPadding + HSYBaseTableCellSeparatorPadding, HSYRestFuliCellImgViewPadding);
-        make.edges.equalTo(self.contentView).insets(insets);
+        make.edges.equalTo(self.contentView);
     }];
 }
 
 - (void)setUrl:(NSString *)url {
     _url = url;
+    
+    HSYRestFuliCell __weak *weakSelf = self;
+    
+    self.fuliImgView.image = [UIImage imageNamed:@""];
+    
+//    NSNumber *progress = self.progresses[url];
+//    if (progress) {
+//        self.progressView.progress = [progress floatValue];
+//    }
+    
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadImageWithURL:[NSURL URLWithString:url] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-        self.progressView.progress = receivedSize / expectedSize;
+    [manager downloadImageWithURL:[NSURL URLWithString:url] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        
+        CGFloat scale = (float)receivedSize / (float)expectedSize;
+        NSLog(@"scale------%f", scale - 0.01);
+        
+//        [self.progresses setObject:[NSNumber numberWithFloat:scale - 0.01] forKey:url];
+        
+        weakSelf.progressView.progress = scale - 0.01;
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-        self.progressView.progress = 1.0;
-        self.fuliImgView.image = [FYUtils cutImageToSquare:image];
+        
+        weakSelf.fuliImgView.image = [FYUtils cutImageToSquare:image];
+        weakSelf.progressView.progress = 1.0;
+//        [self.progresses removeObjectForKey:url];
     }];
+}
+
+- (void)setImage:(UIImage *)image {
+    _image = image;
+    self.fuliImgView.image = image;
 }
 
 @end
