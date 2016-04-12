@@ -21,5 +21,7 @@
 - (UIImage*)rowAvatarAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowDescAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowUrlAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)rowHasRead:(NSIndexPath *)indexPath;
+- (void)saveRowHasRead:(NSIndexPath *)indexPath;
 
 @end

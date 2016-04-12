@@ -51,6 +51,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.navigationController.toolbarHidden = YES;
+    [self.tableView reloadData];
 }
 
 - (void)pullDownRefresh:(id)sender {
@@ -74,7 +75,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
     HSYCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
     cell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
     cell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
-//    cell.hasRead = [self.viewmodel indexPathHasRead:indexPath];
+    cell.hasRead = [self.viewmodel rowHasRead:indexPath];
     return cell;
 }
 
@@ -101,7 +102,8 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
     contentVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:contentVC animated:YES];
     
-//    [self.viewmodel saveHasReadIndexPath:indexPath];
+    //标记为已读
+    [self.viewmodel saveRowHasRead:indexPath];
 }
 
 #pragma mark - HSYBindingParamProtocol

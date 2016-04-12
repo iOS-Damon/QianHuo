@@ -81,6 +81,18 @@ static int const HSYLearningViewmodelPageStep = 10;
     return cellModel.url;
 }
 
+- (BOOL)rowHasRead:(NSIndexPath *)indexPath {
+    HSYLearningDateModel *dateModel = self.dateModels[indexPath.section];
+    HSYLearningCellModel *cellModel = dateModel.cellModels[indexPath.row];
+    return [HSYUserDefaults BoolForKey:cellModel.cellId];
+}
+
+- (void)saveRowHasRead:(NSIndexPath *)indexPath {
+    HSYLearningDateModel *dateModel = self.dateModels[indexPath.section];
+    HSYLearningCellModel *cellModel = dateModel.cellModels[indexPath.row];
+    [HSYUserDefaults setBool:YES forKey:cellModel.cellId];
+}
+
 #pragma mark - override
 - (void)savePage:(NSInteger)section {
     [HSYUserDefaults setInteger:section forKey:HSYLearningViewmodelPageID];

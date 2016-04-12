@@ -35,6 +35,15 @@
     return 0;
 }
 
+#pragma 标记已读
+- (BOOL)rowHasRead:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (void)saveRowHasRead:(NSIndexPath *)indexPath {
+
+}
+
 #pragma HSYLoadValueProtocol
 - (void)loadFirstValue {
 

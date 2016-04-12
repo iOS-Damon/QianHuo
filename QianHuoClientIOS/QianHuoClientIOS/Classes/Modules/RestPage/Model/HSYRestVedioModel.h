@@ -10,9 +10,11 @@
 
 @interface HSYRestVedioModel : HSYBaseModel
 
+@property (nonatomic, strong) NSString *cellId;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *desc;
 @property (nonatomic, strong) NSString *url;
+@property (nonatomic, assign) BOOL hasRead;
 
 - (instancetype)initWithParam:(NSDictionary*)param;
 

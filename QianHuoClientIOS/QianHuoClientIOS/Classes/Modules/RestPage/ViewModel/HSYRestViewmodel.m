@@ -97,6 +97,29 @@ static int const HSYRestViewmodelPageStep = 10;
     return @"";
 }
 
+- (BOOL)rowHasRead:(NSIndexPath *)indexPath {
+    HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
+    if (indexPath.row < dateModel.fuliModels.count) {
+        return NO;
+    } else {
+        NSInteger vedioIndex = indexPath.row - dateModel.fuliModels.count;
+        HSYRestVedioModel *vedioModel = dateModel.vedioModels[vedioIndex];
+        return [HSYUserDefaults BoolForKey:vedioModel.cellId];
+    }
+    return NO;
+}
+
+- (void)saveRowHasRead:(NSIndexPath *)indexPath {
+    HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
+    if (indexPath.row < dateModel.fuliModels.count) {
+        
+    } else {
+        NSInteger vedioIndex = indexPath.row - dateModel.fuliModels.count;
+        HSYRestVedioModel *vedioModel = dateModel.vedioModels[vedioIndex];
+        [HSYUserDefaults setBool:YES forKey:vedioModel.cellId];
+    }
+}
+
 #pragma mark - Override
 
 - (void)savePage:(NSInteger)section {

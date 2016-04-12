@@ -59,6 +59,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.navigationController.toolbarHidden = YES;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Override HSYBaseTableController
@@ -128,6 +129,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         HSYCommonCell *vedioCell = [tableView dequeueReusableCellWithIdentifier:HSYRestVedioCellID forIndexPath:indexPath];
         vedioCell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
         vedioCell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
+        vedioCell.hasRead = [self.viewmodel rowHasRead:indexPath];
         return vedioCell;
     }
     return nil;
@@ -170,6 +172,8 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         //隐藏tabbar 当要进入子页面时
         contentVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:contentVC animated:YES];
+        
+        [self.viewmodel saveRowHasRead:indexPath];
     }
 }
 

@@ -27,8 +27,8 @@
 #define FYEmpty(a) (a == nil || [a isEqual:[NSNull null]] || a.count == 0)
 
 #import "UIColor+FY.h"
-#define FYColorBlack [UIColor colorWithHexString:@"37474F" alpha:1.0]
-#define FYColorGary [UIColor colorWithHexString:@"CFD8DC" alpha:1.0]
+#define FYColorBlack [UIColor colorWithHexString:@"424242" alpha:1.0]
+#define FYColorGary [UIColor colorWithHexString:@"BDBDBD" alpha:1.0]
 #define FYColorLightGary [UIColor colorWithHexString:@"ECEFF1" alpha:1.0]
 #define FYColorLightBlue [UIColor colorWithHexString:@"BBC8E6" alpha:1.0]
 #define FYColorMain [UIColor colorWithHexString:@"FFFFFF" alpha:1.0]
