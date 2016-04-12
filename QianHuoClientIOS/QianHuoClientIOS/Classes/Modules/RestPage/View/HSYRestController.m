@@ -29,8 +29,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 
 @property (nonatomic, strong) HSYRestViewmodel *viewmodel;
 @property (nonatomic, strong) FBKVOController *KVOController;
-@property (nonatomic, assign) CGFloat lastY;
-@property (nonatomic, assign) BOOL isRefreshing;
 
 @end
 
@@ -40,8 +38,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
     self = [super init];
     if (self) {
         self.viewmodel = [[HSYRestViewmodel alloc] init];
-        self.lastY = 0;
-        self.isRefreshing = NO;
         [self bindingParam];
     }
     return self;
@@ -83,8 +79,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         
         [observer.refreshControl endRefreshing];
         [observer endPullUpRefresh];
-        
-//        observer.isRefreshing = NO;
     }];
     
     [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
@@ -94,16 +88,11 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         
         FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNetworkErrorHint duration:HSYHintDuration complete:nil];
         [hint show];
-        
-//        observer.isRefreshing = NO;
     }];
     
     [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
         
         if(object.isFirstLoad) {
-//            NSInteger section = [observer.viewmodel loadSection];
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
-//            [observer.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
             CGFloat offsetY = [self.viewmodel loadOffsetY];
             observer.tableView.contentOffset = CGPointMake(0, offsetY);
         }
@@ -115,7 +104,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
             [observer endPullUpRefresh];
             FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNoMoreHint duration:HSYHintDuration complete:nil];
             [hint show];
-//            observer.isRefreshing = NO;
         }
     }];
 }
@@ -160,9 +148,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    //记录当前正在浏览的section 下次打开直接加载到此section
-//    [self.viewmodel saveSection:section];
     
     HSYCommonHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYRestHeaderID];
     header.title = [self.viewmodel headerTitleInSection:section];

@@ -123,19 +123,19 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
         [hint show];
     }];
     
-//    [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
-//        
-//        if(object.isFirstLoad) {
-////            CGFloat offsetY = [self.viewmodel loadOffsetY];
-////            observer.tableView.contentOffset = CGPointMake(0, offsetY);
-//        }
-//    }];
+    [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
+        
+        if(object.isFirstLoad) {
+            CGFloat offsetY = [self.viewmodel loadOffsetY];
+            observer.tableView.contentOffset = CGPointMake(0, offsetY);
+        }
+    }];
 }
 
 #pragma mark - Scroller View Delegate
-//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-//    CGPoint point = scrollView.contentOffset;
-//    [self.viewmodel saveOffsetY:point.y];
-//}
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGPoint point = scrollView.contentOffset;
+    [self.viewmodel saveOffsetY:point.y];
+}
 
 @end
