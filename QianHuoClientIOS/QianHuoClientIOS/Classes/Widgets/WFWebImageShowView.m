@@ -20,9 +20,9 @@
     UIButton *_downLoadBtn;//透明视图上的下载按钮
 }
 
-- (id)initWithFrame:(CGRect)frame imageUrl:(NSString *)imageUrl{
+- (id)initWithImageUrl:(NSString *)imageUrl{
 
-    if (self == [super initWithFrame:frame]) {
+    if (self == [super initWithFrame:[UIScreen mainScreen].bounds]) {
     
         [self configUI:imageUrl];
     }
@@ -88,7 +88,7 @@
     }];
     
     
-    UIScrollView *imageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen screenWidth], self.frame.size.height)];
+    UIScrollView *imageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen screenWidth], [UIScreen screenHeight])];
     imageScrollView.backgroundColor = [UIColor clearColor];
     imageScrollView.contentSize = CGSizeMake(self.frame.size.width, self.frame.size.height);
     imageScrollView.delegate = self;
@@ -136,7 +136,7 @@
                 imageScrollView.maximumZoomScale = imgScale / 2;
             }
             
-            CGRect newFrame = CGRectMake((self.frame.size.width - width)/2, (self.frame.size.height - height)/2 + 25, width, height);//25 因为底部有50px
+            CGRect newFrame = CGRectMake((self.frame.size.width - width)/2, (self.frame.size.height - height)/2, width, height);//25 因为底部有50px
 
             imageView_above.frame = newFrame;
             
@@ -149,7 +149,6 @@
         }
     }];
 }
-
 
 #pragma mark - Private Method
 #pragma mark - 保存图片

@@ -162,7 +162,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
     
     if (indexPath.row < [self.viewmodel rowsFuliCountInSection:indexPath.section]) {
         
-        WFWebImageShowView *showImageView = [[WFWebImageShowView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen screenWidth], [UIScreen screenHeight] - 50) imageUrl:urlStr];
+        WFWebImageShowView *showImageView = [[WFWebImageShowView alloc] initWithImageUrl:urlStr];
         
         [showImageView show:[[UIApplication sharedApplication] keyWindow] didFinish:^{
             [showImageView removeFromSuperview];
@@ -178,30 +178,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 }
 
 #pragma mark - Scroller View Delegate
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    [super scrollViewDidScroll:scrollView];
-//    CGFloat viewH = scrollView.frameHeight;
-//    CGFloat contentH = scrollView.contentSize.height;
-//    CGFloat offsetY = scrollView.contentOffset.y;
-//    CGFloat bottomH = contentH - offsetY - viewH;
-//    NSLog(@"bottomH===%f", bottomH);
-//    CGFloat pageH = [UIScreen screenLongSide];
-//    NSLog(@"pageH===%f", pageH);
-//    
-//    if (offsetY - self.lastY > 0) { // 正在下拉
-//        NSLog(@"---正在下拉---");
-//        if (bottomH <= pageH) {
-//            NSLog(@"---可以刷新吗---%d", self.isRefreshing);
-//            if (!self.isRefreshing) {
-//                NSLog(@"---刷新---");
-//                self.isRefreshing = YES;
-//                [self.viewmodel loadMoreValue];
-//            }
-//        }
-//    }
-//    self.lastY = offsetY;
-//}
-
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     CGPoint point = scrollView.contentOffset;
     [self.viewmodel saveOffsetY:point.y];

@@ -31,7 +31,7 @@ typedef void(^didRemoveImage)(void);
  *
  *  @return id
  */
-- (id)initWithFrame:(CGRect)frame imageUrl:(NSString *)imageUrl;
+- (id)initWithImageUrl:(NSString *)imageUrl;
 
 
 @end
