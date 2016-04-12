@@ -7,8 +7,6 @@
 //
 
 #import "HSYRestViewmodel.h"
-#import "HSYBindingParamProtocol.h"
-#import "FBKVOController.h"
 #import "HSYCommonDBModel.h"
 #import "FYUtils.h"
 #import "HSYRestDateModel.h"
@@ -16,14 +14,12 @@
 #import "HSYUserDefaults.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-static NSString * const HSYRestViewmodelSectionID = @"HSYRestViewmodelSectionID";
+
 static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
+static NSString * const HSYRestViewmodelPageID = @"HSYRestViewmodelPageID";
+static int const HSYRestViewmodelPageStep = 10;
 
-@interface HSYRestViewmodel () <HSYBindingParamProtocol>
-
-@property (nonatomic, strong) FBKVOController *KVOController;
-@property (nonatomic, strong) NSArray *historys;
-@property (nonatomic, assign) int page;
+@interface HSYRestViewmodel ()
 
 @end
 
@@ -32,8 +28,7 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [self bindingParam];
-        self.page = 0;
+        
     }
     return self;
 }
@@ -102,26 +97,14 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
     return @"";
 }
 
-- (UIImage*)rowImageAtIndexPath:(NSIndexPath*)indexPath {
-    HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
-    if (indexPath.row < dateModel.fuliModels.count) {
-        HSYRestFuliModel *fuliModel = dateModel.fuliModels[indexPath.row];
-        
-        SDWebImageManager *manager = [SDWebImageManager sharedManager];
-        [manager downloadImageWithURL:[NSURL URLWithString:fuliModel.url] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            CGFloat scale = (float)receivedSize / (float)expectedSize;
-            NSLog(@"scale------%f", scale - 0.01);
-            
-        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-            
-        }];
+#pragma mark - Override
 
-    }
-    return [UIImage imageNamed:@""];
+- (void)savePage:(NSInteger)section {
+    [HSYUserDefaults setInteger:section forKey:HSYRestViewmodelPageID];
 }
 
-- (void)saveSection:(NSInteger)section {
-    [HSYUserDefaults setInteger:section forKey:HSYRestViewmodelSectionID];
+- (NSInteger)loadPage {
+    return [HSYUserDefaults integerForKey:HSYRestViewmodelPageID];
 }
 
 - (void)saveOffsetY:(CGFloat)offsetY {
@@ -129,51 +112,60 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
 }
 
 - (CGFloat)loadOffsetY {
-    CGFloat offsetY = [HSYUserDefaults floatForKey:HSYRestViewmodelOffsetY];
-    return offsetY;
+    return [HSYUserDefaults floatForKey:HSYRestViewmodelOffsetY];
 }
 
-- (NSIndexSet*)sectionShouldRefresh {
-    NSIndexSet *section = [[NSIndexSet alloc] initWithIndex:self.dateModels.count - 1];
-    return section;
-}
-
-#pragma mark - HSYLoadValueProtocol
+#pragma HSYLoadValueProtocol
 - (void)loadFirstValue {
-    NSArray *historys = [HSYUserDefaults objectForKey:HSYHistoryID];
-    if (!FYEmpty(historys)) {
-        self.historys = historys;
-    } else {
-        [self requestHistory];
-    }
+    NSInteger page = [self loadPage];
+    self.historys = [HSYUserDefaults objectForKey:HSYHistoryID];
+    self.page = FYNum(page);
     self.isFirstLoad = YES;
 }
 
 - (void)loadNewValue {
-    [self loadFirstValueFromDB];
+    self.page = FYNum(0);
+    [self savePage:[self.page integerValue]];
 }
 
 - (void)loadMoreValue {
-    [self loadMoreValueFromDB];
+    self.page = FYNum([self.page integerValue] + HSYRestViewmodelPageStep);
+    [self savePage:[self.page integerValue]];
 }
 
-#pragma mark - HSYBindingParamProtocol
+#pragma HSYBindingParamProtocol
 - (void)bindingParam {
     self.KVOController = [FBKVOController controllerWithObserver:self];
-    [self.KVOController observe:self keyPath:@"historys" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestViewmodel *observer, id object, NSDictionary *change) {
+    [self.KVOController observe:self keyPath:@"page" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestViewmodel *observer, id object, NSDictionary *change) {
         
-        NSArray *newHistory = change[NSKeyValueChangeNewKey];
-        NSArray *oldHistory = change[NSKeyValueChangeOldKey];
+        NSNumber *oldPage = change[NSKeyValueChangeOldKey];
+        oldPage = FYNull(oldPage) ? FYNum(0) : oldPage;
+        NSNumber *newPage = change[NSKeyValueChangeNewKey];
+        newPage = FYNull(newPage) ? FYNum(0) : newPage;
         
-        if ([oldHistory isEqual:[NSNull null]]) {
-            [observer loadFirstValueFromDB];
+        if ([newPage intValue] == 0) {
+            [observer requestHistory];
+        } else {
+            [observer requestValueWithPage:[newPage integerValue] length:HSYRestViewmodelPageStep];
         }
+    }];
+    
+    [self.KVOController observe:self keyPath:@"requestCount" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestViewmodel *observer, id object, NSDictionary *change) {
         
+        NSNumber *oldCount = change[NSKeyValueChangeOldKey];
+        oldCount = FYNull(oldCount) ? FYNum(0) : oldCount;
+        NSNumber *newCount = change[NSKeyValueChangeNewKey];
+        newCount = FYNull(newCount) ? FYNum(0) : newCount;
+        if ([oldCount intValue] == 1 && [newCount intValue] == 0) { //网络请求结束
+            observer.dateModels = [observer loadValueFormDBWithPage:[observer.page intValue] length:HSYRestViewmodelPageStep];
+        }
     }];
 }
 
-#pragma mark - 获取网络数据
+#pragma mark - 获取数据
 - (void)requestHistory {
+    
+    FYWeakSelf(weakSelf);
     
     NSURL *url = [NSURL URLWithString:HSYHistoryUrl];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -182,112 +174,83 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
         NSDictionary *dict = responseObject;
         NSArray *results = dict[@"results"];
         
-        self.historys = results;
+        weakSelf.historys = results;
+        [HSYUserDefaults setObject:weakSelf.historys forKey:HSYHistoryID];
         
-        [HSYUserDefaults setObject:self.historys forKey:HSYHistoryID];
-        
+        [weakSelf requestValueWithPage:0 length:HSYRestViewmodelPageStep];
+
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         FYLog(@"Error: %@", error);
-        self.requestError = error;
+        weakSelf.requestError = error;
     }];
 }
 
-- (void)requestFirstValue {
+- (BOOL)hasValueInDB:(NSString*)dateStr {
     
-    HSYRestViewmodel __weak *weakSelf = self;
-    
-    if (FYEmpty(self.historys)) {
-        return;
+    HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
+    if (dbModel) {
+        return YES;
+    } else {
+        return NO;
     }
-    
-    NSString *dateStr = self.historys[0];
-    NSArray *arr = [dateStr componentsSeparatedByString:@"-"];
-    NSString *year = arr[0];
-    NSString *month = arr[1];
-    NSString *day = arr[2];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@/%@/%@/%@", HSYBaseUrl, year, month, day];
-    
-    NSURL *url = [NSURL URLWithString:urlStr];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        
-        NSDictionary *jsonDict = responseObject;
-        NSDictionary *results = jsonDict[@"results"];
-        
-        HSYRestDateModel *dateModel = [[HSYRestDateModel alloc] initWithParam:results];
-        dateModel.dateStr = dateStr;
-        dateModel.headerTitle = [weakSelf formatWithYear:year month:month day:day];
-        weakSelf.dateModels = @[dateModel];
-        
-        //保存到数据库
-        HSYCommonDBModel *dbModel = [[HSYCommonDBModel alloc] init];
-        dbModel.dateStr = dateStr;
-        dbModel.headerTitle = dateModel.headerTitle;
-        dbModel.results = [FYUtils JSONStringWithDictionary:results];
-        [dbModel saveOrUpdate];
-        
-        self.page = 1;
-        
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        FYLog(@"Error: %@", error);
-        self.requestError = error;
-    }];
 }
 
-- (void)requestMoreValue {
-    HSYRestViewmodel __weak *weakSelf = self;
+- (void)requestValueWithPage:(NSInteger)page length:(NSInteger)length {
     
-    if (self.page >= self.historys.count) {
-        return;
+    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(0, page + length)];
+    self.requestCount = FYNum(tempHistoary.count);
+    
+    FYWeakSelf(weakSelf);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    for (NSString *dateStr in tempHistoary) {
+        
+        if (![self hasValueInDB:dateStr]) {
+            
+            NSArray *arr = [dateStr componentsSeparatedByString:@"-"];
+            NSString *year = arr[0];
+            NSString *month = arr[1];
+            NSString *day = arr[2];
+            
+            NSString *urlStr = [NSString stringWithFormat:@"%@/%@/%@/%@", HSYBaseUrl, year, month, day];
+            
+            NSURL *url = [NSURL URLWithString:urlStr];
+            
+            [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                NSDictionary *jsonDict = responseObject;
+                NSDictionary *results = jsonDict[@"results"];
+                
+                //保存到数据库
+                HSYCommonDBModel *dbModel = [[HSYCommonDBModel alloc] init];
+                dbModel.dateStr = dateStr;
+                dbModel.headerTitle = [weakSelf formatWithYear:year month:month day:day];
+                dbModel.results = [FYUtils JSONStringWithDictionary:results];
+                [dbModel saveOrUpdateByColumnName:@"dateStr" AndColumnValue:dateStr];
+                
+                [weakSelf decRequestCount];
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                
+                weakSelf.requestError = error;
+                
+                [weakSelf decRequestCount];
+                
+                FYLog(@"Error: %@", error);
+            }];
+        } else {
+            [self decRequestCount];
+        }
     }
-    
-    NSString *dateStr = self.historys[self.page];
-    NSArray *arr = [dateStr componentsSeparatedByString:@"-"];
-    NSString *year = arr[0];
-    NSString *month = arr[1];
-    NSString *day = arr[2];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@/%@/%@/%@", HSYBaseUrl, year, month, day];
-    
-    NSURL *url = [NSURL URLWithString:urlStr];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        
-        NSDictionary *jsonDict = responseObject;
-        NSDictionary *results = jsonDict[@"results"];
-        
-        HSYRestDateModel *dateModel = [[HSYRestDateModel alloc] initWithParam:results];
-        dateModel.dateStr = dateStr;
-        dateModel.headerTitle = [weakSelf formatWithYear:year month:month day:day];
-        
-        //保存到数据库
-        HSYCommonDBModel *dbModel = [[HSYCommonDBModel alloc] init];
-        dbModel.dateStr = dateStr;
-        dbModel.headerTitle = dateModel.headerTitle;
-        dbModel.results = [FYUtils JSONStringWithDictionary:results];
-        [dbModel saveOrUpdate];
-        
-        NSMutableArray *temp = [NSMutableArray arrayWithArray:weakSelf.dateModels];
-        [temp addObject:dateModel];
-        weakSelf.dateModels = temp;
-        
-        self.page = self.page + 1;
-        
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        FYLog(@"Error: %@", error);
-        self.requestError = error;
-    }];
 }
 
-#pragma mark - 获取数据库数据
-
-- (void)loadFirstValueFromDB {
+- (NSArray*)loadValueFormDBWithPage:(NSInteger)page length:(NSInteger)length {
     
-    NSInteger page = [HSYUserDefaults integerForKey:HSYRestViewmodelSectionID] + 1;
-    NSArray *dbModels = [HSYCommonDBModel findWithFormat:@" LIMIT %ld", page];
+    
+    NSArray *dbModels = [HSYCommonDBModel findWithFormat:@" ORDER BY dateStr DESC LIMIT %ld", page + length];
+    NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:length];
+    
     if (!FYEmpty(dbModels)) {
-        NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:5];
         
         for (HSYCommonDBModel *dbModel in dbModels) {
             NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
@@ -298,45 +261,9 @@ static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
             
             [temp addObject:dateModel];
         }
-        
-        self.dateModels = temp;
-    } else {
-        [self requestFirstValue];
     }
     
-    self.page = (int)page;
-}
-
-- (void)loadMoreValueFromDB {
-    
-    if (self.page >= self.historys.count) {
-        self.noMore = YES;
-        return;
-    }
-    
-    NSString *dateStr = self.historys[self.page];
-    HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
-    
-    if (dbModel) {
-        NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
-        
-        HSYRestDateModel *dateModel = [[HSYRestDateModel alloc] initWithParam:dictResult];
-        dateModel.dateStr = dbModel.dateStr;
-        dateModel.headerTitle = dbModel.headerTitle;
-        
-        NSMutableArray *temp = [NSMutableArray arrayWithArray:self.dateModels];
-        [temp addObject:dateModel];
-        self.dateModels = temp;
-        
-        self.page = self.page + 1;
-    } else {
-        [self requestMoreValue];
-    }
-}
-
-#pragma mark - 获取headerTitle
-- (NSString*)formatWithYear:(NSString*)year month:(NSString*)month day:(NSString*)day {
-    return [NSString stringWithFormat:@"%@年%@月%@日", year, month, day];
+    return temp;
 }
 
 @end

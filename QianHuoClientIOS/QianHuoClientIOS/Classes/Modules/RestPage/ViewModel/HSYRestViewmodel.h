@@ -7,9 +7,8 @@
 //
 
 #import "HSYBaseViewmodel.h"
-#import "HSYLoadValueProtocol.h"
 
-@interface HSYRestViewmodel : HSYBaseViewmodel <HSYLoadValueProtocol>
+@interface HSYRestViewmodel : HSYBaseViewmodel 
 
 @property (nonatomic, strong) NSArray *dateModels;
 
@@ -22,8 +21,5 @@
 - (UIImage*)rowAvatarAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowDescAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowUrlAtIndexPath:(NSIndexPath *)indexPath;
-- (UIImage*)rowImageAtIndexPath:(NSIndexPath*)indexPath;
-
-- (NSIndexSet*)sectionShouldRefresh;
 
 @end

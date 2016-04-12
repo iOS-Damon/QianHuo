@@ -88,7 +88,7 @@ static NSString * const HSYLearningViewmodelHasReadID = @"HSYLearningViewmodelHa
 
 #pragma mark - override
 
-- (void)saveSection:(NSInteger)section {
+- (void)savePage:(NSInteger)section {
     [HSYUserDefaults setInteger:section forKey:HSYLearningViewmodelSectionID];
 }
 

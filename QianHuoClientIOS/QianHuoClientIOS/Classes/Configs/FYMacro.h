@@ -22,7 +22,9 @@
 
 #define FYClearNil(text) text == nil ? @"" : text 
 
-#define FYEmpty(a) (a == nil || a.count == 0)
+#define FYNull(a) [a isEqual:[NSNull null]]
+
+#define FYEmpty(a) (a == nil || [a isEqual:[NSNull null]] || a.count == 0)
 
 #import "UIColor+FY.h"
 #define FYColorBlack [UIColor colorWithHexString:@"37474F" alpha:1.0]
@@ -39,3 +41,8 @@
 #define FYLabSize3 (FYIsPad ? 21 : 16)
 #define FYLabSize4 (FYIsPad ? 24 : 19)
 #define FYLabSize5 (FYIsPad ? 27 : 22)
+
+#define FYWeakSelf(weakSelf)  __weak __typeof(&*self)weakSelf = self;
+
+#define FYNum(value) [NSNumber numberWithInteger:value]
+#define FYInt(value) [value integerValue];

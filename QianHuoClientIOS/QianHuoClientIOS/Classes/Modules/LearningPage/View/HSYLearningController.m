@@ -74,7 +74,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
     HSYCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
     cell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
     cell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
-    cell.hasRead = [self.viewmodel indexPathHasRead:indexPath];
+//    cell.hasRead = [self.viewmodel indexPathHasRead:indexPath];
     return cell;
 }
 
@@ -87,7 +87,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    [self.viewmodel saveSection:section];
+    [self.viewmodel savePage:section];
     
     HSYCommonHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYLearningTimeHeaderID];
     header.title = [self.viewmodel headerTitleInSection:section];
@@ -101,7 +101,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
     contentVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:contentVC animated:YES];
     
-    [self.viewmodel saveHasReadIndexPath:indexPath];
+//    [self.viewmodel saveHasReadIndexPath:indexPath];
 }
 
 #pragma mark - HSYBindingParamProtocol
@@ -123,19 +123,19 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
         [hint show];
     }];
     
-    [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
-        
-        if(object.isFirstLoad) {
-            CGFloat offsetY = [self.viewmodel loadOffsetY];
-            observer.tableView.contentOffset = CGPointMake(0, offsetY);
-        }
-    }];
+//    [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
+//        
+//        if(object.isFirstLoad) {
+////            CGFloat offsetY = [self.viewmodel loadOffsetY];
+////            observer.tableView.contentOffset = CGPointMake(0, offsetY);
+//        }
+//    }];
 }
 
 #pragma mark - Scroller View Delegate
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    CGPoint point = scrollView.contentOffset;
-    [self.viewmodel saveOffsetY:point.y];
-}
+//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+//    CGPoint point = scrollView.contentOffset;
+//    [self.viewmodel saveOffsetY:point.y];
+//}
 
 @end

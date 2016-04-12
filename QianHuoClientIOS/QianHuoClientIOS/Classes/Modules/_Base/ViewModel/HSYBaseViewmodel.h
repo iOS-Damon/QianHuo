@@ -7,20 +7,36 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HSYLoadValueProtocol.h"
+#import "HSYBindingParamProtocol.h"
+#import "FBKVOController.h"
 
-@interface HSYBaseViewmodel : NSObject
+@interface HSYBaseViewmodel : NSObject <HSYBindingParamProtocol, HSYLoadValueProtocol>
 
+//页数
+@property (nonatomic, assign) NSNumber *page;
 //请求错误
 @property (nonatomic, strong) NSError *requestError;
 //记录是否第一次加载
 @property (nonatomic, assign) BOOL isFirstLoad;
-//是否所有数据已经加载完毕，不能再下拉
+//KVO
+@property (nonatomic, strong) FBKVOController *KVOController;
+//数据清单
+@property (nonatomic, strong) NSArray *historys;
+//记录当前请求数
+@property (nonatomic, assign) NSNumber *requestCount;
+//提示没有更多
 @property (nonatomic, assign) BOOL noMore;
 
-- (void)saveSection:(NSInteger)section;
+- (void)savePage:(NSInteger)section;
+- (NSInteger)loadPage;
+
 - (void)saveOffsetY:(CGFloat)offsetY;
 - (CGFloat)loadOffsetY;
-- (void)saveHasReadIndexPath:(NSIndexPath*)path;
-- (BOOL)indexPathHasRead:(NSIndexPath*)path;
+
+- (NSString*)formatWithYear:(NSString*)year month:(NSString*)month day:(NSString*)day;
+
+- (void)addRequestCount;
+- (void)decRequestCount;
 
 @end

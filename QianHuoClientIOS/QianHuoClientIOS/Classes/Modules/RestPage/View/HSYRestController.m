@@ -71,7 +71,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 }
 
 - (void)pullUpRefresh:(id)sender {
-
+    [self.viewmodel loadMoreValue];
 }
 
 #pragma mark - HSYBindingParamProtocol
@@ -84,7 +84,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         [observer.refreshControl endRefreshing];
         [observer endPullUpRefresh];
         
-        observer.isRefreshing = NO;
+//        observer.isRefreshing = NO;
     }];
     
     [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
@@ -95,12 +95,15 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNetworkErrorHint duration:HSYHintDuration complete:nil];
         [hint show];
         
-        observer.isRefreshing = NO;
+//        observer.isRefreshing = NO;
     }];
     
     [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
         
         if(object.isFirstLoad) {
+//            NSInteger section = [observer.viewmodel loadSection];
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+//            [observer.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
             CGFloat offsetY = [self.viewmodel loadOffsetY];
             observer.tableView.contentOffset = CGPointMake(0, offsetY);
         }
@@ -112,8 +115,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
             [observer endPullUpRefresh];
             FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNoMoreHint duration:HSYHintDuration complete:nil];
             [hint show];
-            
-            observer.isRefreshing = NO;
+//            observer.isRefreshing = NO;
         }
     }];
 }
@@ -160,7 +162,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     //记录当前正在浏览的section 下次打开直接加载到此section
-    [self.viewmodel saveSection:section];
+//    [self.viewmodel saveSection:section];
     
     HSYCommonHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYRestHeaderID];
     header.title = [self.viewmodel headerTitleInSection:section];
@@ -187,29 +189,29 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 }
 
 #pragma mark - Scroller View Delegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [super scrollViewDidScroll:scrollView];
-    CGFloat viewH = scrollView.frameHeight;
-    CGFloat contentH = scrollView.contentSize.height;
-    CGFloat offsetY = scrollView.contentOffset.y;
-    CGFloat bottomH = contentH - offsetY - viewH;
-    NSLog(@"bottomH===%f", bottomH);
-    CGFloat pageH = [UIScreen screenLongSide];
-    NSLog(@"pageH===%f", pageH);
-    
-    if (offsetY - self.lastY > 0) { // 正在下拉
-        NSLog(@"---正在下拉---");
-        if (bottomH <= pageH) {
-            NSLog(@"---可以刷新吗---%d", self.isRefreshing);
-            if (!self.isRefreshing) {
-                NSLog(@"---刷新---");
-                self.isRefreshing = YES;
-                [self.viewmodel loadMoreValue];
-            }
-        }
-    }
-    self.lastY = offsetY;
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    [super scrollViewDidScroll:scrollView];
+//    CGFloat viewH = scrollView.frameHeight;
+//    CGFloat contentH = scrollView.contentSize.height;
+//    CGFloat offsetY = scrollView.contentOffset.y;
+//    CGFloat bottomH = contentH - offsetY - viewH;
+//    NSLog(@"bottomH===%f", bottomH);
+//    CGFloat pageH = [UIScreen screenLongSide];
+//    NSLog(@"pageH===%f", pageH);
+//    
+//    if (offsetY - self.lastY > 0) { // 正在下拉
+//        NSLog(@"---正在下拉---");
+//        if (bottomH <= pageH) {
+//            NSLog(@"---可以刷新吗---%d", self.isRefreshing);
+//            if (!self.isRefreshing) {
+//                NSLog(@"---刷新---");
+//                self.isRefreshing = YES;
+//                [self.viewmodel loadMoreValue];
+//            }
+//        }
+//    }
+//    self.lastY = offsetY;
+//}
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     CGPoint point = scrollView.contentOffset;
