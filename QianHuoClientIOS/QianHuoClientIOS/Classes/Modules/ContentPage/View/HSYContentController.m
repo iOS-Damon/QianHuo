@@ -125,7 +125,7 @@ static NSString * const HSYContentControllerLoadingID = @"HSYContentControllerLo
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [[HSYLoadingManage sharedInstance] showLoadingForParentView:self.view withKey:HSYContentControllerLoadingID];
+    [[HSYLoadingManage sharedInstance] showLoadingForParentView:self.view withKey:HSYContentControllerLoadingID backgroundColor:[UIColor whiteColor]];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -138,7 +138,7 @@ static NSString * const HSYContentControllerLoadingID = @"HSYContentControllerLo
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-
+    [[HSYLoadingManage sharedInstance] hideLoadingWithKey:HSYContentControllerLoadingID];
 }
 
 #pragma mark - dealloc

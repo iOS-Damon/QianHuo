@@ -61,6 +61,12 @@ static NSString *const kHSYTopWindowLoading = @"kHSYTopWindowLoading";
     [self.loadings setObject:loading forKey:key];
 }
 
+- (void)showLoadingForParentView:(UIView *)parentView withKey:(NSString*)key backgroundColor:(UIColor*)color {
+    [self showLoadingForParentView:parentView withKey:key];
+    HSYLoading *loading = [self.loadings objectForKey:key];
+    loading.backgroundColor = color;
+}
+
 - (void)hideLoadingWithKey:(NSString*)key {
     HSYLoading *loading = [self.loadings objectForKey:key];
     if (!loading) {

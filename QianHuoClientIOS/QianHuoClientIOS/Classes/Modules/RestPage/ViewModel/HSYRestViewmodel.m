@@ -142,17 +142,17 @@ static int const HSYRestViewmodelPageStep = 10;
 - (void)loadFirstValue {
     NSInteger page = [self loadPage];
     self.historys = [HSYUserDefaults objectForKey:HSYHistoryID];
-    self.page = FYNum(page);
+    self.page = @(page);
     self.isFirstLoad = YES;
 }
 
 - (void)loadNewValue {
-    self.page = FYNum(0);
+    self.page = @(0);
     [self savePage:[self.page integerValue]];
 }
 
 - (void)loadMoreValue {
-    self.page = FYNum([self.page integerValue] + HSYRestViewmodelPageStep);
+    self.page = @([self.page integerValue] + HSYRestViewmodelPageStep);
     [self savePage:[self.page integerValue]];
 }
 
@@ -162,9 +162,9 @@ static int const HSYRestViewmodelPageStep = 10;
     [self.KVOController observe:self keyPath:@"page" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestViewmodel *observer, id object, NSDictionary *change) {
         
         NSNumber *oldPage = change[NSKeyValueChangeOldKey];
-        oldPage = FYNull(oldPage) ? FYNum(0) : oldPage;
+        oldPage = FYNull(oldPage) ? @(0) : oldPage;
         NSNumber *newPage = change[NSKeyValueChangeNewKey];
-        newPage = FYNull(newPage) ? FYNum(0) : newPage;
+        newPage = FYNull(newPage) ? @(0) : newPage;
         
         if ([newPage intValue] == 0) {
             [observer requestHistory];
@@ -176,9 +176,9 @@ static int const HSYRestViewmodelPageStep = 10;
     [self.KVOController observe:self keyPath:@"requestCount" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestViewmodel *observer, id object, NSDictionary *change) {
         
         NSNumber *oldCount = change[NSKeyValueChangeOldKey];
-        oldCount = FYNull(oldCount) ? FYNum(0) : oldCount;
+        oldCount = FYNull(oldCount) ? @(0) : oldCount;
         NSNumber *newCount = change[NSKeyValueChangeNewKey];
-        newCount = FYNull(newCount) ? FYNum(0) : newCount;
+        newCount = FYNull(newCount) ? @(0) : newCount;
         if ([oldCount intValue] == 1 && [newCount intValue] == 0) { //网络请求结束
             observer.dateModels = [observer loadValueFormDBWithPage:[observer.page intValue] length:HSYRestViewmodelPageStep];
         }
@@ -220,8 +220,13 @@ static int const HSYRestViewmodelPageStep = 10;
 
 - (void)requestValueWithPage:(NSInteger)page length:(NSInteger)length {
     
-    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(0, page + length)];
-    self.requestCount = FYNum(tempHistoary.count);
+    NSInteger tempPage = page + length;
+    if (tempPage > self.historys.count) {
+        tempPage = self.historys.count;
+    }
+    
+    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(0, tempPage)];
+    self.requestCount = @(tempHistoary.count);
     
     FYWeakSelf(weakSelf);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];

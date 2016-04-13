@@ -10,4 +10,6 @@
 
 @interface HSYLoading : UIView
 
+@property (nonatomic, strong) UIColor *bgColor;
+
 @end

@@ -65,12 +65,12 @@
 #pragma mark - 请求数加减
 - (void)addRequestCount {
     int tempCount = [self.requestCount intValue] + 1;
-    self.requestCount = FYNum(tempCount);
+    self.requestCount = @(tempCount);
 }
 
 - (void)decRequestCount {
     int tempCount = [self.requestCount intValue] - 1;
-    self.requestCount = FYNum(tempCount);
+    self.requestCount = @(tempCount);
 }
 
 #pragma mark - 获取headerTitle

@@ -173,6 +173,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         contentVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:contentVC animated:YES];
         
+        //标记为已读
         [self.viewmodel saveRowHasRead:indexPath];
     }
 }

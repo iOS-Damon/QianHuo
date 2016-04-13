@@ -13,6 +13,7 @@
 
 + (instancetype)sharedInstance;
 - (void)showLoadingForParentView:(UIView *)parentView withKey:(NSString*)key;
+- (void)showLoadingForParentView:(UIView *)parentView withKey:(NSString*)key backgroundColor:(UIColor*)color;
 - (void)hideLoadingWithKey:(NSString*)key;
 - (void)showLoadingForWindow;
 - (void)hideLoadingForWindow;

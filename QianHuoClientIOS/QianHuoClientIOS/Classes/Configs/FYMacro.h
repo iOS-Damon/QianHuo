@@ -43,6 +43,3 @@
 #define FYLabSize5 (FYIsPad ? 27 : 22)
 
 #define FYWeakSelf(weakSelf)  __weak __typeof(&*self)weakSelf = self;
-
-#define FYNum(value) [NSNumber numberWithInteger:value]
-#define FYInt(value) [value integerValue];

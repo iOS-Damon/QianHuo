@@ -32,7 +32,7 @@ static NSString * const HSYLoadingImage = @"Logo.png";
 }
 
 - (void)initBackground {
-    [self setBackgroundColor:[UIColor clearColor]];
+    self.backgroundColor = [UIColor clearColor];
 }
 
 - (void)initLoadingLayer {
@@ -64,6 +64,11 @@ static NSString * const HSYLoadingImage = @"Logo.png";
     [animation setDuration:3.0];
     [animation setRepeatCount:HUGE_VALF];
     [imageLayer addAnimation:animation forKey:nil];
+}
+
+- (void)setBgColor:(UIColor *)bgColor {
+    _bgColor = bgColor;
+    self.backgroundColor = bgColor;
 }
 
 - (void)drawRect:(CGRect)rect {

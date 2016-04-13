@@ -106,9 +106,6 @@ static CGFloat const HSYReturnTopBtnBottomEdgeScale = 0.2;
     [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
-- (void)setupReturnToTopBtn:(UIView*)parentView {
-}
-
 #pragma mark - TableView Delegate
 /**
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
