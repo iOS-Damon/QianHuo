@@ -86,6 +86,8 @@
 		147569D81CA8DDDA009DB7E7 /* HSYBaseViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569D71CA8DDDA009DB7E7 /* HSYBaseViewmodel.m */; };
 		147569E11CA91193009DB7E7 /* AvatarIOS.png in Resources */ = {isa = PBXBuildFile; fileRef = 147569DF1CA91193009DB7E7 /* AvatarIOS.png */; };
 		147569E81CA92935009DB7E7 /* HSYBaseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569E71CA92935009DB7E7 /* HSYBaseTableCell.m */; };
+		147FC1B51CC27DE400FC416E /* HSYCommonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147FC1B41CC27DE400FC416E /* HSYCommonModel.m */; };
+		147FC1B81CC35FCB00FC416E /* HSYCommenDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147FC1B71CC35FCB00FC416E /* HSYCommenDateModel.m */; };
 		37A849702814596453715742 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03DAC4DD205D78414B37B47C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -247,6 +249,10 @@
 		147569E71CA92935009DB7E7 /* HSYBaseTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYBaseTableCell.m; sourceTree = "<group>"; };
 		147569EC1CAA5287009DB7E7 /* HSYLoadValueProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLoadValueProtocol.h; sourceTree = "<group>"; };
 		147569ED1CAA5411009DB7E7 /* HSYBindingParamProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYBindingParamProtocol.h; sourceTree = "<group>"; };
+		147FC1B31CC27DE400FC416E /* HSYCommonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYCommonModel.h; sourceTree = "<group>"; };
+		147FC1B41CC27DE400FC416E /* HSYCommonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYCommonModel.m; sourceTree = "<group>"; };
+		147FC1B61CC35FCB00FC416E /* HSYCommenDateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYCommenDateModel.h; sourceTree = "<group>"; };
+		147FC1B71CC35FCB00FC416E /* HSYCommenDateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYCommenDateModel.m; sourceTree = "<group>"; };
 		8B86759DBF12AF1C212111CF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E8B623B7F92A53061104487D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -385,6 +391,10 @@
 			children = (
 				143A412C1CAE51CF007C0B9F /* HSYCommonDBModel.h */,
 				143A412D1CAE51CF007C0B9F /* HSYCommonDBModel.m */,
+				147FC1B31CC27DE400FC416E /* HSYCommonModel.h */,
+				147FC1B41CC27DE400FC416E /* HSYCommonModel.m */,
+				147FC1B61CC35FCB00FC416E /* HSYCommenDateModel.h */,
+				147FC1B71CC35FCB00FC416E /* HSYCommenDateModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1014,6 +1024,7 @@
 				1475699C1CA54186009DB7E7 /* HSYAttributedString.m in Sources */,
 				147569891CA54155009DB7E7 /* UIImage+FY.m in Sources */,
 				1475698B1CA54155009DB7E7 /* UIView+FY.m in Sources */,
+				147FC1B81CC35FCB00FC416E /* HSYCommenDateModel.m in Sources */,
 				143A40D21CACC5FF007C0B9F /* HSYLearningController.m in Sources */,
 				143A40CE1CACC5FF007C0B9F /* HSYLearningCellModel.m in Sources */,
 				143A40DB1CACC61A007C0B9F /* HSYRestController.m in Sources */,
@@ -1035,6 +1046,7 @@
 				147569D21CA8D8C5009DB7E7 /* HSYBaseTableController.m in Sources */,
 				143A40F11CADF167007C0B9F /* HSYLoadingManage.m in Sources */,
 				143A41181CAE1B0D007C0B9F /* HSYRestDateModel.m in Sources */,
+				147FC1B51CC27DE400FC416E /* HSYCommonModel.m in Sources */,
 				143A40B71CACC02D007C0B9F /* FYHintLayer.m in Sources */,
 				143A413F1CAE6E0A007C0B9F /* UIImageView+MHFacebookImageViewer.m in Sources */,
 				143A412E1CAE51CF007C0B9F /* HSYCommonDBModel.m in Sources */,
