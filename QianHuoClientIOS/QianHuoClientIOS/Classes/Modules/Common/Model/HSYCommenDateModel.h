@@ -21,7 +21,9 @@
 @property (nonatomic, strong) NSArray <HSYCommonModel*> *vedios;
 @property (nonatomic, strong) NSArray <HSYCommonModel*> *fulis;
 
-- (void)saveWithParams:(NSDictionary*)params dateStr:(NSString*)dateStr;
-- (void)loadWithDateStr:(NSString*)dateStr;
++ (void)saveWithParams:(NSDictionary*)params dateStr:(NSString*)dateStr;
++ (BOOL)hasValueWithDateStr:(NSString*)dateStr;
+
+- (instancetype)initWithDateStr:(NSString*)dateStr;
 
 @end

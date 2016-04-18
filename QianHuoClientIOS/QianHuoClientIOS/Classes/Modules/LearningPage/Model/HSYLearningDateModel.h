@@ -7,15 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HSYBaseModel.h"
+#import "HSYCommenDateModel.h"
 #import "HSYLearningCellModel.h"
 
-@interface HSYLearningDateModel : HSYBaseModel
+@interface HSYLearningDateModel : HSYCommenDateModel
 
-@property (nonatomic, strong) NSString *dateStr;
-@property (nonatomic, strong) NSString *headerTitle;
-@property (nonatomic, strong) NSArray<HSYLearningCellModel *> *cellModels;
-
-- (instancetype)initWithParam:(NSDictionary*)param;
+@property (nonatomic, strong) NSArray *cellModels;
 
 @end

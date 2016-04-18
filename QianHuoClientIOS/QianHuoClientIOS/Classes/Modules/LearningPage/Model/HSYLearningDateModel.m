@@ -10,63 +10,16 @@
 
 @implementation HSYLearningDateModel
 
-- (instancetype)initWithParam:(NSDictionary*)param {
-    self = [super init];
+- (instancetype)initWithDateStr:(NSString *)dateStr {
+    self = [super initWithDateStr:dateStr];
     if (self) {
-        self.dateStr = @"";
-        self.headerTitle = @"";
-        
-        NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:5];
-        
-        NSArray *android = param[@"Android"];
-        if(!FYEmpty(android)) {
-            for (NSDictionary *dict in android) {
-                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
-                [temp addObject:cellModel];
-            }
-        }
-        
-        NSArray *ios = param[@"iOS"];
-        if(!FYEmpty(android)) {
-            for (NSDictionary *dict in ios) {
-                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
-                [temp addObject:cellModel];
-            }
-        }
-        
-        NSArray *app = param[@"App"];
-        if(!FYEmpty(android)) {
-            for (NSDictionary *dict in app) {
-                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
-                [temp addObject:cellModel];
-            }
-        }
-        
-        NSArray *html = param[@"前端"];
-        if(!FYEmpty(android)) {
-            for (NSDictionary *dict in html) {
-                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
-                [temp addObject:cellModel];
-            }
-        }
-        
-        NSArray *resource = param[@"拓展资源"];
-        if(!FYEmpty(android)) {
-            for (NSDictionary *dict in resource) {
-                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
-                [temp addObject:cellModel];
-            }
-        }
-        
-        NSArray *introduce = param[@"瞎推荐"];
-        if(!FYEmpty(android)) {
-            for (NSDictionary *dict in introduce) {
-                HSYLearningCellModel *cellModel = [[HSYLearningCellModel alloc] initWithParam:dict];
-                [temp addObject:cellModel];
-            }
-        }
-        
-        self.cellModels = temp;
+        self.cellModels = [[NSArray alloc] init];
+        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.androids];
+        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.ioses];
+        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.appes];
+        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.htmls];
+        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.resources];
+        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.introduces];
     }
     return self;
 }

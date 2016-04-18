@@ -229,7 +229,7 @@
 
 - (BOOL)saveOrUpdateByColumnName:(NSString*)columnName AndColumnValue:(NSString*)columnValue
 {
-    id record = [self.class findFirstByCriteria:[NSString stringWithFormat:@"where %@ = %@",columnName,columnValue]];
+    id record = [self.class findFirstByCriteria:[NSString stringWithFormat:@"where %@ = '%@'",columnName,columnValue]];
     if (record) {
         id primaryValue = [record valueForKey:primaryId]; //取到了主键PK
         if ([primaryValue intValue] <= 0) {

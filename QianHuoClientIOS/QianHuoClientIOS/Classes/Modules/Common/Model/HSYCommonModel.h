@@ -16,9 +16,10 @@
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *avatarName;
 @property (nonatomic, assign) BOOL isLike;
 @property (nonatomic, assign) BOOL hasRead;
 
-- (void)saveWithParams:(NSDictionary*)params dateStr:(NSString*)dateStr;
+- (instancetype)initWithParams:(NSDictionary*)params dateStr:(NSString*)dateStr;
 
 @end

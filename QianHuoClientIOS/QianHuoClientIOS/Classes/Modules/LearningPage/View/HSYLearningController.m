@@ -51,7 +51,6 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.navigationController.toolbarHidden = YES;
-    [self.tableView reloadData];
 }
 
 - (void)pullDownRefresh:(id)sender {
@@ -104,6 +103,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
     
     //标记为已读
     [self.viewmodel saveRowHasRead:indexPath];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
 }
 
 #pragma mark - HSYBindingParamProtocol

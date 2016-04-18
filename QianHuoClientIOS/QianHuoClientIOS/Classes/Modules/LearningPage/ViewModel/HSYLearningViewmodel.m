@@ -14,6 +14,7 @@
 #import "AFNetworking.h"
 #import "HSYUserDefaults.h"
 #import "HSYCommonDBModel.h"
+#import "HSYCommenDateModel.h"
 
 static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffsetY";
 static NSString * const HSYLearningViewmodelPageID = @"HSYLearningViewmodelPageID";
@@ -49,48 +50,35 @@ static int const HSYLearningViewmodelPageStep = 10;
 }
 
 - (UIImage*)rowAvatarAtIndexPath:(NSIndexPath *)indexPath {
+    
     HSYLearningDateModel *dateModel = self.dateModels[indexPath.section];
-    HSYLearningCellModel *cellModel = dateModel.cellModels[indexPath.row];
-    if ([cellModel.type isEqualToString:@"Android"]) {
-        return [UIImage imageNamed:@"AvatarAndroid.png"];
-    } else if([cellModel.type isEqualToString:@"iOS"]) {
-        return [UIImage imageNamed:@"AvatarIOS.png"];
-    } else if([cellModel.type isEqualToString:@"App"]) {
-        return [UIImage imageNamed:@"AvatarApp.png"];
-    } else if([cellModel.type isEqualToString:@"前端"]) {
-        return [UIImage imageNamed:@"AvatarHtml.png"];
-    } else if([cellModel.type isEqualToString:@"拓展资源"]) {
-        return [UIImage imageNamed:@"AvatarResource.png"];
-    } else if([cellModel.type isEqualToString:@"瞎推荐"]) {
-        return [UIImage imageNamed:@"AvatarIntroduce.png"];
-    } else {
-        return [UIImage imageNamed:@""];
-    }
-    return [UIImage imageNamed:@""];
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    return [UIImage imageNamed:cellModel.avatarName];
 }
 
 - (NSString*)rowDescAtIndexPath:(NSIndexPath *)indexPath {
     HSYLearningDateModel *dateModel = self.dateModels[indexPath.section];
-    HSYLearningCellModel *cellModel = dateModel.cellModels[indexPath.row];
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
     return cellModel.desc;
 }
 
 - (NSString*)rowUrlAtIndexPath:(NSIndexPath *)indexPath {
     HSYLearningDateModel *dateModel = self.dateModels[indexPath.section];
-    HSYLearningCellModel *cellModel = dateModel.cellModels[indexPath.row];
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
     return cellModel.url;
 }
 
 - (BOOL)rowHasRead:(NSIndexPath *)indexPath {
     HSYLearningDateModel *dateModel = self.dateModels[indexPath.section];
-    HSYLearningCellModel *cellModel = dateModel.cellModels[indexPath.row];
-    return [HSYUserDefaults BoolForKey:cellModel.cellId];
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    return cellModel.hasRead;
 }
 
 - (void)saveRowHasRead:(NSIndexPath *)indexPath {
     HSYLearningDateModel *dateModel = self.dateModels[indexPath.section];
-    HSYLearningCellModel *cellModel = dateModel.cellModels[indexPath.row];
-    [HSYUserDefaults setBool:YES forKey:cellModel.cellId];
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    cellModel.hasRead = YES;
+    [cellModel update];
 }
 
 #pragma mark - override
@@ -115,7 +103,12 @@ static int const HSYLearningViewmodelPageStep = 10;
     
     NSInteger page = [self loadPage];
     self.historys = [HSYUserDefaults objectForKey:HSYHistoryID];
-    self.page = @(page);
+    if (page < HSYLearningViewmodelPageStep) {
+        page = HSYLearningViewmodelPageStep;
+    } else {
+        page = page - (page % HSYLearningViewmodelPageStep) + HSYLearningViewmodelPageStep;
+    }
+    [self requestValueWithPage:0 length:page];
     self.isFirstLoad = YES;
 }
 
@@ -154,7 +147,7 @@ static int const HSYLearningViewmodelPageStep = 10;
         NSNumber *newCount = change[NSKeyValueChangeNewKey];
         newCount = FYNull(newCount) ? @(0) : newCount;
         if ([oldCount intValue] == 1 && [newCount intValue] == 0) { //网络请求结束
-            observer.dateModels = [observer loadValueFormDBWithPage:[observer.page intValue] length:HSYLearningViewmodelPageStep];
+            [observer loadValueFormDBWithPage:[observer.page integerValue] length:HSYLearningViewmodelPageStep];
         }
     }];
 }
@@ -174,7 +167,7 @@ static int const HSYLearningViewmodelPageStep = 10;
         weakSelf.historys = results;
         [HSYUserDefaults setObject:weakSelf.historys forKey:HSYHistoryID];
         
-        [weakSelf requestValueWithPage:0 length:HSYLearningViewmodelPageStep];
+        [weakSelf requestValueWithPage:[weakSelf.page integerValue] length:HSYLearningViewmodelPageStep];
         
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         FYLog(@"Error: %@", error);
@@ -199,7 +192,7 @@ static int const HSYLearningViewmodelPageStep = 10;
         tempPage = self.historys.count;
     }
     
-    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(0, tempPage)];
+    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, tempPage)];
     self.requestCount = @(tempHistoary.count);
     
     FYWeakSelf(weakSelf);
@@ -207,7 +200,7 @@ static int const HSYLearningViewmodelPageStep = 10;
     
     for (NSString *dateStr in tempHistoary) {
         
-        if (![self hasValueInDB:dateStr]) {
+        if (![HSYLearningDateModel hasValueWithDateStr:dateStr]) {
             
             NSArray *arr = [dateStr componentsSeparatedByString:@"-"];
             NSString *year = arr[0];
@@ -223,12 +216,7 @@ static int const HSYLearningViewmodelPageStep = 10;
                 NSDictionary *jsonDict = responseObject;
                 NSDictionary *results = jsonDict[@"results"];
                 
-                //保存到数据库
-                HSYCommonDBModel *dbModel = [[HSYCommonDBModel alloc] init];
-                dbModel.dateStr = dateStr;
-                dbModel.headerTitle = [weakSelf formatWithYear:year month:month day:day];
-                dbModel.results = [FYUtils JSONStringWithDictionary:results];
-                [dbModel saveOrUpdateByColumnName:@"dateStr" AndColumnValue:dateStr];
+                [HSYLearningDateModel saveWithParams:results dateStr:dateStr];
                 
                 [weakSelf decRequestCount];
                 
@@ -246,26 +234,26 @@ static int const HSYLearningViewmodelPageStep = 10;
     }
 }
 
-- (NSArray*)loadValueFormDBWithPage:(NSInteger)page length:(NSInteger)length {
+- (void)loadValueFormDBWithPage:(NSInteger)page length:(NSInteger)length {
     
+    NSMutableArray *tempArr = [[NSMutableArray alloc] initWithCapacity:length];
     
-    NSArray *dbModels = [HSYCommonDBModel findWithFormat:@" ORDER BY dateStr DESC LIMIT %ld", page + length];
-    NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:length];
-    
-    if (!FYEmpty(dbModels)) {
-        
-        for (HSYCommonDBModel *dbModel in dbModels) {
-            NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
-            
-            HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithParam:dictResult];
-            dateModel.dateStr = dbModel.dateStr;
-            dateModel.headerTitle = dbModel.headerTitle;
-            
-            [temp addObject:dateModel];
-        }
+    NSInteger tempPage = page + length;
+    if (tempPage > self.historys.count) {
+        tempPage = self.historys.count;
     }
     
-    return temp;
+    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, tempPage)];
+    for (NSString *dateStr in tempHistoary) {
+        HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithDateStr:dateStr];
+        [tempArr addObject:dateModel];
+    }
+    
+    if (page == 0) {
+        self.dateModels = tempArr;
+    } else {
+        self.dateModels = [self.dateModels arrayByAddingObjectsFromArray:tempArr];
+    }
 }
 
 @end
