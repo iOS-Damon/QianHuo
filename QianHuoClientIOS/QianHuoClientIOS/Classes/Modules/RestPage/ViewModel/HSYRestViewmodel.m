@@ -7,7 +7,6 @@
 //
 
 #import "HSYRestViewmodel.h"
-#import "HSYCommonDBModel.h"
 #import "FYUtils.h"
 #import "HSYRestDateModel.h"
 #import "AFNetworking.h"
@@ -90,7 +89,6 @@ static int const HSYRestViewmodelPageStep = 10;
 }
 
 #pragma mark - Override
-
 - (void)savePage:(NSInteger)section {
     [HSYUserDefaults setInteger:section forKey:HSYRestViewmodelPageID];
 }

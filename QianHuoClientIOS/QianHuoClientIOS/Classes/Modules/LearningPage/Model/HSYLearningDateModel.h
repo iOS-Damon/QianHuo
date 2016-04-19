@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "HSYCommenDateModel.h"
-#import "HSYLearningCellModel.h"
 
 @interface HSYLearningDateModel : HSYCommenDateModel
 

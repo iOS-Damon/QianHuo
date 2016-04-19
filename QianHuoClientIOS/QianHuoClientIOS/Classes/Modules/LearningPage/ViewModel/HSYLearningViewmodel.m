@@ -13,7 +13,6 @@
 #import "FYUtils.h"
 #import "AFNetworking.h"
 #import "HSYUserDefaults.h"
-#import "HSYCommonDBModel.h"
 #import "HSYCommenDateModel.h"
 
 static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffsetY";
@@ -100,31 +99,26 @@ static int const HSYLearningViewmodelPageStep = 10;
 
 #pragma HSYLoadValueProtocol
 - (void)loadFirstValue {
+    self.isFirstLoad = YES;
     self.historys = [HSYUserDefaults objectForKey:HSYHistoryID];
     if (FYEmpty(self.historys)) {
         [self loadNewValue];
     } else {
-        //        NSInteger page = [self loadPage];
-        //        if (page == 0) {
-        //            [self requestValueWithPage:0 length:HSYRestViewmodelPageStep];
-        //        } else {
-        //            [self requestValueWithPage:0 length:page];
-        //        }
-        //        self.page = @(page);
         self.page = [self loadPage];
-        [self requestValueWithPage:self.page length:HSYLearningViewmodelPageStep];
+        [self requestValueWithPage:0 length:self.page + HSYLearningViewmodelPageStep];
     }
-    self.isFirstLoad = YES;
 }
 
 - (void)loadNewValue {
+    self.isFirstLoad = NO;
     self.page = 0;
     [self requestHistory];
     [self savePage:self.page];
 }
 
 - (void)loadMoreValue {
-    self.page = self.page+ HSYLearningViewmodelPageStep;
+    self.isFirstLoad = NO;
+    self.page = self.page + HSYLearningViewmodelPageStep;
     [self requestValueWithPage:self.page length:HSYLearningViewmodelPageStep];
     [self savePage:self.page];
 }
@@ -133,19 +127,6 @@ static int const HSYLearningViewmodelPageStep = 10;
 - (void)bindingParam {
     
     self.KVOController = [FBKVOController controllerWithObserver:self];
-//    [self.KVOController observe:self keyPath:@"page" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYLearningViewmodel *observer, id object, NSDictionary *change) {
-//        
-//        NSNumber *oldPage = change[NSKeyValueChangeOldKey];
-//        oldPage = FYNull(oldPage) ? @(0) : oldPage;
-//        NSNumber *newPage = change[NSKeyValueChangeNewKey];
-//        newPage = FYNull(newPage) ? @(0) : newPage;
-//        
-//        if ([newPage intValue] == 0) {
-//            [observer requestHistory];
-//        } else {
-//            [observer requestValueWithPage:[newPage integerValue] length:HSYLearningViewmodelPageStep];
-//        }
-//    }];
     
     [self.KVOController observe:self keyPath:@"requestCount" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYLearningViewmodel *observer, id object, NSDictionary *change) {
         
@@ -154,7 +135,11 @@ static int const HSYLearningViewmodelPageStep = 10;
         NSNumber *newCount = change[NSKeyValueChangeNewKey];
         newCount = FYNull(newCount) ? @(0) : newCount;
         if ([oldCount intValue] == 1 && [newCount intValue] == 0) { //网络请求结束
-            [observer loadValueFormDBWithPage:observer.page length:HSYLearningViewmodelPageStep];
+            if (observer.isFirstLoad) {
+                [observer loadValueFormDBWithPage:0 length:observer.page + HSYLearningViewmodelPageStep];
+            } else {
+                [observer loadValueFormDBWithPage:observer.page length:HSYLearningViewmodelPageStep];
+            }
         }
     }];
 }
@@ -186,10 +171,10 @@ static int const HSYLearningViewmodelPageStep = 10;
     
     NSInteger tempPage = page + length;
     if (tempPage > self.historys.count) {
-        tempPage = self.historys.count;
+        length = length - (tempPage - self.historys.count);
     }
     
-    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, tempPage)];
+    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, length)];
     self.requestCount = @(tempHistoary.count);
     
     FYWeakSelf(weakSelf);
@@ -237,10 +222,10 @@ static int const HSYLearningViewmodelPageStep = 10;
     
     NSInteger tempPage = page + length;
     if (tempPage > self.historys.count) {
-        tempPage = self.historys.count;
+        length = length - (tempPage - self.historys.count);
     }
     
-    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, tempPage)];
+    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, length)];
     for (NSString *dateStr in tempHistoary) {
         HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithDateStr:dateStr];
         [tempArr addObject:dateModel];
