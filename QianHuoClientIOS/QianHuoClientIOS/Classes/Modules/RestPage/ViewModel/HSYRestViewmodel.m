@@ -45,79 +45,48 @@ static int const HSYRestViewmodelPageStep = 10;
 
 - (NSInteger)rowsCountInSection:(NSInteger)section {
     HSYRestDateModel *dateModel = self.dateModels[section];
-    return dateModel.fuliModels.count + dateModel.vedioModels.count;
+    return dateModel.cellModels.count;
 }
 
 - (NSInteger)rowsFuliCountInSection:(NSInteger)section {
     HSYRestDateModel *dateModel = self.dateModels[section];
-    return dateModel.fuliModels.count;
+    return dateModel.fulis.count;
 }
 
 - (NSInteger)rowsVedioCountInSection:(NSInteger)section {
     HSYRestDateModel *dateModel = self.dateModels[section];
-    return dateModel.vedioModels.count;
+    return dateModel.vedios.count;
 }
 
 - (UIImage*)rowAvatarAtIndexPath:(NSIndexPath *)indexPath {
-    
     HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
-    
-    if (indexPath.row >= dateModel.fuliModels.count) {
-        NSInteger vedioIndex = indexPath.row - dateModel.fuliModels.count;
-        HSYRestVedioModel *vedioModel = dateModel.vedioModels[vedioIndex];
-        if ([vedioModel.type isEqualToString:@"休息视频"]) {
-            return [UIImage imageNamed:@"AvatarVedio.png"];
-        }
-    }
-    return nil;
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    return [UIImage imageNamed:cellModel.avatarName];
 }
 
 - (NSString*)rowDescAtIndexPath:(NSIndexPath *)indexPath {
-    
     HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
-    if (indexPath.row >= dateModel.fuliModels.count) {
-        NSInteger vedioIndex = indexPath.row - dateModel.fuliModels.count;
-        HSYRestVedioModel *vedioModel = dateModel.vedioModels[vedioIndex];
-        return vedioModel.desc;
-    }
-    return @"";
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    return cellModel.desc;
 }
 
 - (NSString*)rowUrlAtIndexPath:(NSIndexPath *)indexPath {
-    
     HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
-    if (indexPath.row < dateModel.fuliModels.count) {
-        HSYRestFuliModel *fuliModel = dateModel.fuliModels[indexPath.row];
-        return fuliModel.url;
-    } else {
-        NSInteger vedioIndex = indexPath.row - dateModel.fuliModels.count;
-        HSYRestVedioModel *vedioModel = dateModel.vedioModels[vedioIndex];
-        return vedioModel.url;
-    }
-    return @"";
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    return cellModel.url;
 }
 
 - (BOOL)rowHasRead:(NSIndexPath *)indexPath {
     HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
-    if (indexPath.row < dateModel.fuliModels.count) {
-        return NO;
-    } else {
-        NSInteger vedioIndex = indexPath.row - dateModel.fuliModels.count;
-        HSYRestVedioModel *vedioModel = dateModel.vedioModels[vedioIndex];
-        return [HSYUserDefaults BoolForKey:vedioModel.cellId];
-    }
-    return NO;
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    return cellModel.hasRead;
 }
 
 - (void)saveRowHasRead:(NSIndexPath *)indexPath {
     HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
-    if (indexPath.row < dateModel.fuliModels.count) {
-        
-    } else {
-        NSInteger vedioIndex = indexPath.row - dateModel.fuliModels.count;
-        HSYRestVedioModel *vedioModel = dateModel.vedioModels[vedioIndex];
-        [HSYUserDefaults setBool:YES forKey:vedioModel.cellId];
-    }
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    cellModel.hasRead = YES;
+    [cellModel update];
 }
 
 #pragma mark - Override
@@ -140,38 +109,33 @@ static int const HSYRestViewmodelPageStep = 10;
 
 #pragma HSYLoadValueProtocol
 - (void)loadFirstValue {
-    NSInteger page = [self loadPage];
-    self.historys = [HSYUserDefaults objectForKey:HSYHistoryID];
-    self.page = @(page);
     self.isFirstLoad = YES;
+    self.historys = [HSYUserDefaults objectForKey:HSYHistoryID];
+    if (FYEmpty(self.historys)) {
+        [self loadNewValue];
+    } else {
+        self.page = [self loadPage];
+        [self requestValueWithPage:0 length:self.page + HSYRestViewmodelPageStep];
+    }
 }
 
 - (void)loadNewValue {
-    self.page = @(0);
-    [self savePage:[self.page integerValue]];
+    self.isFirstLoad = NO;
+    self.page = 0;
+    [self requestHistory];
+    [self savePage:self.page];
 }
 
 - (void)loadMoreValue {
-    self.page = @([self.page integerValue] + HSYRestViewmodelPageStep);
-    [self savePage:[self.page integerValue]];
+    self.isFirstLoad = NO;
+    self.page = self.page + HSYRestViewmodelPageStep;
+    [self requestValueWithPage:self.page length:HSYRestViewmodelPageStep];
+    [self savePage:self.page];
 }
 
 #pragma HSYBindingParamProtocol
 - (void)bindingParam {
     self.KVOController = [FBKVOController controllerWithObserver:self];
-    [self.KVOController observe:self keyPath:@"page" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestViewmodel *observer, id object, NSDictionary *change) {
-        
-        NSNumber *oldPage = change[NSKeyValueChangeOldKey];
-        oldPage = FYNull(oldPage) ? @(0) : oldPage;
-        NSNumber *newPage = change[NSKeyValueChangeNewKey];
-        newPage = FYNull(newPage) ? @(0) : newPage;
-        
-        if ([newPage intValue] == 0) {
-            [observer requestHistory];
-        } else {
-            [observer requestValueWithPage:[newPage integerValue] length:HSYRestViewmodelPageStep];
-        }
-    }];
     
     [self.KVOController observe:self keyPath:@"requestCount" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestViewmodel *observer, id object, NSDictionary *change) {
         
@@ -180,7 +144,11 @@ static int const HSYRestViewmodelPageStep = 10;
         NSNumber *newCount = change[NSKeyValueChangeNewKey];
         newCount = FYNull(newCount) ? @(0) : newCount;
         if ([oldCount intValue] == 1 && [newCount intValue] == 0) { //网络请求结束
-            observer.dateModels = [observer loadValueFormDBWithPage:[observer.page intValue] length:HSYRestViewmodelPageStep];
+            if (observer.isFirstLoad) {
+                [observer loadValueFormDBWithPage:0 length:observer.page + HSYRestViewmodelPageStep];
+            } else {
+                [observer loadValueFormDBWithPage:observer.page length:HSYRestViewmodelPageStep];
+            }
         }
     }];
 }
@@ -200,7 +168,7 @@ static int const HSYRestViewmodelPageStep = 10;
         weakSelf.historys = results;
         [HSYUserDefaults setObject:weakSelf.historys forKey:HSYHistoryID];
         
-        [weakSelf requestValueWithPage:0 length:HSYRestViewmodelPageStep];
+        [weakSelf requestValueWithPage:weakSelf.page length:HSYRestViewmodelPageStep];
 
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         FYLog(@"Error: %@", error);
@@ -208,24 +176,14 @@ static int const HSYRestViewmodelPageStep = 10;
     }];
 }
 
-- (BOOL)hasValueInDB:(NSString*)dateStr {
-    
-    HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
-    if (dbModel) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
 - (void)requestValueWithPage:(NSInteger)page length:(NSInteger)length {
     
     NSInteger tempPage = page + length;
     if (tempPage > self.historys.count) {
-        tempPage = self.historys.count;
+        length = length - (tempPage - self.historys.count);
     }
     
-    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(0, tempPage)];
+    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, length)];
     self.requestCount = @(tempHistoary.count);
     
     FYWeakSelf(weakSelf);
@@ -233,7 +191,7 @@ static int const HSYRestViewmodelPageStep = 10;
     
     for (NSString *dateStr in tempHistoary) {
         
-        if (![self hasValueInDB:dateStr]) {
+        if (![HSYRestDateModel hasValueWithDateStr:dateStr]) {
             
             NSArray *arr = [dateStr componentsSeparatedByString:@"-"];
             NSString *year = arr[0];
@@ -249,12 +207,7 @@ static int const HSYRestViewmodelPageStep = 10;
                 NSDictionary *jsonDict = responseObject;
                 NSDictionary *results = jsonDict[@"results"];
                 
-                //保存到数据库
-                HSYCommonDBModel *dbModel = [[HSYCommonDBModel alloc] init];
-                dbModel.dateStr = dateStr;
-                dbModel.headerTitle = [weakSelf formatWithYear:year month:month day:day];
-                dbModel.results = [FYUtils JSONStringWithDictionary:results];
-                [dbModel saveOrUpdateByColumnName:@"dateStr" AndColumnValue:dateStr];
+                [HSYRestDateModel saveWithParams:results dateStr:dateStr];
                 
                 [weakSelf decRequestCount];
                 
@@ -272,26 +225,26 @@ static int const HSYRestViewmodelPageStep = 10;
     }
 }
 
-- (NSArray*)loadValueFormDBWithPage:(NSInteger)page length:(NSInteger)length {
+- (void)loadValueFormDBWithPage:(NSInteger)page length:(NSInteger)length {
     
+    NSMutableArray *tempArr = [[NSMutableArray alloc] initWithCapacity:length];
     
-    NSArray *dbModels = [HSYCommonDBModel findWithFormat:@" ORDER BY dateStr DESC LIMIT %ld", page + length];
-    NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:length];
-    
-    if (!FYEmpty(dbModels)) {
-        
-        for (HSYCommonDBModel *dbModel in dbModels) {
-            NSDictionary *dictResult = [FYUtils dictionaryWithJSONString:dbModel.results];
-            
-            HSYRestDateModel *dateModel = [[HSYRestDateModel alloc] initWithParam:dictResult];
-            dateModel.dateStr = dbModel.dateStr;
-            dateModel.headerTitle = dbModel.headerTitle;
-            
-            [temp addObject:dateModel];
-        }
+    NSInteger tempPage = page + length;
+    if (tempPage > self.historys.count) {
+        length = length - (tempPage - self.historys.count);
     }
     
-    return temp;
+    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, length)];
+    for (NSString *dateStr in tempHistoary) {
+        HSYRestDateModel *dateModel = [[HSYRestDateModel alloc] initWithDateStr:dateStr];
+        [tempArr addObject:dateModel];
+    }
+    
+    if (page == 0) {
+        self.dateModels = tempArr;
+    } else {
+        self.dateModels = [self.dateModels arrayByAddingObjectsFromArray:tempArr];
+    }
 }
 
 @end

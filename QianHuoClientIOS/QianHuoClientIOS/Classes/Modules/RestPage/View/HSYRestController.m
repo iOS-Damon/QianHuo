@@ -59,7 +59,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.navigationController.toolbarHidden = YES;
-    [self.tableView reloadData];
 }
 
 #pragma mark - Override HSYBaseTableController
@@ -175,6 +174,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         
         //标记为已读
         [self.viewmodel saveRowHasRead:indexPath];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
     }
 }
 

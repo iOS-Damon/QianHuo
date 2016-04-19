@@ -121,11 +121,12 @@ static NSString * const HSYContentControllerLoadingID = @"HSYContentControllerLo
 #pragma mark - UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    [[HSYLoadingManage sharedInstance] showLoadingForParentView:self.view withKey:HSYContentControllerLoadingID backgroundColor:[UIColor whiteColor]];
     return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [[HSYLoadingManage sharedInstance] showLoadingForParentView:self.view withKey:HSYContentControllerLoadingID backgroundColor:[UIColor whiteColor]];
+    
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {

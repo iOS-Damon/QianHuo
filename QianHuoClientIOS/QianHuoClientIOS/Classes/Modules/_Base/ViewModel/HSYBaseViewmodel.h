@@ -14,7 +14,7 @@
 @interface HSYBaseViewmodel : NSObject <HSYBindingParamProtocol, HSYLoadValueProtocol>
 
 //页数
-@property (nonatomic, assign) NSNumber *page;
+@property (nonatomic, assign) NSInteger page;
 //请求错误
 @property (nonatomic, strong) NSError *requestError;
 //记录是否第一次加载

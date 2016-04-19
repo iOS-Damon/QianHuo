@@ -40,7 +40,7 @@ static CGFloat const HSYReturnTopBtnBottomEdgeScale = 0.2;
     
     //设置返回按钮
     UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] init];
-    backBarButtonItem.title = @"返回";
+    backBarButtonItem.title = @"关闭";
     self.navigationItem.backBarButtonItem = backBarButtonItem;
     
     self.tableView = [[UITableView alloc] init];

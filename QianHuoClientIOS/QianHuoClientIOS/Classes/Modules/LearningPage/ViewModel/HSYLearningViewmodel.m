@@ -100,45 +100,52 @@ static int const HSYLearningViewmodelPageStep = 10;
 
 #pragma HSYLoadValueProtocol
 - (void)loadFirstValue {
-    
-    NSInteger page = [self loadPage];
     self.historys = [HSYUserDefaults objectForKey:HSYHistoryID];
-    if (page < HSYLearningViewmodelPageStep) {
-        page = HSYLearningViewmodelPageStep;
+    if (FYEmpty(self.historys)) {
+        [self loadNewValue];
     } else {
-        page = page - (page % HSYLearningViewmodelPageStep) + HSYLearningViewmodelPageStep;
+        //        NSInteger page = [self loadPage];
+        //        if (page == 0) {
+        //            [self requestValueWithPage:0 length:HSYRestViewmodelPageStep];
+        //        } else {
+        //            [self requestValueWithPage:0 length:page];
+        //        }
+        //        self.page = @(page);
+        self.page = [self loadPage];
+        [self requestValueWithPage:self.page length:HSYLearningViewmodelPageStep];
     }
-    [self requestValueWithPage:0 length:page];
     self.isFirstLoad = YES;
 }
 
 - (void)loadNewValue {
-    self.page = @(0);
-    [self savePage:[self.page integerValue]];
+    self.page = 0;
+    [self requestHistory];
+    [self savePage:self.page];
 }
 
 - (void)loadMoreValue {
-    self.page = @([self.page integerValue] + HSYLearningViewmodelPageStep);
-    [self savePage:[self.page integerValue]];
+    self.page = self.page+ HSYLearningViewmodelPageStep;
+    [self requestValueWithPage:self.page length:HSYLearningViewmodelPageStep];
+    [self savePage:self.page];
 }
 
 #pragma HSYBindingParamProtocol
 - (void)bindingParam {
     
     self.KVOController = [FBKVOController controllerWithObserver:self];
-    [self.KVOController observe:self keyPath:@"page" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYLearningViewmodel *observer, id object, NSDictionary *change) {
-        
-        NSNumber *oldPage = change[NSKeyValueChangeOldKey];
-        oldPage = FYNull(oldPage) ? @(0) : oldPage;
-        NSNumber *newPage = change[NSKeyValueChangeNewKey];
-        newPage = FYNull(newPage) ? @(0) : newPage;
-        
-        if ([newPage intValue] == 0) {
-            [observer requestHistory];
-        } else {
-            [observer requestValueWithPage:[newPage integerValue] length:HSYLearningViewmodelPageStep];
-        }
-    }];
+//    [self.KVOController observe:self keyPath:@"page" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYLearningViewmodel *observer, id object, NSDictionary *change) {
+//        
+//        NSNumber *oldPage = change[NSKeyValueChangeOldKey];
+//        oldPage = FYNull(oldPage) ? @(0) : oldPage;
+//        NSNumber *newPage = change[NSKeyValueChangeNewKey];
+//        newPage = FYNull(newPage) ? @(0) : newPage;
+//        
+//        if ([newPage intValue] == 0) {
+//            [observer requestHistory];
+//        } else {
+//            [observer requestValueWithPage:[newPage integerValue] length:HSYLearningViewmodelPageStep];
+//        }
+//    }];
     
     [self.KVOController observe:self keyPath:@"requestCount" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYLearningViewmodel *observer, id object, NSDictionary *change) {
         
@@ -147,7 +154,7 @@ static int const HSYLearningViewmodelPageStep = 10;
         NSNumber *newCount = change[NSKeyValueChangeNewKey];
         newCount = FYNull(newCount) ? @(0) : newCount;
         if ([oldCount intValue] == 1 && [newCount intValue] == 0) { //网络请求结束
-            [observer loadValueFormDBWithPage:[observer.page integerValue] length:HSYLearningViewmodelPageStep];
+            [observer loadValueFormDBWithPage:observer.page length:HSYLearningViewmodelPageStep];
         }
     }];
 }
@@ -167,22 +174,12 @@ static int const HSYLearningViewmodelPageStep = 10;
         weakSelf.historys = results;
         [HSYUserDefaults setObject:weakSelf.historys forKey:HSYHistoryID];
         
-        [weakSelf requestValueWithPage:[weakSelf.page integerValue] length:HSYLearningViewmodelPageStep];
+        [weakSelf requestValueWithPage:weakSelf.page length:HSYLearningViewmodelPageStep];
         
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         FYLog(@"Error: %@", error);
         weakSelf.requestError = error;
     }];
-}
-
-- (BOOL)hasValueInDB:(NSString*)dateStr {
-    
-    HSYCommonDBModel *dbModel = [HSYCommonDBModel findFirstWithFormat:@" WHERE %@ = '%@'", @"dateStr", dateStr];
-    if (dbModel) {
-        return YES;
-    } else {
-        return NO;
-    }
 }
 
 - (void)requestValueWithPage:(NSInteger)page length:(NSInteger)length {
