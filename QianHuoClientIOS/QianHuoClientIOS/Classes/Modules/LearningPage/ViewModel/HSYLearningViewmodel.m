@@ -85,6 +85,19 @@ static int const HSYLearningViewmodelPageStep = 10;
     [cellModel update];
 }
 
+- (BOOL)rowIsLike:(NSIndexPath *)indexPath {
+    HSYLearningDateModel *dateModel = self.dateModels[indexPath.section];
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    return cellModel.isLike;
+}
+
+- (void)saveRowIsLike:(BOOL)isLike indexPath:(NSIndexPath *)indexPath {
+    HSYLearningDateModel *dateModel = self.dateModels[indexPath.section];
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    cellModel.isLike = isLike;
+    [cellModel update];
+}
+
 #pragma mark - override
 - (void)savePage:(NSInteger)section {
     [HSYUserDefaults setInteger:section forKey:HSYLearningViewmodelPageID];

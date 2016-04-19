@@ -245,6 +245,7 @@
 		147FC1B71CC35FCB00FC416E /* HSYCommenDateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYCommenDateModel.m; sourceTree = "<group>"; };
 		147FC1E81CC60FBE00FC416E /* ButtonLikeAct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonLikeAct.png; sourceTree = "<group>"; };
 		147FC1E91CC60FBE00FC416E /* ButtonLikeDis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonLikeDis.png; sourceTree = "<group>"; };
+		147FC1EC1CC61ADD00FC416E /* HSYIsLikeBottonDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYIsLikeBottonDelegate.h; sourceTree = "<group>"; };
 		8B86759DBF12AF1C212111CF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E8B623B7F92A53061104487D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -571,6 +572,7 @@
 			children = (
 				147569EC1CAA5287009DB7E7 /* HSYLoadValueProtocol.h */,
 				147569ED1CAA5411009DB7E7 /* HSYBindingParamProtocol.h */,
+				147FC1EC1CC61ADD00FC416E /* HSYIsLikeBottonDelegate.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

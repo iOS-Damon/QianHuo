@@ -7,8 +7,14 @@
 //
 
 #import "HSYBaseController.h"
+#import "HSYIsLikeBottonDelegate.h"
 
 @interface HSYContentController : HSYBaseController
+
+@property (nonatomic, copy) NSString *urlStr;
+@property (nonatomic, assign) BOOL isLike;
+@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, weak) id<HSYIsLikeBottonDelegate> delegate;
 
 - (instancetype)initWithUrl:(NSString*)url;
 

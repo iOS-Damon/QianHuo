@@ -23,5 +23,7 @@
 - (NSString*)rowUrlAtIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)rowHasRead:(NSIndexPath *)indexPath;
 - (void)saveRowHasRead:(NSIndexPath *)indexPath;
+- (BOOL)rowIsLike:(NSIndexPath *)indexPath;
+- (void)saveRowIsLike:(BOOL)isLike indexPath:(NSIndexPath *)indexPath;
 
 @end

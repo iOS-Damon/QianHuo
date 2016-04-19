@@ -65,6 +65,7 @@ static CGFloat const HSYCommonCellIsLikeBtnHeightScale = 0.15;
     [self.isLikeBtn setBackgroundImage:[UIImage imageNamed:@"ButtonLikeDis.png"] forState:UIControlStateNormal];
     [self.isLikeBtn setBackgroundImage:[UIImage imageNamed:@"ButtonLikeAct.png"] forState:UIControlStateSelected];
     [self.isLikeBtn addTarget:self action:@selector(isLikeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.isLikeBtn.userInteractionEnabled = NO;
     [self.contentView addSubview:self.isLikeBtn];
     [self.isLikeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(self.contentView.mas_height).multipliedBy(HSYCommonCellIsLikeBtnHeightScale);
