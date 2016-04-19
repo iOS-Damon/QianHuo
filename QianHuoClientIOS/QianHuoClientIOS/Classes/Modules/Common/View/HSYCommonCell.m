@@ -12,9 +12,9 @@
 #import "UIView+FY.h"
 #import "UIScreen+FY.h"
 
-static CGFloat const HSYCommonCellPaddingScale = 0.015;
-static CGFloat const HSYCommonCellAvatarHeightScale = 0.25;
-static CGFloat const HSYCommonCellIsLikeBtnHeightScale = 0.15;
+static CGFloat const HSYCommonCellPaddingScale = 0.02;
+static CGFloat const HSYCommonCellAvatarHeightScale = 0.20;
+static CGFloat const HSYCommonCellIsLikeBtnHeightScale = 0.13;
 
 @interface HSYCommonCell ()
 
@@ -49,11 +49,11 @@ static CGFloat const HSYCommonCellIsLikeBtnHeightScale = 0.15;
     [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(self.contentView.mas_height).multipliedBy(HSYCommonCellAvatarHeightScale);
         make.width.equalTo(self.avatarImageView.mas_height);
-        make.left.equalTo(self.contentView.mas_left).offset(weakSelf.padding * 2);
+        make.left.equalTo(self.contentView.mas_left).offset(weakSelf.padding);
         make.top.equalTo(self.contentView.mas_top).offset(weakSelf.padding);
     }];
     
-    self.titleLabel = [[FYLabel alloc] initWithString:self.title size:FYLabSize3 color:FYColorBlack];
+    self.titleLabel = [[FYLabel alloc] initWithString:self.title size:FYLabSize3 color:FYColorSub];
     [self.contentView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.avatarImageView.mas_right).offset(self.padding);
@@ -65,7 +65,6 @@ static CGFloat const HSYCommonCellIsLikeBtnHeightScale = 0.15;
     [self.isLikeBtn setBackgroundImage:[UIImage imageNamed:@"ButtonLikeDis.png"] forState:UIControlStateNormal];
     [self.isLikeBtn setBackgroundImage:[UIImage imageNamed:@"ButtonLikeAct.png"] forState:UIControlStateSelected];
     [self.isLikeBtn addTarget:self action:@selector(isLikeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.isLikeBtn.userInteractionEnabled = NO;
     [self.contentView addSubview:self.isLikeBtn];
     [self.isLikeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(self.contentView.mas_height).multipliedBy(HSYCommonCellIsLikeBtnHeightScale);
@@ -76,7 +75,7 @@ static CGFloat const HSYCommonCellIsLikeBtnHeightScale = 0.15;
     
     UIView *boardView = [[UIView alloc] init];
     boardView.layer.borderWidth = 0.5;
-    boardView.layer.borderColor = FYColorGary.CGColor;
+    boardView.layer.borderColor = FYColorLightBlue.CGColor;
     boardView.layer.cornerRadius = 3;
     [self.contentView addSubview:boardView];
     [boardView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -89,7 +88,7 @@ static CGFloat const HSYCommonCellIsLikeBtnHeightScale = 0.15;
     self.descLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.descLable.text = self.title;
     self.descLable.textColor = FYColorBlack;
-    self.descLable.font = [UIFont fontWithName:@"ArialRoundedMTBold" size:FYLabSize2];
+    self.descLable.font = [UIFont fontWithName:@"ArialRoundedMTBold" size:FYLabSize3];
     self.descLable.numberOfLines = 0;
     self.descLable.textAlignment = NSTextAlignmentLeft;
     self.descLable.backgroundColor = [UIColor clearColor];
@@ -119,7 +118,7 @@ static CGFloat const HSYCommonCellIsLikeBtnHeightScale = 0.15;
 - (void)setHasRead:(BOOL)hasRead {
     _hasRead = hasRead;
     if (hasRead) {
-        self.descLable.textColor = FYColorGary;
+        self.descLable.textColor = [UIColor colorWithHexString:@"757575" alpha:1.0];
     } else {
         self.descLable.textColor = FYColorBlack;
     }
@@ -131,7 +130,10 @@ static CGFloat const HSYCommonCellIsLikeBtnHeightScale = 0.15;
 }
 
 - (void)isLikeBtnAction:(id)sender {
-    self.isLikeBtn.selected = !self.isLikeBtn.selected;
+    if (self.delegate) {
+        self.isLike = !self.isLike;
+        [self.delegate isLikeButtonDidSeleted:self.isLike indexPath:self.indexPath];
+    }
 }
 
 @end

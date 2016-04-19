@@ -129,6 +129,8 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         vedioCell.desc = [self.viewmodel rowDescAtIndexPath:indexPath];
         vedioCell.isLike = [self.viewmodel rowIsLike:indexPath];
         vedioCell.hasRead = [self.viewmodel rowHasRead:indexPath];
+        vedioCell.indexPath = indexPath;
+        vedioCell.delegate = self;
         return vedioCell;
     }
     return nil;

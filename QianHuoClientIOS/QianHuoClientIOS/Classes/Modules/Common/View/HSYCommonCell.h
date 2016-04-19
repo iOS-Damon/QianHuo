@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HSYBaseTableCell.h"
+#import "HSYIsLikeBottonDelegate.h"
 
 @interface HSYCommonCell : HSYBaseTableCell
 
@@ -16,5 +17,7 @@
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, assign) BOOL hasRead;
 @property (nonatomic, assign) BOOL isLike;
+@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, weak) id<HSYIsLikeBottonDelegate> delegate;
 
 @end

@@ -64,6 +64,8 @@ static NSString * const HSYLikeCellID = @"HSYLikeCellID";
     cell.title = [self.viewmodel rowTitleAtIndexPath:indexPath];
     cell.desc = [self.viewmodel rowDescAtIndexPath:indexPath];
     cell.hasRead = [self.viewmodel rowHasRead:indexPath];
+    cell.delegate = self;
+    cell.indexPath = indexPath;
     return cell;
 }
 

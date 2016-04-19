@@ -76,6 +76,8 @@ static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
     cell.title = [self.viewmodel rowTitleAtIndexPath:indexPath];
     cell.desc = [self.viewmodel rowDescAtIndexPath:indexPath];
     cell.hasRead = [self.viewmodel rowHasRead:indexPath];
+    cell.indexPath = indexPath;
+    cell.delegate = self;
     return cell;
 }
 
