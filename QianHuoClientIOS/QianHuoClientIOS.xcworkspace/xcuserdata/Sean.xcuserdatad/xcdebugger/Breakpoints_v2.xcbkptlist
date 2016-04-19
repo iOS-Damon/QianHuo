@@ -164,11 +164,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QianHuoClientIOS/Classes/Modules/_Base/View/HSYBaseTableController.m"
-            timestampString = "481527444.967732"
+            timestampString = "482749448.374572"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "-endPullUpRefresh"
             landmarkType = "5">
          </BreakpointContent>
@@ -180,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QianHuoClientIOS/Classes/Modules/_Base/View/HSYBaseTableController.m"
-            timestampString = "481527444.967732"
+            timestampString = "482749448.374572"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "-returnTop:"
             landmarkType = "5">
          </BreakpointContent>
@@ -481,11 +481,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QianHuoClientIOS/Classes/Modules/RestPage/View/HSYRestController.m"
-            timestampString = "482722770.63291"
+            timestampString = "482749497.139957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "-bindingParam"
             landmarkType = "5">
          </BreakpointContent>
@@ -535,6 +535,22 @@
             startingLineNumber = "121"
             endingLineNumber = "121"
             landmarkName = "-loadFirstValue"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QianHuoClientIOS/Classes/Modules/LikePage/Model/HSYLikeModel.m"
+            timestampString = "482748945.177348"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "-init"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

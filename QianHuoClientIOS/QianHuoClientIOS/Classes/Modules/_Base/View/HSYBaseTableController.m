@@ -37,6 +37,8 @@ static CGFloat const HSYReturnTopBtnBottomEdgeScale = 0.2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.navigationItem.title = HSYRootTitle;
     
     //设置返回按钮
     UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] init];

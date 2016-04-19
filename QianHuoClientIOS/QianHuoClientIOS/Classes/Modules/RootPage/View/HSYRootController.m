@@ -10,6 +10,7 @@
 #import "HSYNavigationController.h"
 #import "HSYLearningController.h"
 #import "HSYRestController.h"
+#import "HSYLikeController.h"
 
 @interface HSYRootController ()
 
@@ -49,6 +50,10 @@
     HSYRestController *restVC = [[HSYRestController alloc] init];
     HSYNavigationController *restNav = [[HSYNavigationController alloc] initWithRootViewController:restVC];
     [self addChildViewController:restNav];
+    
+    HSYLikeController *likeVC = [[HSYLikeController alloc] init];
+    HSYNavigationController *likeNav = [[HSYNavigationController alloc] initWithRootViewController:likeVC];
+    [self addChildViewController:likeNav];
 }
 
 - (void)setupUI {
@@ -63,6 +68,10 @@
     UITabBarItem *item1 = items[1];
     item1.title = @"休息时间";
     item1.image = [UIImage imageNamed:@"TabbarRest.png"];
+    
+    UITabBarItem *item2 = items[2];
+    item2.title = @"我喜欢的";
+    item2.image = [UIImage imageNamed:@"TabbarLike.png"];
 }
 
 @end

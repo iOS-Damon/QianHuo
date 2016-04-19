@@ -46,8 +46,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = HSYRootTitle;
-    
     [self.tableView registerClass:[HSYRestFuliCell class] forCellReuseIdentifier:HSYRestFuliCellID];
     [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYRestVedioCellID];
     [self.tableView registerClass:[HSYCommonHeader class] forHeaderFooterViewReuseIdentifier:HSYRestHeaderID];

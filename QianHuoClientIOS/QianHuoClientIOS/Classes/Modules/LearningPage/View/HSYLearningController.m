@@ -16,8 +16,8 @@
 #import "FYHintLayer.h"
 #import "HSYContentController.h"
 
-static NSString * const HSYLearningTimeCellID = @"HSYLearningTimeCellID";
-static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
+static NSString * const HSYLearningCellID = @"HSYLearningCellID";
+static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
 
 @interface HSYLearningController () <HSYBindingParamProtocol, HSYIsLikeBottonDelegate>
 
@@ -40,9 +40,8 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = HSYRootTitle;
-    [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYLearningTimeCellID];
-    [self.tableView registerClass:[HSYCommonHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
+    [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYLearningCellID];
+    [self.tableView registerClass:[HSYCommonHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningHeaderID];
     
     [self.refreshControl beginRefreshing];
     [self.viewmodel loadFirstValue];
@@ -71,7 +70,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HSYCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
+    HSYCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningCellID forIndexPath:indexPath];
     cell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
     cell.isLike = [self.viewmodel rowIsLike:indexPath];
     cell.title = [self.viewmodel rowTitleAtIndexPath:indexPath];
@@ -91,7 +90,7 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     [self.viewmodel savePage:section];
     
-    HSYCommonHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYLearningTimeHeaderID];
+    HSYCommonHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYLearningHeaderID];
     header.title = [self.viewmodel headerTitleInSection:section];
     return header;
 }

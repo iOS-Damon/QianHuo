@@ -86,6 +86,10 @@
 		147FC1B81CC35FCB00FC416E /* HSYCommenDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147FC1B71CC35FCB00FC416E /* HSYCommenDateModel.m */; };
 		147FC1EA1CC60FBE00FC416E /* ButtonLikeAct.png in Resources */ = {isa = PBXBuildFile; fileRef = 147FC1E81CC60FBE00FC416E /* ButtonLikeAct.png */; };
 		147FC1EB1CC60FBE00FC416E /* ButtonLikeDis.png in Resources */ = {isa = PBXBuildFile; fileRef = 147FC1E91CC60FBE00FC416E /* ButtonLikeDis.png */; };
+		147FC1F31CC61FB200FC416E /* HSYLikeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147FC1F21CC61FB200FC416E /* HSYLikeModel.m */; };
+		147FC1F61CC6208C00FC416E /* HSYLikeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147FC1F51CC6208C00FC416E /* HSYLikeController.m */; };
+		147FC1F91CC621D500FC416E /* HSYLikeViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147FC1F81CC621D500FC416E /* HSYLikeViewmodel.m */; };
+		147FC1FD1CC6266A00FC416E /* TabbarLike@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 147FC1FC1CC6266A00FC416E /* TabbarLike@2x.png */; };
 		37A849702814596453715742 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03DAC4DD205D78414B37B47C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -246,6 +250,13 @@
 		147FC1E81CC60FBE00FC416E /* ButtonLikeAct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonLikeAct.png; sourceTree = "<group>"; };
 		147FC1E91CC60FBE00FC416E /* ButtonLikeDis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonLikeDis.png; sourceTree = "<group>"; };
 		147FC1EC1CC61ADD00FC416E /* HSYIsLikeBottonDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYIsLikeBottonDelegate.h; sourceTree = "<group>"; };
+		147FC1F11CC61FB200FC416E /* HSYLikeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLikeModel.h; sourceTree = "<group>"; };
+		147FC1F21CC61FB200FC416E /* HSYLikeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLikeModel.m; sourceTree = "<group>"; };
+		147FC1F41CC6208C00FC416E /* HSYLikeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLikeController.h; sourceTree = "<group>"; };
+		147FC1F51CC6208C00FC416E /* HSYLikeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLikeController.m; sourceTree = "<group>"; };
+		147FC1F71CC621D500FC416E /* HSYLikeViewmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLikeViewmodel.h; sourceTree = "<group>"; };
+		147FC1F81CC621D500FC416E /* HSYLikeViewmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLikeViewmodel.m; sourceTree = "<group>"; };
+		147FC1FC1CC6266A00FC416E /* TabbarLike@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabbarLike@2x.png"; sourceTree = "<group>"; };
 		8B86759DBF12AF1C212111CF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E8B623B7F92A53061104487D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -556,6 +567,7 @@
 		147569731CA53FC7009DB7E7 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				147FC1ED1CC61F5300FC416E /* LikePage */,
 				143A41221CAE416D007C0B9F /* Common */,
 				143A40D51CACC61A007C0B9F /* RestPage */,
 				143A40BB1CACC5FF007C0B9F /* LearningPage */,
@@ -775,12 +787,50 @@
 				143A40EA1CAD2375007C0B9F /* WebForwardNormal.png */,
 				143A410A1CAE14EF007C0B9F /* TabbarLearn@2x.png */,
 				143A410C1CAE1547007C0B9F /* TabbarRest@2x.png */,
+				147FC1FC1CC6266A00FC416E /* TabbarLike@2x.png */,
 				143A41001CAE0E35007C0B9F /* AvatarAndroid.png */,
 				143A40E51CAD1606007C0B9F /* WebBack.png */,
 				143A40E61CAD1606007C0B9F /* WebForward.png */,
 				147569DF1CA91193009DB7E7 /* AvatarIOS.png */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		147FC1ED1CC61F5300FC416E /* LikePage */ = {
+			isa = PBXGroup;
+			children = (
+				147FC1EE1CC61F5300FC416E /* Model */,
+				147FC1EF1CC61F5300FC416E /* View */,
+				147FC1F01CC61F5300FC416E /* ViewModel */,
+			);
+			path = LikePage;
+			sourceTree = "<group>";
+		};
+		147FC1EE1CC61F5300FC416E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				147FC1F11CC61FB200FC416E /* HSYLikeModel.h */,
+				147FC1F21CC61FB200FC416E /* HSYLikeModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		147FC1EF1CC61F5300FC416E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				147FC1F41CC6208C00FC416E /* HSYLikeController.h */,
+				147FC1F51CC6208C00FC416E /* HSYLikeController.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		147FC1F01CC61F5300FC416E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				147FC1F71CC621D500FC416E /* HSYLikeViewmodel.h */,
+				147FC1F81CC621D500FC416E /* HSYLikeViewmodel.m */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B7044197B57E89CA4A40220F /* Pods */ = {
@@ -926,6 +976,7 @@
 				143A410F1CAE18CE007C0B9F /* AvatarVedio.png in Resources */,
 				143A41331CAE650C007C0B9F /* Placeholder@2x.png in Resources */,
 				143A40EC1CAD2375007C0B9F /* WebForwardNormal.png in Resources */,
+				147FC1FD1CC6266A00FC416E /* TabbarLike@2x.png in Resources */,
 				143A41501CAE7E57007C0B9F /* Icon60@2x.png in Resources */,
 				143A410D1CAE1547007C0B9F /* TabbarRest@2x.png in Resources */,
 				143A40E71CAD1606007C0B9F /* WebBack.png in Resources */,
@@ -1039,6 +1090,8 @@
 				143A413F1CAE6E0A007C0B9F /* UIImageView+MHFacebookImageViewer.m in Sources */,
 				147569CF1CA8D898009DB7E7 /* HSYBaseController.m in Sources */,
 				147569D51CA8DDBC009DB7E7 /* HSYBaseModel.m in Sources */,
+				147FC1F31CC61FB200FC416E /* HSYLikeModel.m in Sources */,
+				147FC1F91CC621D500FC416E /* HSYLikeViewmodel.m in Sources */,
 				147569BE1CA8CA26009DB7E7 /* HSYRootController.m in Sources */,
 				143A40E11CACC76F007C0B9F /* HSYContentViewmodel.m in Sources */,
 				143A411B1CAE1E51007C0B9F /* HSYRestViewmodel.m in Sources */,
@@ -1054,6 +1107,7 @@
 				143A409E1CABABBA007C0B9F /* HSYUserDefaults.m in Sources */,
 				1475698A1CA54155009DB7E7 /* UIScreen+FY.m in Sources */,
 				147569D81CA8DDDA009DB7E7 /* HSYBaseViewmodel.m in Sources */,
+				147FC1F61CC6208C00FC416E /* HSYLikeController.m in Sources */,
 				147569881CA54155009DB7E7 /* UIColor+FY.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
