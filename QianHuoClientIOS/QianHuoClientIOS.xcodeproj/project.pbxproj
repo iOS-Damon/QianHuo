@@ -84,6 +84,8 @@
 		147569E81CA92935009DB7E7 /* HSYBaseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 147569E71CA92935009DB7E7 /* HSYBaseTableCell.m */; };
 		147FC1B51CC27DE400FC416E /* HSYCommonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147FC1B41CC27DE400FC416E /* HSYCommonModel.m */; };
 		147FC1B81CC35FCB00FC416E /* HSYCommenDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 147FC1B71CC35FCB00FC416E /* HSYCommenDateModel.m */; };
+		147FC1EA1CC60FBE00FC416E /* ButtonLikeAct.png in Resources */ = {isa = PBXBuildFile; fileRef = 147FC1E81CC60FBE00FC416E /* ButtonLikeAct.png */; };
+		147FC1EB1CC60FBE00FC416E /* ButtonLikeDis.png in Resources */ = {isa = PBXBuildFile; fileRef = 147FC1E91CC60FBE00FC416E /* ButtonLikeDis.png */; };
 		37A849702814596453715742 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03DAC4DD205D78414B37B47C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -241,6 +243,8 @@
 		147FC1B41CC27DE400FC416E /* HSYCommonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYCommonModel.m; sourceTree = "<group>"; };
 		147FC1B61CC35FCB00FC416E /* HSYCommenDateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYCommenDateModel.h; sourceTree = "<group>"; };
 		147FC1B71CC35FCB00FC416E /* HSYCommenDateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYCommenDateModel.m; sourceTree = "<group>"; };
+		147FC1E81CC60FBE00FC416E /* ButtonLikeAct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonLikeAct.png; sourceTree = "<group>"; };
+		147FC1E91CC60FBE00FC416E /* ButtonLikeDis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonLikeDis.png; sourceTree = "<group>"; };
 		8B86759DBF12AF1C212111CF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E8B623B7F92A53061104487D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -750,6 +754,8 @@
 		147569C81CA8D232009DB7E7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				147FC1E81CC60FBE00FC416E /* ButtonLikeAct.png */,
+				147FC1E91CC60FBE00FC416E /* ButtonLikeDis.png */,
 				144593A91CB4A4300065F659 /* BlurEffect.png */,
 				143A415B1CB349BF007C0B9F /* ReturnToTop.png */,
 				143A41471CAE7A1A007C0B9F /* Logo.png */,
@@ -921,7 +927,9 @@
 				143A41501CAE7E57007C0B9F /* Icon60@2x.png in Resources */,
 				143A410D1CAE1547007C0B9F /* TabbarRest@2x.png in Resources */,
 				143A40E71CAD1606007C0B9F /* WebBack.png in Resources */,
+				147FC1EA1CC60FBE00FC416E /* ButtonLikeAct.png in Resources */,
 				147569431CA520A0009DB7E7 /* Main.storyboard in Resources */,
+				147FC1EB1CC60FBE00FC416E /* ButtonLikeDis.png in Resources */,
 				143A413E1CAE6E0A007C0B9F /* Done@2x.png in Resources */,
 				143A40E81CAD1606007C0B9F /* WebForward.png in Resources */,
 			);

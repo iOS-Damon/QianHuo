@@ -127,7 +127,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
     } else {
         HSYCommonCell *vedioCell = [tableView dequeueReusableCellWithIdentifier:HSYRestVedioCellID forIndexPath:indexPath];
         vedioCell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
-        vedioCell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
+        vedioCell.desc = [self.viewmodel rowDescAtIndexPath:indexPath];
         vedioCell.hasRead = [self.viewmodel rowHasRead:indexPath];
         return vedioCell;
     }

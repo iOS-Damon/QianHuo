@@ -49,10 +49,15 @@ static int const HSYLearningViewmodelPageStep = 10;
 }
 
 - (UIImage*)rowAvatarAtIndexPath:(NSIndexPath *)indexPath {
-    
     HSYLearningDateModel *dateModel = self.dateModels[indexPath.section];
     HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
     return [UIImage imageNamed:cellModel.avatarName];
+}
+
+- (NSString*)rowTitleAtIndexPath:(NSIndexPath *)indexPath {
+    HSYLearningDateModel *dateModel = self.dateModels[indexPath.section];
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    return cellModel.type;
 }
 
 - (NSString*)rowDescAtIndexPath:(NSIndexPath *)indexPath {

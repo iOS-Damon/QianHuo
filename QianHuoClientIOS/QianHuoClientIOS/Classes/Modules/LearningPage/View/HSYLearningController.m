@@ -72,8 +72,9 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HSYCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
-    cell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
     cell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
+    cell.title = [self.viewmodel rowTitleAtIndexPath:indexPath];
+    cell.desc = [self.viewmodel rowDescAtIndexPath:indexPath];
     cell.hasRead = [self.viewmodel rowHasRead:indexPath];
     return cell;
 }
