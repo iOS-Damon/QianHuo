@@ -25,7 +25,7 @@ static NSString * const HSYRestFuliCellID = @"HSYRestFuliCellID";
 static NSString * const HSYRestVedioCellID = @"HSYRestVedioCellID";
 static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 
-@interface HSYRestController () <HSYBindingParamProtocol>
+@interface HSYRestController () <HSYBindingParamProtocol, HSYIsLikeBottonDelegate>
 
 @property (nonatomic, strong) HSYRestViewmodel *viewmodel;
 @property (nonatomic, strong) FBKVOController *KVOController;
@@ -125,7 +125,9 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
     } else {
         HSYCommonCell *vedioCell = [tableView dequeueReusableCellWithIdentifier:HSYRestVedioCellID forIndexPath:indexPath];
         vedioCell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
+        vedioCell.title = [self.viewmodel rowTitleAtIndexPath:indexPath];
         vedioCell.desc = [self.viewmodel rowDescAtIndexPath:indexPath];
+        vedioCell.isLike = [self.viewmodel rowIsLike:indexPath];
         vedioCell.hasRead = [self.viewmodel rowHasRead:indexPath];
         return vedioCell;
     }
@@ -166,6 +168,9 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         }];
     } else {
         HSYContentController *contentVC = [[HSYContentController alloc] initWithUrl:urlStr];
+        contentVC.isLike = [self.viewmodel rowIsLike:indexPath];
+        contentVC.indexPath = indexPath;
+        contentVC.delegate = self;
         //隐藏tabbar 当要进入子页面时
         contentVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:contentVC animated:YES];
@@ -174,6 +179,12 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         [self.viewmodel saveRowHasRead:indexPath];
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
     }
+}
+
+#pragma mark - HSYIsLikeBottonDelegate
+- (void)isLikeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath *)indexPath {
+    [self.viewmodel saveRowIsLike:seleted indexPath:indexPath];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
 }
 
 #pragma mark - Scroller View Delegate

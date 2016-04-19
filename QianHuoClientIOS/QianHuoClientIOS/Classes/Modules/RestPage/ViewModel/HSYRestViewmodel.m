@@ -63,6 +63,12 @@ static int const HSYRestViewmodelPageStep = 10;
     return [UIImage imageNamed:cellModel.avatarName];
 }
 
+- (NSString*)rowTitleAtIndexPath:(NSIndexPath *)indexPath {
+    HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    return cellModel.type;
+}
+
 - (NSString*)rowDescAtIndexPath:(NSIndexPath *)indexPath {
     HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
     HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
@@ -85,6 +91,19 @@ static int const HSYRestViewmodelPageStep = 10;
     HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
     HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
     cellModel.hasRead = YES;
+    [cellModel update];
+}
+
+- (BOOL)rowIsLike:(NSIndexPath *)indexPath {
+    HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    return cellModel.isLike;
+}
+
+- (void)saveRowIsLike:(BOOL)isLike indexPath:(NSIndexPath *)indexPath {
+    HSYRestDateModel *dateModel = self.dateModels[indexPath.section];
+    HSYCommonModel *cellModel = dateModel.cellModels[indexPath.row];
+    cellModel.isLike = isLike;
     [cellModel update];
 }
 
