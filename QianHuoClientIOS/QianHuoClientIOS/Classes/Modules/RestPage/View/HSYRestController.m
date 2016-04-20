@@ -25,7 +25,7 @@ static NSString * const HSYRestFuliCellID = @"HSYRestFuliCellID";
 static NSString * const HSYRestVedioCellID = @"HSYRestVedioCellID";
 static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 
-@interface HSYRestController () <HSYBindingParamProtocol>
+@interface HSYRestController () <HSYBindingParamProtocol, HSYLikeButtonDelegate>
 
 @property (nonatomic, strong) HSYRestViewmodel *viewmodel;
 @property (nonatomic, strong) FBKVOController *KVOController;
@@ -46,8 +46,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = HSYRootTitle;
-    
     [self.tableView registerClass:[HSYRestFuliCell class] forCellReuseIdentifier:HSYRestFuliCellID];
     [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYRestVedioCellID];
     [self.tableView registerClass:[HSYCommonHeader class] forHeaderFooterViewReuseIdentifier:HSYRestHeaderID];
@@ -59,7 +57,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.navigationController.toolbarHidden = YES;
-    [self.tableView reloadData];
 }
 
 #pragma mark - Override HSYBaseTableController
@@ -128,8 +125,12 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
     } else {
         HSYCommonCell *vedioCell = [tableView dequeueReusableCellWithIdentifier:HSYRestVedioCellID forIndexPath:indexPath];
         vedioCell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
-        vedioCell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
+        vedioCell.title = [self.viewmodel rowTitleAtIndexPath:indexPath];
+        vedioCell.desc = [self.viewmodel rowDescAtIndexPath:indexPath];
+        vedioCell.isLike = [self.viewmodel rowIsLike:indexPath];
         vedioCell.hasRead = [self.viewmodel rowHasRead:indexPath];
+        vedioCell.indexPath = indexPath;
+        vedioCell.delegate = self;
         return vedioCell;
     }
     return nil;
@@ -169,13 +170,23 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         }];
     } else {
         HSYContentController *contentVC = [[HSYContentController alloc] initWithUrl:urlStr];
+        contentVC.isLike = [self.viewmodel rowIsLike:indexPath];
+        contentVC.indexPath = indexPath;
+        contentVC.delegate = self;
         //隐藏tabbar 当要进入子页面时
         contentVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:contentVC animated:YES];
         
         //标记为已读
         [self.viewmodel saveRowHasRead:indexPath];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
     }
+}
+
+#pragma mark - HSYIsLikeBottonDelegate
+- (void)likeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath *)indexPath {
+    [self.viewmodel saveRowIsLike:seleted indexPath:indexPath];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
 }
 
 #pragma mark - Scroller View Delegate

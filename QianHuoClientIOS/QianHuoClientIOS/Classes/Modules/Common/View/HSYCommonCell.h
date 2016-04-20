@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "HSYBaseTableCell.h"
+#import "HSYLikeButtonDelegate.h"
 
 @interface HSYCommonCell : HSYBaseTableCell
 
 @property (nonatomic, strong) UIImage *avatarImage;
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *desc;
 @property (nonatomic, assign) BOOL hasRead;
+@property (nonatomic, assign) BOOL isLike;
+@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, weak) id<HSYLikeButtonDelegate> delegate;
 
 @end

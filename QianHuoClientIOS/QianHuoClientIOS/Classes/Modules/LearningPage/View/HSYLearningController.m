@@ -16,10 +16,10 @@
 #import "FYHintLayer.h"
 #import "HSYContentController.h"
 
-static NSString * const HSYLearningTimeCellID = @"HSYLearningTimeCellID";
-static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
+static NSString * const HSYLearningCellID = @"HSYLearningCellID";
+static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
 
-@interface HSYLearningController () <HSYBindingParamProtocol>
+@interface HSYLearningController () <HSYBindingParamProtocol, HSYLikeButtonDelegate>
 
 @property (nonatomic, strong) HSYLearningViewmodel *viewmodel;
 @property (nonatomic, strong) FBKVOController *KVOController;
@@ -40,9 +40,8 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = HSYRootTitle;
-    [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYLearningTimeCellID];
-    [self.tableView registerClass:[HSYCommonHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningTimeHeaderID];
+    [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYLearningCellID];
+    [self.tableView registerClass:[HSYCommonHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningHeaderID];
     
     [self.refreshControl beginRefreshing];
     [self.viewmodel loadFirstValue];
@@ -51,7 +50,6 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.navigationController.toolbarHidden = YES;
-    [self.tableView reloadData];
 }
 
 - (void)pullDownRefresh:(id)sender {
@@ -72,10 +70,14 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HSYCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningTimeCellID forIndexPath:indexPath];
-    cell.title = [self.viewmodel rowDescAtIndexPath:indexPath];
+    HSYCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:HSYLearningCellID forIndexPath:indexPath];
     cell.avatarImage = [self.viewmodel rowAvatarAtIndexPath:indexPath];
+    cell.isLike = [self.viewmodel rowIsLike:indexPath];
+    cell.title = [self.viewmodel rowTitleAtIndexPath:indexPath];
+    cell.desc = [self.viewmodel rowDescAtIndexPath:indexPath];
     cell.hasRead = [self.viewmodel rowHasRead:indexPath];
+    cell.indexPath = indexPath;
+    cell.delegate = self;
     return cell;
 }
 
@@ -90,20 +92,26 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     [self.viewmodel savePage:section];
     
-    HSYCommonHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYLearningTimeHeaderID];
+    HSYCommonHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HSYLearningHeaderID];
     header.title = [self.viewmodel headerTitleInSection:section];
     return header;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     NSString *urlStr = [self.viewmodel rowUrlAtIndexPath:indexPath];
     HSYContentController *contentVC = [[HSYContentController alloc] initWithUrl:urlStr];
+    contentVC.isLike = [self.viewmodel rowIsLike:indexPath];
+    contentVC.indexPath = indexPath;
+    contentVC.delegate = self;
+    
     //隐藏tabbar 当要进入子页面时
     contentVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:contentVC animated:YES];
     
     //标记为已读
     [self.viewmodel saveRowHasRead:indexPath];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
 }
 
 #pragma mark - HSYBindingParamProtocol
@@ -136,8 +144,16 @@ static NSString * const HSYLearningTimeHeaderID = @"HSYLearningTimeHeaderID";
 
 #pragma mark - Scroller View Delegate
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    
     CGPoint point = scrollView.contentOffset;
     [self.viewmodel saveOffsetY:point.y];
+}
+
+#pragma mark - HSYIsLikeBottonDelegate
+- (void)likeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath *)indexPath {
+    
+    [self.viewmodel saveRowIsLike:seleted indexPath:indexPath];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
 }
 
 @end

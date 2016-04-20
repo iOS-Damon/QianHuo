@@ -7,16 +7,10 @@
 //
 
 #import "HSYBaseModel.h"
-#import "HSYRestFuliModel.h"
-#import "HSYRestVedioModel.h"
+#import "HSYCommenDateModel.h"
 
-@interface HSYRestDateModel : HSYBaseModel
+@interface HSYRestDateModel : HSYCommenDateModel
 
-@property (nonatomic, strong) NSString *dateStr;
-@property (nonatomic, strong) NSString *headerTitle;
-@property (nonatomic, strong) NSArray *fuliModels;
-@property (nonatomic, strong) NSArray *vedioModels;
-
-- (instancetype)initWithParam:(NSDictionary*)param;
+@property (nonatomic, strong) NSArray *cellModels;
 
 @end

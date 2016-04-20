@@ -1,22 +1,16 @@
 //
-//  HSYLearningTimeViewmodel.h
+//  HSYLikeViewmodel.h
 //  QianHuoClientIOS
 //
-//  Created by Sean on 16/3/28.
+//  Created by Sean on 16/4/19.
 //  Copyright © 2016年 deeepthinking. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "HSYBaseViewmodel.h"
-#import "HSYLoadValueProtocol.h"
 
-@interface HSYLearningViewmodel : HSYBaseViewmodel <HSYLoadValueProtocol>
+@interface HSYLikeViewmodel : HSYBaseViewmodel
 
-@property (nonatomic, strong) NSArray *dateModels;
-
-- (NSInteger)sectionsCount;
-- (NSString*)headerTitleInSection:(NSInteger)section;
-- (NSInteger)rowsCountInSection:(NSInteger)section;
+- (NSInteger)rowsCount;
 - (UIImage*)rowAvatarAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowTitleAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowDescAtIndexPath:(NSIndexPath *)indexPath;
@@ -25,5 +19,7 @@
 - (void)saveRowHasRead:(NSIndexPath *)indexPath;
 - (BOOL)rowIsLike:(NSIndexPath *)indexPath;
 - (void)saveRowIsLike:(BOOL)isLike indexPath:(NSIndexPath *)indexPath;
+- (void)refreshData;
+
 
 @end

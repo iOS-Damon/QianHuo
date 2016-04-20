@@ -21,7 +21,7 @@ static CGFloat const HSYReturnTopBtnBottomEdgeScale = 0.2;
 
 @property (nonatomic, strong) UIButton *returnTopBtn;
 @property (nonatomic, assign) BOOL isPullUpRefresh;
-@property (nonatomic, assign) CGFloat scrollViewLastOffsetY;
+@property (nonatomic, assign) CGFloat lastOffsetY;
 
 @end
 
@@ -37,10 +37,12 @@ static CGFloat const HSYReturnTopBtnBottomEdgeScale = 0.2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.navigationItem.title = HSYRootTitle;
     
     //设置返回按钮
     UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] init];
-    backBarButtonItem.title = @"返回";
+    backBarButtonItem.title = @"关闭";
     self.navigationItem.backBarButtonItem = backBarButtonItem;
     
     self.tableView = [[UITableView alloc] init];
@@ -144,11 +146,12 @@ static CGFloat const HSYReturnTopBtnBottomEdgeScale = 0.2;
 #pragma mark - Scroll View Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat y = scrollView.contentOffset.y;
-    if (y > 0) {
+    if (y < self.lastOffsetY) {
         self.returnTopBtn.hidden = NO;
     } else {
         self.returnTopBtn.hidden = YES;
     }
+    self.lastOffsetY = y;
 }
 
 @end

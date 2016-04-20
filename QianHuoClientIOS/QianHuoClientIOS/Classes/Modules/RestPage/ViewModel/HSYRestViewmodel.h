@@ -19,9 +19,12 @@
 - (NSInteger)rowsVedioCountInSection:(NSInteger)section;
 
 - (UIImage*)rowAvatarAtIndexPath:(NSIndexPath *)indexPath;
+- (NSString*)rowTitleAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowDescAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString*)rowUrlAtIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)rowHasRead:(NSIndexPath *)indexPath;
 - (void)saveRowHasRead:(NSIndexPath *)indexPath;
+- (BOOL)rowIsLike:(NSIndexPath *)indexPath;
+- (void)saveRowIsLike:(BOOL)isLike indexPath:(NSIndexPath *)indexPath;
 
 @end

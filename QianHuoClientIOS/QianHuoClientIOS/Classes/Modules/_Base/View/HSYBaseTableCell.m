@@ -27,6 +27,8 @@
 - (void)setupViews {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    self.backgroundColor = FYColorMain;
+    
     UIView *separatorBg = [[UIView alloc] init];
     separatorBg.backgroundColor = FYColorLightGary;
     [self.contentView addSubview:separatorBg];

@@ -17,7 +17,7 @@ NSString * const HSYHistoryID = @"HSYHistoryID";
 NSString * const HSYNetworkErrorHint = @"网络或服务器有问题";
 NSString * const HSYNoMoreHint = @"没有更多了";
 int const HSYHintDuration = 3;
-CGFloat const HSYCommonCellHeightScale = 0.2;
+CGFloat const HSYCommonCellHeightScale = 0.30;
 CGFloat const HSYCommonHeaderHeightScale = 0.05;
 
 @end
