@@ -229,8 +229,6 @@ static int const HSYLearningViewmodelPageStep = 10;
                 
                 weakSelf.requestError = error;
                 
-//                [weakSelf decRequestCount];
-                
                 FYLog(@"Error: %@", error);
             }];
         } else {

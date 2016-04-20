@@ -236,9 +236,6 @@ static int const HSYRestViewmodelPageStep = 10;
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 
                 weakSelf.requestError = error;
-                
-//                [weakSelf decRequestCount];
-                
                 FYLog(@"Error: %@", error);
             }];
         } else {
