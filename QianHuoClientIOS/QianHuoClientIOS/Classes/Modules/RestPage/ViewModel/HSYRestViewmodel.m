@@ -145,7 +145,6 @@ static int const HSYRestViewmodelPageStep = 10;
 
 - (void)loadMoreValue {
     self.isFirstLoad = NO;
-    self.page = self.page + HSYRestViewmodelPageStep;
     [self requestValueWithPage:self.page length:HSYRestViewmodelPageStep];
     [self savePage:self.page];
 }
@@ -166,6 +165,7 @@ static int const HSYRestViewmodelPageStep = 10;
             } else {
                 [observer loadValueFormDBWithPage:observer.page length:HSYRestViewmodelPageStep];
             }
+            observer.page = observer.page + HSYRestViewmodelPageStep;
         }
     }];
 }
@@ -194,6 +194,11 @@ static int const HSYRestViewmodelPageStep = 10;
 }
 
 - (void)requestValueWithPage:(NSInteger)page length:(NSInteger)length {
+    
+    if (page > self.historys.count) {
+        self.noMore = YES;
+        return;
+    }
     
     NSInteger tempPage = page + length;
     if (tempPage > self.historys.count) {
@@ -232,7 +237,7 @@ static int const HSYRestViewmodelPageStep = 10;
                 
                 weakSelf.requestError = error;
                 
-                [weakSelf decRequestCount];
+//                [weakSelf decRequestCount];
                 
                 FYLog(@"Error: %@", error);
             }];
@@ -244,12 +249,17 @@ static int const HSYRestViewmodelPageStep = 10;
 
 - (void)loadValueFormDBWithPage:(NSInteger)page length:(NSInteger)length {
     
-    NSMutableArray *tempArr = [[NSMutableArray alloc] initWithCapacity:length];
+    if (page > self.historys.count) {
+        self.noMore = YES;
+        return;
+    }
     
     NSInteger tempPage = page + length;
     if (tempPage > self.historys.count) {
         length = length - (tempPage - self.historys.count);
     }
+    
+    NSMutableArray *tempArr = [[NSMutableArray alloc] initWithCapacity:length];
     
     NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, length)];
     for (NSString *dateStr in tempHistoary) {

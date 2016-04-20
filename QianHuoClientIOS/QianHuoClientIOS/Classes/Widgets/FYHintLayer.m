@@ -46,7 +46,7 @@
 - (void)show {
     
     //清除前面的hint
-    for(UIView *view in [UIViewController currentViewController].view.window.subviews){
+    for(UIView *view in [UIViewController currentViewController].view.subviews){
         if([view isKindOfClass:[self class]]){
             [view removeFromSuperview];
         }

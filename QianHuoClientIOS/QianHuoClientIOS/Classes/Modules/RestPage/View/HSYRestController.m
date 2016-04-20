@@ -183,7 +183,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
     }
 }
 
-#pragma mark - HSYIsLikeBottonDelegate
+#pragma mark - HSYLikeButtonDelegate
 - (void)likeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath *)indexPath {
     [self.viewmodel saveRowIsLike:seleted indexPath:indexPath];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];

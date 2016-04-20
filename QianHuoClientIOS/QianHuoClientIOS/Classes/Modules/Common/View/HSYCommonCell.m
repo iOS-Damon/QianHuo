@@ -28,6 +28,7 @@ static CGFloat const HSYCommonCellIsLikeBtnHeightScale = 0.13;
 
 @implementation HSYCommonCell
 
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
