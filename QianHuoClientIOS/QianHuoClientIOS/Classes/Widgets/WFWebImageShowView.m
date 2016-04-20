@@ -22,7 +22,7 @@
 
 - (id)initWithImageUrl:(NSString *)imageUrl{
 
-    if (self == [super initWithFrame:[UIScreen mainScreen].bounds]) {
+    if (self = [super initWithFrame:[UIScreen mainScreen].bounds]) {
     
         [self configUI:imageUrl];
     }
