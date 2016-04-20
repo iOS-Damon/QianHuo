@@ -19,7 +19,7 @@
 static NSString * const HSYLearningCellID = @"HSYLearningCellID";
 static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
 
-@interface HSYLearningController () <HSYBindingParamProtocol, HSYIsLikeBottonDelegate>
+@interface HSYLearningController () <HSYBindingParamProtocol, HSYLikeButtonDelegate>
 
 @property (nonatomic, strong) HSYLearningViewmodel *viewmodel;
 @property (nonatomic, strong) FBKVOController *KVOController;
@@ -150,7 +150,7 @@ static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
 }
 
 #pragma mark - HSYIsLikeBottonDelegate
-- (void)isLikeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath *)indexPath {
+- (void)likeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath *)indexPath {
     
     [self.viewmodel saveRowIsLike:seleted indexPath:indexPath];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];

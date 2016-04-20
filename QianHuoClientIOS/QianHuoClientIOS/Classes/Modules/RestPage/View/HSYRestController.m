@@ -25,7 +25,7 @@ static NSString * const HSYRestFuliCellID = @"HSYRestFuliCellID";
 static NSString * const HSYRestVedioCellID = @"HSYRestVedioCellID";
 static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 
-@interface HSYRestController () <HSYBindingParamProtocol, HSYIsLikeBottonDelegate>
+@interface HSYRestController () <HSYBindingParamProtocol, HSYLikeButtonDelegate>
 
 @property (nonatomic, strong) HSYRestViewmodel *viewmodel;
 @property (nonatomic, strong) FBKVOController *KVOController;
@@ -184,7 +184,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 }
 
 #pragma mark - HSYIsLikeBottonDelegate
-- (void)isLikeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath *)indexPath {
+- (void)likeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath *)indexPath {
     [self.viewmodel saveRowIsLike:seleted indexPath:indexPath];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
 }

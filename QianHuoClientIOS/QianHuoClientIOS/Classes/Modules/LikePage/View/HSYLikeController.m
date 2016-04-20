@@ -15,7 +15,7 @@
 
 static NSString * const HSYLikeCellID = @"HSYLikeCellID";
 
-@interface HSYLikeController () <HSYIsLikeBottonDelegate>
+@interface HSYLikeController () <HSYLikeButtonDelegate>
 
 @property (nonatomic, strong) HSYLikeViewmodel *viewmodel;
 
@@ -45,6 +45,8 @@ static NSString * const HSYLikeCellID = @"HSYLikeCellID";
     [self.viewmodel refreshData];
     [self.tableView reloadData];
 }
+
+#pragma mark - TableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -92,6 +94,7 @@ static NSString * const HSYLikeCellID = @"HSYLikeCellID";
 }
 
 #pragma mark - override
+
 - (void)pullDownRefresh:(id)sender {
     [self.viewmodel refreshData];
     [self.tableView reloadData];
@@ -103,7 +106,7 @@ static NSString * const HSYLikeCellID = @"HSYLikeCellID";
 }
 
 #pragma mark - HSYIsLikeBottonDelegate
-- (void)isLikeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath *)indexPath {
+- (void)likeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath *)indexPath {
     [self.viewmodel saveRowIsLike:seleted indexPath:indexPath];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
 }

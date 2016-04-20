@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol HSYIsLikeBottonDelegate <NSObject>
+@protocol HSYLikeButtonDelegate <NSObject>
 
-- (void)isLikeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath*)indexPath;
+- (void)likeButtonDidSeleted:(BOOL)seleted indexPath:(NSIndexPath*)indexPath;
 
 @end

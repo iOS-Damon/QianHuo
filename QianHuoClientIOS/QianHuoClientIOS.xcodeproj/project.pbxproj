@@ -247,7 +247,7 @@
 		147FC1B61CC35FCB00FC416E /* HSYCommenDateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYCommenDateModel.h; sourceTree = "<group>"; };
 		147FC1B71CC35FCB00FC416E /* HSYCommenDateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYCommenDateModel.m; sourceTree = "<group>"; };
 		147FC1E81CC60FBE00FC416E /* ButtonLikeAct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonLikeAct.png; sourceTree = "<group>"; };
-		147FC1EC1CC61ADD00FC416E /* HSYIsLikeBottonDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYIsLikeBottonDelegate.h; sourceTree = "<group>"; };
+		147FC1EC1CC61ADD00FC416E /* HSYLikeButtonDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLikeButtonDelegate.h; sourceTree = "<group>"; };
 		147FC1F11CC61FB200FC416E /* HSYLikeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLikeModel.h; sourceTree = "<group>"; };
 		147FC1F21CC61FB200FC416E /* HSYLikeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYLikeModel.m; sourceTree = "<group>"; };
 		147FC1F41CC6208C00FC416E /* HSYLikeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYLikeController.h; sourceTree = "<group>"; };
@@ -584,7 +584,7 @@
 			children = (
 				147569EC1CAA5287009DB7E7 /* HSYLoadValueProtocol.h */,
 				147569ED1CAA5411009DB7E7 /* HSYBindingParamProtocol.h */,
-				147FC1EC1CC61ADD00FC416E /* HSYIsLikeBottonDelegate.h */,
+				147FC1EC1CC61ADD00FC416E /* HSYLikeButtonDelegate.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

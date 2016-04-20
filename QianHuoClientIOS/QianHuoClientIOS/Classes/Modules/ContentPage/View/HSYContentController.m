@@ -114,7 +114,7 @@ static NSString * const HSYContentControllerLoadingID = @"HSYContentControllerLo
 
 - (void)isLikeBtnAction:(id)sender {
     self.isLike = !self.isLike;
-    [self.delegate isLikeButtonDidSeleted:self.isLike indexPath:self.indexPath];
+    [self.delegate likeButtonDidSeleted:self.isLike indexPath:self.indexPath];
 }
 
 - (void)setToolbarItemsEnable {

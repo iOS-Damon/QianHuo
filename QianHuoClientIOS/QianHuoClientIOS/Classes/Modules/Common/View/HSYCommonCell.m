@@ -132,7 +132,7 @@ static CGFloat const HSYCommonCellIsLikeBtnHeightScale = 0.13;
 - (void)isLikeBtnAction:(id)sender {
     if (self.delegate) {
         self.isLike = !self.isLike;
-        [self.delegate isLikeButtonDidSeleted:self.isLike indexPath:self.indexPath];
+        [self.delegate likeButtonDidSeleted:self.isLike indexPath:self.indexPath];
     }
 }
 
