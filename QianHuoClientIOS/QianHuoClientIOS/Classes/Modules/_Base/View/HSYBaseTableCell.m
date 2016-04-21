@@ -38,14 +38,14 @@
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
-    UIView *separatorLineTop = [[UIView alloc] init];
-    separatorLineTop.backgroundColor = FYColorGary;
-    [separatorBg addSubview:separatorLineTop];
-    [separatorLineTop mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(separatorBg.mas_width);
-        make.height.mas_equalTo(0.5);
-        make.top.equalTo(separatorBg.mas_top);
-    }];
+//    UIView *separatorLineTop = [[UIView alloc] init];
+//    separatorLineTop.backgroundColor = FYColorGary;
+//    [separatorBg addSubview:separatorLineTop];
+//    [separatorLineTop mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(separatorBg.mas_width);
+//        make.height.mas_equalTo(0.5);
+//        make.top.equalTo(separatorBg.mas_top);
+//    }];
 }
 
 @end

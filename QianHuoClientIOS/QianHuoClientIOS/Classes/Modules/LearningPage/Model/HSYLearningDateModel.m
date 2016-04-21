@@ -13,13 +13,17 @@
 - (instancetype)initWithDateStr:(NSString *)dateStr {
     self = [super initWithDateStr:dateStr];
     if (self) {
-        self.cellModels = [[NSArray alloc] init];
-        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.androids];
-        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.ioses];
-        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.appes];
-        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.htmls];
-        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.resources];
-        self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.introduces];
+        NSString *sql = [NSString stringWithFormat:
+                            @" WHERE dateStr = '%@' AND (type = '%@' OR type = '%@' OR type = '%@' OR type = '%@' OR type = '%@' OR type = '%@')",
+                            dateStr,
+                            @"Android",
+                            @"iOS",
+                            @"App",
+                            @"前端",
+                            @"拓展资源",
+                            @"瞎推荐"
+                         ];
+        self.cellModels = [HSYCommonModel findWithFormat:@"%@", sql];
     }
     return self;
 }

@@ -20,6 +20,7 @@
 #import "WFWebImageShowView.h"
 #import "UIImageView+MHFacebookImageViewer.h"
 #import "UIView+FY.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString * const HSYRestFuliCellID = @"HSYRestFuliCellID";
 static NSString * const HSYRestVedioCellID = @"HSYRestVedioCellID";
@@ -57,6 +58,10 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.navigationController.toolbarHidden = YES;
+}
+
+- (void)didReceiveMemoryWarning {
+    [[SDImageCache sharedImageCache] clearMemory];
 }
 
 #pragma mark - Override HSYBaseTableController

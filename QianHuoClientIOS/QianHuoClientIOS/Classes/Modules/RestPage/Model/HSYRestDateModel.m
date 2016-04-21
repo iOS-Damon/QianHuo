@@ -13,6 +13,8 @@
 - (instancetype)initWithDateStr:(NSString *)dateStr {
     self = [super initWithDateStr:dateStr];
     if (self) {
+        self.fulis = [HSYCommonModel findWithFormat:@" WHERE dateStr = '%@' AND type = '%@'", dateStr, @"福利"];
+        self.vedios = [HSYCommonModel findWithFormat:@" WHERE dateStr = '%@' AND type = '%@'", dateStr, @"休息视频"];
         self.cellModels = [[NSArray alloc] init];
         self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.fulis];
         self.cellModels = [self.cellModels arrayByAddingObjectsFromArray:self.vedios];

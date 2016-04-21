@@ -126,13 +126,17 @@ static int const HSYRestViewmodelPageStep = 10;
 
 #pragma HSYLoadValueProtocol
 - (void)loadFirstValue {
-    self.isFirstLoad = YES;
     self.historys = [HSYUserDefaults objectForKey:HSYHistoryID];
     if (FYEmpty(self.historys)) {
         [self loadNewValue];
     } else {
         self.page = [self loadPage];
-        [self requestValueWithPage:0 length:self.page + HSYRestViewmodelPageStep];
+        if (self.page == 0) {
+            [self loadNewValue];
+        } else {
+            [self loadValueFormDBWithPage:0 length:self.page + HSYRestViewmodelPageStep];
+            self.isFirstLoad = YES;
+        }
     }
 }
 
@@ -160,11 +164,7 @@ static int const HSYRestViewmodelPageStep = 10;
         NSNumber *newCount = change[NSKeyValueChangeNewKey];
         newCount = FYNull(newCount) ? @(0) : newCount;
         if ([oldCount intValue] == 1 && [newCount intValue] == 0) { //网络请求结束
-            if (observer.isFirstLoad) {
-                [observer loadValueFormDBWithPage:0 length:observer.page + HSYRestViewmodelPageStep];
-            } else {
-                [observer loadValueFormDBWithPage:observer.page length:HSYRestViewmodelPageStep];
-            }
+            [observer loadValueFormDBWithPage:observer.page length:HSYRestViewmodelPageStep];
             observer.page = observer.page + HSYRestViewmodelPageStep;
         }
     }];
