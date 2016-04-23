@@ -32,6 +32,7 @@ static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
     self = [super init];
     if (self) {
         self.viewmodel = [[HSYLearningViewmodel alloc] init];
+        self.KVOController = [FBKVOController controllerWithObserver:self];
         [self bindingParam];
     }
     return self;
@@ -43,7 +44,6 @@ static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
     [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYLearningCellID];
     [self.tableView registerClass:[HSYCommonHeader class] forHeaderFooterViewReuseIdentifier:HSYLearningHeaderID];
     
-    [self.refreshControl beginRefreshing];
     [self.viewmodel loadFirstValue];
 }
 
@@ -116,13 +116,6 @@ static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
 
 #pragma mark - HSYBindingParamProtocol
 - (void)bindingParam {
-    self.KVOController = [FBKVOController controllerWithObserver:self];
-    [self.KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
-        
-        [observer.tableView reloadData];
-        [observer.refreshControl endRefreshing];
-        [observer endPullUpRefresh];
-    }];
     
     [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
         
@@ -136,8 +129,38 @@ static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
     [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
         
         if(object.isFirstLoad) {
-            CGFloat offsetY = [self.viewmodel loadOffsetY];
-            observer.tableView.contentOffset = CGPointMake(0, offsetY);
+            double delayInSeconds = 1.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                CGFloat offsetY = [self.viewmodel loadOffsetY];
+                observer.tableView.contentOffset = CGPointMake(0, offsetY);
+            });
+        }
+    }];
+    
+    [self.KVOController observe:self.viewmodel keyPath:@"isLoadingNew" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
+        
+        if(object.isLoadingNew) {
+            [observer.refreshControl beginRefreshing];
+        } else {
+            
+            [observer.tableView reloadData];
+            [observer.refreshControl endRefreshing];
+            
+            if(!object.isFirstLoad) {
+                object.isFirstLoad = YES;
+                CGFloat offsetY = [self.viewmodel loadOffsetY];
+                observer.tableView.contentOffset = CGPointMake(0, offsetY);
+            }
+        }
+    }];
+    
+    [self.KVOController observe:self.viewmodel keyPath:@"isLoadingMore" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
+        
+        if(object.isLoadingMore) {
+        } else {
+            [observer.tableView reloadData];
+            [observer endPullUpRefresh];
         }
     }];
 }

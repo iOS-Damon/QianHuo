@@ -11,6 +11,7 @@
 
 @interface HSYCommenDateModel : NSObject
 
+@property (nonatomic, copy) NSString *dateStr;
 @property (nonatomic, copy) NSString *headerTitle;
 @property (nonatomic, strong) NSArray <HSYCommonModel*> *androids;
 @property (nonatomic, strong) NSArray <HSYCommonModel*> *ioses;
@@ -20,10 +21,12 @@
 @property (nonatomic, strong) NSArray <HSYCommonModel*> *introduces;
 @property (nonatomic, strong) NSArray <HSYCommonModel*> *vedios;
 @property (nonatomic, strong) NSArray <HSYCommonModel*> *fulis;
+@property (nonatomic, strong) NSArray <HSYCommonModel*> *cellModels;
 
 + (void)saveWithParams:(NSDictionary*)params dateStr:(NSString*)dateStr;
 + (BOOL)hasValueWithDateStr:(NSString*)dateStr;
 
 - (instancetype)initWithDateStr:(NSString*)dateStr;
+- (instancetype)initWithDateStr:(NSString *)dateStr params:(NSDictionary*)params;
 
 @end

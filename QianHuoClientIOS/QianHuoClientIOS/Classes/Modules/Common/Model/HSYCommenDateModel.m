@@ -13,104 +13,77 @@
 
 + (void)saveWithParams:(NSDictionary*)params dateStr:(NSString*)dateStr {
     
-    NSMutableArray *tempModels = [[NSMutableArray alloc] initWithCapacity:5];
+    NSArray *ios = params[@"iOS"];
+    if(!FYEmpty(ios)) {
+        for (NSDictionary *dict in ios) {
+            HSYCommonModel *model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
+            model.avatarName = @"AvatarIOS.png";
+            [model saveOrUpdateByColumnName:@"modelId" AndColumnValue:model.modelId];
+        }
+    }
     
     NSArray *android = params[@"Android"];
     if(!FYEmpty(android)) {
         for (NSDictionary *dict in android) {
-            HSYCommonModel *model = [HSYCommonModel findFirstWithFormat:@"WHERE modelId = '%@'", params[@"_id"]];
-            if (!model) {
-                model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
-                model.avatarName = @"AvatarAndroid.png";
-                [tempModels addObject:model];
-            }
-        }
-    }
-    
-    NSArray *ios = params[@"iOS"];
-    if(!FYEmpty(android)) {
-        for (NSDictionary *dict in ios) {
-            HSYCommonModel *model = [HSYCommonModel findFirstWithFormat:@"WHERE modelId = '%@'", params[@"_id"]];
-            if (!model) {
-                model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
-                model.avatarName = @"AvatarIOS.png";
-                [tempModels addObject:model];
-            }
+            HSYCommonModel *model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
+            model.avatarName = @"AvatarAndroid.png";
+            [model saveOrUpdateByColumnName:@"modelId" AndColumnValue:model.modelId];
         }
     }
     
     NSArray *app = params[@"App"];
     if(!FYEmpty(android)) {
         for (NSDictionary *dict in app) {
-            HSYCommonModel *model = [HSYCommonModel findFirstWithFormat:@"WHERE modelId = '%@'", params[@"_id"]];
-            if (!model) {
-                model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
-                model.avatarName = @"AvatarApp.png";
-                [tempModels addObject:model];
-            }
+            HSYCommonModel *model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
+            model.avatarName = @"AvatarApp.png";
+            [model saveOrUpdateByColumnName:@"modelId" AndColumnValue:model.modelId];
         }
     }
     
     NSArray *html = params[@"前端"];
     if(!FYEmpty(android)) {
         for (NSDictionary *dict in html) {
-            HSYCommonModel *model = [HSYCommonModel findFirstWithFormat:@"WHERE modelId = '%@'", params[@"_id"]];
-            if (!model) {
-                model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
-                model.avatarName = @"AvatarHtml.png";
-                [tempModels addObject:model];
-            }
+            HSYCommonModel *model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
+            model.avatarName = @"AvatarHtml.png";
+            [model saveOrUpdateByColumnName:@"modelId" AndColumnValue:model.modelId];
+
         }
     }
     
     NSArray *resource = params[@"拓展资源"];
     if(!FYEmpty(android)) {
         for (NSDictionary *dict in resource) {
-            HSYCommonModel *model = [HSYCommonModel findFirstWithFormat:@"WHERE modelId = '%@'", params[@"_id"]];
-            if (!model) {
-                model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
-                model.avatarName = @"AvatarResource.png";
-                [tempModels addObject:model];
-            }
+            HSYCommonModel *model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
+            model.avatarName = @"AvatarResource.png";
+            [model saveOrUpdateByColumnName:@"modelId" AndColumnValue:model.modelId];
         }
     }
     
     NSArray *introduce = params[@"瞎推荐"];
     if(!FYEmpty(android)) {
         for (NSDictionary *dict in introduce) {
-            HSYCommonModel *model = [HSYCommonModel findFirstWithFormat:@"WHERE modelId = '%@'", params[@"_id"]];
-            if (!model) {
-                model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
-                model.avatarName = @"AvatarIntroduce.png";
-                [tempModels addObject:model];
-            }
+            HSYCommonModel *model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
+            model.avatarName = @"AvatarIntroduce.png";
+            [model saveOrUpdateByColumnName:@"modelId" AndColumnValue:model.modelId];
         }
     }
     
     NSArray *fuli = params[@"福利"];
     if (!FYEmpty(fuli)) {
         for (NSDictionary *dict in fuli) {
-            HSYCommonModel *model = [HSYCommonModel findFirstWithFormat:@"WHERE modelId = '%@'", params[@"_id"]];
-            if (!model) {
-                model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
-                [tempModels addObject:model];
-            }
+            HSYCommonModel *model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
+            [model saveOrUpdateByColumnName:@"modelId" AndColumnValue:model.modelId];
         }
     }
     
     NSArray *vedio = params[@"休息视频"];
     if (!FYEmpty(vedio)) {
         for (NSDictionary *dict in vedio) {
-            HSYCommonModel *model = [HSYCommonModel findFirstWithFormat:@"WHERE modelId = '%@'", params[@"_id"]];
-            if (!model) {
-                model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
-                model.avatarName = @"AvatarVedio.png";
-                [tempModels addObject:model];
-            }
+            HSYCommonModel *model = [[HSYCommonModel alloc] initWithParams:dict dateStr:dateStr];
+            model.avatarName = @"AvatarVedio.png";
+            [model saveOrUpdateByColumnName:@"modelId" AndColumnValue:model.modelId];
         }
     }
-    
-    [HSYCommonModel saveObjects:tempModels];
 }
 
 + (BOOL)hasValueWithDateStr:(NSString*)dateStr {
@@ -125,6 +98,16 @@
 - (instancetype)initWithDateStr:(NSString*)dateStr {
     self = [super init];
     if (self) {
+        self.dateStr = dateStr;
+        self.headerTitle = [self formatWithDateStr:dateStr];
+    }
+    return self;
+}
+
+- (instancetype)initWithDateStr:(NSString *)dateStr params:(NSDictionary*)params {
+    self = [super init];
+    if (self) {
+        self.dateStr = dateStr;
         self.headerTitle = [self formatWithDateStr:dateStr];
     }
     return self;

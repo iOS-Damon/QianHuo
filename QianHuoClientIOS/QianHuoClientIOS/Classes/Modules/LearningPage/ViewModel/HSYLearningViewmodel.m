@@ -21,6 +21,9 @@ static int const HSYLearningViewmodelPageStep = 10;
 
 @interface HSYLearningViewmodel ()
 
+@property (atomic, strong) NSArray *tempModels;
+@property (nonatomic, assign) NSInteger tempCount;
+
 @end
 
 @implementation HSYLearningViewmodel
@@ -28,7 +31,9 @@ static int const HSYLearningViewmodelPageStep = 10;
 - (instancetype)init {
     self = [super init];
     if (self) {
-
+        self.dateModels = [[NSArray alloc] init];
+        self.tempModels = [[NSArray alloc] init];
+        self.tempCount = 0;
     }
     return self;
 }
@@ -117,47 +122,58 @@ static int const HSYLearningViewmodelPageStep = 10;
 
 #pragma HSYLoadValueProtocol
 - (void)loadFirstValue {
-    self.isFirstLoad = YES;
+    self.isLoadingNew = YES;
+    
     self.historys = [HSYUserDefaults objectForKey:HSYHistoryID];
     if (FYEmpty(self.historys)) {
         [self loadNewValue];
     } else {
         self.page = [self loadPage];
-        [self requestValueWithPage:0 length:self.page + HSYLearningViewmodelPageStep];
+        if (self.page == 0) {
+            [self loadNewValue];
+        } else {
+            [self takeValueWithPage:0 length:self.page + HSYLearningViewmodelPageStep];
+        }
     }
 }
 
 - (void)loadNewValue {
-    self.isFirstLoad = NO;
+    
+    self.isLoadingNew = YES;
+    
     self.page = 0;
+    self.dateModels = [[NSArray alloc] init];
     [self requestHistory];
     [self savePage:self.page];
 }
 
 - (void)loadMoreValue {
-    self.isFirstLoad = NO;
-    [self requestValueWithPage:self.page length:HSYLearningViewmodelPageStep];
+    
+    self.isLoadingMore = YES;
+    
+    [self takeValueWithPage:self.page length:HSYLearningViewmodelPageStep];
     [self savePage:self.page];
 }
 
 #pragma HSYBindingParamProtocol
 - (void)bindingParam {
     
-    self.KVOController = [FBKVOController controllerWithObserver:self];
-    
-    [self.KVOController observe:self keyPath:@"requestCount" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYLearningViewmodel *observer, id object, NSDictionary *change) {
-        
-        NSNumber *oldCount = change[NSKeyValueChangeOldKey];
-        oldCount = FYNull(oldCount) ? @(0) : oldCount;
-        NSNumber *newCount = change[NSKeyValueChangeNewKey];
-        newCount = FYNull(newCount) ? @(0) : newCount;
-        if ([oldCount intValue] == 1 && [newCount intValue] == 0) { //网络请求结束
-            if (observer.isFirstLoad) {
-                [observer loadValueFormDBWithPage:0 length:observer.page + HSYLearningViewmodelPageStep];
-            } else {
-                [observer loadValueFormDBWithPage:observer.page length:HSYLearningViewmodelPageStep];
-            }
+    [self.KVOController observe:self keyPath:@"tempModels" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYLearningViewmodel *observer, id object, NSDictionary *change) {
+        if (observer.tempCount > 0 && observer.tempModels.count == observer.tempCount) {
+            
+            // 排序
+            NSSortDescriptor *dateStrDesc = [NSSortDescriptor sortDescriptorWithKey:@"dateStr" ascending:NO];
+            NSArray *tempArr = [observer.tempModels sortedArrayUsingDescriptors:@[dateStrDesc]];
+            
+            observer.dateModels = [observer.dateModels arrayByAddingObjectsFromArray:tempArr];
             observer.page = observer.page + HSYLearningViewmodelPageStep;
+            
+            if (!observer.isFirstLoad) {
+                observer.isFirstLoad = YES;
+            }
+            
+            self.isLoadingNew = NO;
+            self.isLoadingMore = NO;
         }
     }];
 }
@@ -177,7 +193,7 @@ static int const HSYLearningViewmodelPageStep = 10;
         weakSelf.historys = results;
         [HSYUserDefaults setObject:weakSelf.historys forKey:HSYHistoryID];
         
-        [weakSelf requestValueWithPage:weakSelf.page length:HSYLearningViewmodelPageStep];
+        [weakSelf takeValueWithPage:weakSelf.page length:HSYLearningViewmodelPageStep];
         
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         FYLog(@"Error: %@", error);
@@ -185,8 +201,7 @@ static int const HSYLearningViewmodelPageStep = 10;
     }];
 }
 
-- (void)requestValueWithPage:(NSInteger)page length:(NSInteger)length {
-    
+- (void)takeValueWithPage:(NSInteger)page length:(NSInteger)length {
     if (page > self.historys.count) {
         self.noMore = YES;
         return;
@@ -198,71 +213,59 @@ static int const HSYLearningViewmodelPageStep = 10;
     }
     
     NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, length)];
-    self.requestCount = @(tempHistoary.count);
     
-    FYWeakSelf(weakSelf);
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    self.tempModels = [[NSArray alloc] init];
+    self.tempCount = length;
     
     for (NSString *dateStr in tempHistoary) {
         
         if (![HSYLearningDateModel hasValueWithDateStr:dateStr]) {
-            
-            NSArray *arr = [dateStr componentsSeparatedByString:@"-"];
-            NSString *year = arr[0];
-            NSString *month = arr[1];
-            NSString *day = arr[2];
-            
-            NSString *urlStr = [NSString stringWithFormat:@"%@/%@/%@/%@", HSYBaseUrl, year, month, day];
-            
-            NSURL *url = [NSURL URLWithString:urlStr];
-            
-            [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-                
-                NSDictionary *jsonDict = responseObject;
-                NSDictionary *results = jsonDict[@"results"];
-                
-                [HSYLearningDateModel saveWithParams:results dateStr:dateStr];
-                
-                [weakSelf decRequestCount];
-                
-            } failure:^(NSURLSessionTask *operation, NSError *error) {
-                
-                weakSelf.requestError = error;
-                
-                FYLog(@"Error: %@", error);
-            }];
+            //请求新数据
+            [self requestValueWithDateStr:dateStr];
         } else {
-            [self decRequestCount];
+            //从数据库获取
+            [self loadValueWithDateStr:dateStr];
         }
     }
 }
 
-- (void)loadValueFormDBWithPage:(NSInteger)page length:(NSInteger)length {
+- (void)requestValueWithDateStr:(NSString*)dateStr {
     
-    if (page > self.historys.count) {
-        self.noMore = YES;
-        return;
-    }
+    FYWeakSelf(weakSelf);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
-    NSInteger tempPage = page + length;
-    if (tempPage > self.historys.count) {
-        length = length - (tempPage - self.historys.count);
-        self.noMore = YES;
-    }
+    NSArray *arr = [dateStr componentsSeparatedByString:@"-"];
+    NSString *year = arr[0];
+    NSString *month = arr[1];
+    NSString *day = arr[2];
     
-    NSMutableArray *tempArr = [[NSMutableArray alloc] initWithCapacity:length];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@/%@/%@", HSYBaseUrl, year, month, day];
     
-    NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, length)];
-    for (NSString *dateStr in tempHistoary) {
-        HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithDateStr:dateStr];
-        [tempArr addObject:dateModel];
-    }
+    NSURL *url = [NSURL URLWithString:urlStr];
     
-    if (page == 0) {
-        self.dateModels = tempArr;
-    } else {
-        self.dateModels = [self.dateModels arrayByAddingObjectsFromArray:tempArr];
-    }
+    [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        NSDictionary *jsonDict = responseObject;
+        NSDictionary *results = jsonDict[@"results"];
+        
+        HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithDateStr:dateStr params:results];
+        weakSelf.tempModels = [weakSelf.tempModels arrayByAddingObject:dateModel];
+        
+        // 保存
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [HSYLearningDateModel saveWithParams:results dateStr:dateStr];
+        });
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        
+        weakSelf.requestError = error;
+        FYLog(@"Error: %@", error);
+    }];
+}
+
+- (void)loadValueWithDateStr:(NSString*)dateStr {
+    HSYLearningDateModel *dateModel = [[HSYLearningDateModel alloc] initWithDateStr:dateStr];
+    self.tempModels = [self.tempModels arrayByAddingObject:dateModel];
 }
 
 @end

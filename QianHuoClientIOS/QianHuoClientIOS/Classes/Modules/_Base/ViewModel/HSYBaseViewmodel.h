@@ -13,20 +13,22 @@
 
 @interface HSYBaseViewmodel : NSObject <HSYBindingParamProtocol, HSYLoadValueProtocol>
 
+//数据清单
+@property (nonatomic, strong) NSArray *historys;
 //页数
 @property (nonatomic, assign) NSInteger page;
+//KVO
+@property (nonatomic, strong) FBKVOController *KVOController;
 //请求错误
 @property (nonatomic, strong) NSError *requestError;
 //记录是否第一次加载
 @property (nonatomic, assign) BOOL isFirstLoad;
-//KVO
-@property (nonatomic, strong) FBKVOController *KVOController;
-//数据清单
-@property (nonatomic, strong) NSArray *historys;
-//记录当前请求数
-@property (nonatomic, assign) NSNumber *requestCount;
 //提示没有更多
 @property (nonatomic, assign) BOOL noMore;
+//是否正在加载新数据
+@property (nonatomic, assign) BOOL isLoadingNew;
+//是否加载更多数据
+@property (nonatomic, assign) BOOL isLoadingMore;
 
 - (void)savePage:(NSInteger)section;
 - (NSInteger)loadPage;
@@ -36,7 +38,7 @@
 
 - (NSString*)formatWithYear:(NSString*)year month:(NSString*)month day:(NSString*)day;
 
-- (void)addRequestCount;
-- (void)decRequestCount;
+//- (void)addRequestCount;
+//- (void)decRequestCount;
 
 @end

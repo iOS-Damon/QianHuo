@@ -11,6 +11,4 @@
 
 @interface HSYRestDateModel : HSYCommenDateModel
 
-@property (nonatomic, strong) NSArray *cellModels;
-
 @end

@@ -12,7 +12,13 @@
 
 - (instancetype)init {
     if (self = [super init]) {
+        self.historys = [[NSArray alloc] init];
+        self.page = 0;
+        self.KVOController = [FBKVOController controllerWithObserver:self];
         self.isFirstLoad = NO;
+        self.isLoadingNew = NO;
+        self.isLoadingMore = NO;
+        self.noMore = NO;
         [self bindingParam];
     }
     return self;
@@ -63,15 +69,15 @@
 }
 
 #pragma mark - 请求数加减
-- (void)addRequestCount {
-    int tempCount = [self.requestCount intValue] + 1;
-    self.requestCount = @(tempCount);
-}
-
-- (void)decRequestCount {
-    int tempCount = [self.requestCount intValue] - 1;
-    self.requestCount = @(tempCount);
-}
+//- (void)addRequestCount {
+//    int tempCount = [self.requestCount intValue] + 1;
+//    self.requestCount = @(tempCount);
+//}
+//
+//- (void)decRequestCount {
+//    int tempCount = [self.requestCount intValue] - 1;
+//    self.requestCount = @(tempCount);
+//}
 
 #pragma mark - 获取headerTitle
 - (NSString*)formatWithYear:(NSString*)year month:(NSString*)month day:(NSString*)day {

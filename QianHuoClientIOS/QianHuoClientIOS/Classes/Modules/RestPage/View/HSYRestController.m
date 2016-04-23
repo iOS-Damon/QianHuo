@@ -39,6 +39,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
     self = [super init];
     if (self) {
         self.viewmodel = [[HSYRestViewmodel alloc] init];
+        self.KVOController = [FBKVOController controllerWithObserver:self];
         [self bindingParam];
     }
     return self;
@@ -50,8 +51,7 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
     [self.tableView registerClass:[HSYRestFuliCell class] forCellReuseIdentifier:HSYRestFuliCellID];
     [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYRestVedioCellID];
     [self.tableView registerClass:[HSYCommonHeader class] forHeaderFooterViewReuseIdentifier:HSYRestHeaderID];
-    
-    [self.refreshControl beginRefreshing];
+
     [self.viewmodel loadFirstValue];
 }
 
@@ -75,14 +75,6 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 
 #pragma mark - HSYBindingParamProtocol
 - (void)bindingParam {
-    self.KVOController = [FBKVOController controllerWithObserver:self];
-    [self.KVOController observe:self.viewmodel keyPath:@"dateModels" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
-        
-        [observer.tableView reloadData];
-        
-        [observer.refreshControl endRefreshing];
-        [observer endPullUpRefresh];
-    }];
     
     [self.KVOController observe:self.viewmodel keyPath:@"requestError" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
         
@@ -93,20 +85,38 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
         [hint show];
     }];
     
-    [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
-        
-        if(object.isFirstLoad) {
-            CGFloat offsetY = [self.viewmodel loadOffsetY];
-            observer.tableView.contentOffset = CGPointMake(0, offsetY);
-        }
-    }];
-    
     [self.KVOController observe:self.viewmodel keyPath:@"noMore" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
         
         if(object.noMore) {
             [observer endPullUpRefresh];
             FYHintLayer *hint = [[FYHintLayer alloc] initWithMessege:HSYNoMoreHint duration:HSYHintDuration complete:nil];
             [hint show];
+        }
+    }];
+    
+    [self.KVOController observe:self.viewmodel keyPath:@"isLoadingNew" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
+        
+        if(object.isLoadingNew) {
+            [observer.refreshControl beginRefreshing];
+        } else {
+            
+            [observer.tableView reloadData];
+            [observer.refreshControl endRefreshing];
+            
+            if(!object.isFirstLoad) {
+                object.isFirstLoad = YES;
+                CGFloat offsetY = [self.viewmodel loadOffsetY];
+                observer.tableView.contentOffset = CGPointMake(0, offsetY);
+            }
+        }
+    }];
+    
+    [self.KVOController observe:self.viewmodel keyPath:@"isLoadingMore" options:NSKeyValueObservingOptionNew block:^(HSYRestController *observer, HSYRestViewmodel *object, NSDictionary *change) {
+        
+        if(object.isLoadingMore) {
+        } else {
+            [observer.tableView reloadData];
+            [observer endPullUpRefresh];
         }
     }];
 }
