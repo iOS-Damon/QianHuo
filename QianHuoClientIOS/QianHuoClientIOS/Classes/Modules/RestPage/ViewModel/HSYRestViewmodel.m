@@ -164,6 +164,7 @@ static int const HSYRestViewmodelPageStep = 10;
     self.KVOController = [FBKVOController controllerWithObserver:self];
     
     [self.KVOController observe:self keyPath:@"tempModels" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestViewmodel *observer, id object, NSDictionary *change) {
+        // 如果临时数组都组装好了（组装后的个数等于组装前预计的个数）
         if (observer.tempCount > 0 && observer.tempModels.count == observer.tempCount) {
             
             // 排序
@@ -171,6 +172,8 @@ static int const HSYRestViewmodelPageStep = 10;
             NSArray *tempArr = [observer.tempModels sortedArrayUsingDescriptors:@[dateStrDesc]];
             
             observer.dateModels = [observer.dateModels arrayByAddingObjectsFromArray:tempArr];
+            
+            // page 步数增加
             observer.page = observer.page + HSYRestViewmodelPageStep;
             
             self.isLoadingNew = NO;
@@ -192,6 +195,7 @@ static int const HSYRestViewmodelPageStep = 10;
         NSArray *results = dict[@"results"];
         
         weakSelf.historys = results;
+        // 保存
         [HSYUserDefaults setObject:weakSelf.historys forKey:HSYHistoryID];
         
         [weakSelf takeValueWithPage:weakSelf.page length:HSYRestViewmodelPageStep];
@@ -203,6 +207,7 @@ static int const HSYRestViewmodelPageStep = 10;
 }
 
 - (void)takeValueWithPage:(NSInteger)page length:(NSInteger)length {
+    // 判断数组越界
     if (page > self.historys.count) {
         self.noMore = YES;
         return;
@@ -215,6 +220,7 @@ static int const HSYRestViewmodelPageStep = 10;
     
     NSArray *tempHistoary = [self.historys subarrayWithRange:NSMakeRange(page, length)];
     
+    // 清空临时model 数组
     self.tempModels = [[NSArray alloc] init];
     self.tempCount = length;
     
@@ -252,7 +258,7 @@ static int const HSYRestViewmodelPageStep = 10;
         HSYRestDateModel *dateModel = [[HSYRestDateModel alloc] initWithDateStr:dateStr params:results];
         weakSelf.tempModels = [weakSelf.tempModels arrayByAddingObject:dateModel];
         
-        // 保存
+        // 开启线程 保存
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [HSYRestDateModel saveWithParams:results dateStr:dateStr];
         });

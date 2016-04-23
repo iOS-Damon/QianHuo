@@ -12,12 +12,16 @@
 #import "UIScreen+FY.h"
 #import "HSYConstant.h"
 #import "HSYContentController.h"
+#import "FYLabel.h"
+#import "Masonry.h"
 
 static NSString * const HSYLikeCellID = @"HSYLikeCellID";
+static NSString * const HSYLikeControllerBgHint = @"还空空如也，赶紧去添加吧~";
 
 @interface HSYLikeController () <HSYLikeButtonDelegate>
 
 @property (nonatomic, strong) HSYLikeViewmodel *viewmodel;
+@property (nonatomic, strong) FYLabel *bgHintLable;
 
 @end
 
@@ -35,7 +39,7 @@ static NSString * const HSYLikeCellID = @"HSYLikeCellID";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYLikeCellID];
+    [self setupViews];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -44,6 +48,17 @@ static NSString * const HSYLikeCellID = @"HSYLikeCellID";
     self.navigationController.toolbarHidden = YES;
     [self.viewmodel refreshData];
     [self.tableView reloadData];
+}
+
+- (void)setupViews {
+    [self.tableView registerClass:[HSYCommonCell class] forCellReuseIdentifier:HSYLikeCellID];
+    
+    self.bgHintLable = [[FYLabel alloc] initWithString:HSYLikeControllerBgHint size:FYLabSize3 color:FYColorGary];
+    [self.view addSubview:self.bgHintLable];
+    [self.bgHintLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.centerY.equalTo(self.view.mas_centerY);
+    }];
 }
 
 #pragma mark - TableViewDelegate
@@ -55,6 +70,12 @@ static NSString * const HSYLikeCellID = @"HSYLikeCellID";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    NSInteger rowsCount = [self.viewmodel rowsCount];
+    if (rowsCount == 0) {
+        self.bgHintLable.hidden = NO;
+    } else {
+        self.bgHintLable.hidden = YES;
+    }
     return [self.viewmodel rowsCount];
 }
 
