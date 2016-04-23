@@ -149,8 +149,14 @@ static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
             
             if(!object.isFirstLoad) {
                 object.isFirstLoad = YES;
-                CGFloat offsetY = [self.viewmodel loadOffsetY];
-                observer.tableView.contentOffset = CGPointMake(0, offsetY);
+                
+                double delayInSeconds = 0.2;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                
+                    CGFloat offsetY = [observer.viewmodel loadOffsetY];
+                    observer.tableView.contentOffset = CGPointMake(0, offsetY);
+                });
             }
         }
     }];

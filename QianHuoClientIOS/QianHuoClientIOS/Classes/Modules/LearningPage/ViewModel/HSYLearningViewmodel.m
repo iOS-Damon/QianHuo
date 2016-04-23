@@ -217,16 +217,20 @@ static int const HSYLearningViewmodelPageStep = 10;
     self.tempModels = [[NSArray alloc] init];
     self.tempCount = length;
     
-    for (NSString *dateStr in tempHistoary) {
-        
-        if (![HSYLearningDateModel hasValueWithDateStr:dateStr]) {
-            //请求新数据
-            [self requestValueWithDateStr:dateStr];
-        } else {
-            //从数据库获取
-            [self loadValueWithDateStr:dateStr];
+    FYWeakSelf(weakSelf);
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    
+        for (NSString *dateStr in tempHistoary) {
+            
+            if (![HSYLearningDateModel hasValueWithDateStr:dateStr]) {
+                //请求新数据
+                [weakSelf requestValueWithDateStr:dateStr];
+            } else {
+                //从数据库获取
+                [weakSelf loadValueWithDateStr:dateStr];
+            }
         }
-    }
+    });
 }
 
 - (void)requestValueWithDateStr:(NSString*)dateStr {
