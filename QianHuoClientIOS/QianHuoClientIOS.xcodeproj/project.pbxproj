@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		143A409B1CAA9E84007C0B9F /* FYLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A409A1CAA9E84007C0B9F /* FYLog.m */; };
 		143A409E1CABABBA007C0B9F /* HSYUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A409D1CABABBA007C0B9F /* HSYUserDefaults.m */; };
-		143A40A11CABB254007C0B9F /* HSYDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40A01CABB254007C0B9F /* HSYDBHelper.m */; };
-		143A40A41CABB496007C0B9F /* HSYDBColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40A31CABB496007C0B9F /* HSYDBColumn.m */; };
 		143A40B01CABC70B007C0B9F /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40AD1CABC70B007C0B9F /* JKDBHelper.m */; };
 		143A40B11CABC70B007C0B9F /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40AF1CABC70B007C0B9F /* JKDBModel.m */; };
 		143A40B71CACC02D007C0B9F /* FYHintLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 143A40B61CACC02D007C0B9F /* FYHintLayer.m */; };
@@ -116,10 +114,6 @@
 		143A409A1CAA9E84007C0B9F /* FYLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYLog.m; sourceTree = "<group>"; };
 		143A409C1CABABBA007C0B9F /* HSYUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYUserDefaults.h; sourceTree = "<group>"; };
 		143A409D1CABABBA007C0B9F /* HSYUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYUserDefaults.m; sourceTree = "<group>"; };
-		143A409F1CABB254007C0B9F /* HSYDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYDBHelper.h; sourceTree = "<group>"; };
-		143A40A01CABB254007C0B9F /* HSYDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYDBHelper.m; sourceTree = "<group>"; };
-		143A40A21CABB496007C0B9F /* HSYDBColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSYDBColumn.h; sourceTree = "<group>"; };
-		143A40A31CABB496007C0B9F /* HSYDBColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSYDBColumn.m; sourceTree = "<group>"; };
 		143A40AC1CABC70B007C0B9F /* JKDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBHelper.h; sourceTree = "<group>"; };
 		143A40AD1CABC70B007C0B9F /* JKDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBHelper.m; sourceTree = "<group>"; };
 		143A40AE1CABC70B007C0B9F /* JKDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBModel.h; sourceTree = "<group>"; };
@@ -556,10 +550,6 @@
 				1475698F1CA54173009DB7E7 /* FYUtils.m */,
 				143A409C1CABABBA007C0B9F /* HSYUserDefaults.h */,
 				143A409D1CABABBA007C0B9F /* HSYUserDefaults.m */,
-				143A409F1CABB254007C0B9F /* HSYDBHelper.h */,
-				143A40A01CABB254007C0B9F /* HSYDBHelper.m */,
-				143A40A21CABB496007C0B9F /* HSYDBColumn.h */,
-				143A40A31CABB496007C0B9F /* HSYDBColumn.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1059,8 +1049,6 @@
 			files = (
 				1475699B1CA54186009DB7E7 /* HSYAlertView.m in Sources */,
 				143A40D41CACC5FF007C0B9F /* HSYLearningViewmodel.m in Sources */,
-				143A40A41CABB496007C0B9F /* HSYDBColumn.m in Sources */,
-				143A40A11CABB254007C0B9F /* HSYDBHelper.m in Sources */,
 				143A413C1CAE6E0A007C0B9F /* MHFacebookImageViewer.m in Sources */,
 				1475699C1CA54186009DB7E7 /* HSYAttributedString.m in Sources */,
 				147569891CA54155009DB7E7 /* UIImage+FY.m in Sources */,
