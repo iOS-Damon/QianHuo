@@ -106,13 +106,14 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
             if(!object.isFirstLoad) {
                 
                 object.isFirstLoad = YES;
-                
-                double delayInSeconds = 1.0;
+    
+                double delayInSeconds = 0.5;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     
-                    CGFloat offsetY = [observer.viewmodel loadOffsetY];
-                    observer.tableView.contentOffset = CGPointMake(0, offsetY);
+                    NSInteger section = [observer.viewmodel loadCurrentSection];
+                    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:section];
+                    [observer.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
                 });
             }
         }
@@ -213,8 +214,12 @@ static NSString * const HSYRestHeaderID = @"HSYRestHeaderID";
 
 #pragma mark - Scroller View Delegate
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    
     CGPoint point = scrollView.contentOffset;
-    [self.viewmodel saveOffsetY:point.y];
+
+    NSIndexPath *index = [self.tableView indexPathForRowAtPoint:point];
+    // 保存当前正在浏览的section
+    [self.viewmodel saveCurrentSection:index.section];
 }
 
 @end

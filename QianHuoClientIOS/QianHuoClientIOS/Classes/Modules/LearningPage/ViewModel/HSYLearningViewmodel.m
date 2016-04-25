@@ -17,6 +17,7 @@
 
 static NSString * const HSYLearningViewmodelOffsetY = @"HSYLearningViewmodelOffsetY";
 static NSString * const HSYLearningViewmodelPageID = @"HSYLearningViewmodelPageID";
+static NSString * const HSYLearningViewmodelCurrentSectionID = @"HSYLearningViewmodelCurrentSectionID";
 static int const HSYLearningViewmodelPageStep = 10;
 
 @interface HSYLearningViewmodel ()
@@ -120,6 +121,14 @@ static int const HSYLearningViewmodelPageStep = 10;
     return [HSYUserDefaults floatForKey:HSYLearningViewmodelOffsetY];
 }
 
+- (void)saveCurrentSection:(NSInteger)section {
+    [HSYUserDefaults setInteger:section forKey:HSYLearningViewmodelCurrentSectionID];
+}
+
+- (NSInteger)loadCurrentSection {
+    return [HSYUserDefaults integerForKey:HSYLearningViewmodelCurrentSectionID];
+}
+
 #pragma HSYLoadValueProtocol
 - (void)loadFirstValue {
     self.isLoadingNew = YES;
@@ -167,10 +176,6 @@ static int const HSYLearningViewmodelPageStep = 10;
             
             observer.dateModels = [observer.dateModels arrayByAddingObjectsFromArray:tempArr];
             observer.page = observer.page + HSYLearningViewmodelPageStep;
-            
-            if (!observer.isFirstLoad) {
-                observer.isFirstLoad = YES;
-            }
             
             observer.isLoadingNew = NO;
             observer.isLoadingMore = NO;

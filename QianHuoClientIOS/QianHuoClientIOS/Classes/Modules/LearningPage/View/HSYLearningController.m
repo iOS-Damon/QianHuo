@@ -126,18 +126,6 @@ static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
         [hint show];
     }];
     
-    [self.KVOController observe:self.viewmodel keyPath:@"isFirstLoad" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
-        
-        if(object.isFirstLoad) {
-            double delayInSeconds = 1.0;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                CGFloat offsetY = [self.viewmodel loadOffsetY];
-                observer.tableView.contentOffset = CGPointMake(0, offsetY);
-            });
-        }
-    }];
-    
     [self.KVOController observe:self.viewmodel keyPath:@"isLoadingNew" options:NSKeyValueObservingOptionNew block:^(HSYLearningController *observer, HSYLearningViewmodel *object, NSDictionary *change) {
         
         if(object.isLoadingNew) {
@@ -150,12 +138,13 @@ static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
             if(!object.isFirstLoad) {
                 object.isFirstLoad = YES;
                 
-                double delayInSeconds = 0.2;
+                double delayInSeconds = 0.5;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                 
-                    CGFloat offsetY = [observer.viewmodel loadOffsetY];
-                    observer.tableView.contentOffset = CGPointMake(0, offsetY);
+                    NSInteger section = [observer.viewmodel loadCurrentSection];
+                    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:section];
+                    [observer.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
                 });
             }
         }
@@ -175,7 +164,9 @@ static NSString * const HSYLearningHeaderID = @"HSYLearningHeaderID";
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     
     CGPoint point = scrollView.contentOffset;
-    [self.viewmodel saveOffsetY:point.y];
+    NSIndexPath *index = [self.tableView indexPathForRowAtPoint:point];
+    // 保存当前正在浏览的section
+    [self.viewmodel saveCurrentSection:index.section];
 }
 
 #pragma mark - HSYIsLikeBottonDelegate

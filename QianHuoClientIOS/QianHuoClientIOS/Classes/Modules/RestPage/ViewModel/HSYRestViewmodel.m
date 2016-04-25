@@ -15,6 +15,7 @@
 
 
 static NSString * const HSYRestViewmodelOffsetY = @"HSYRestViewmodelOffsetY";
+static NSString * const HSYRestViewmodelCurrentSectionID = @"HSYRestViewmodelCurrentSectionID";
 static NSString * const HSYRestViewmodelPageID = @"HSYRestViewmodelPageID";
 static int const HSYRestViewmodelPageStep = 10;
 
@@ -127,6 +128,14 @@ static int const HSYRestViewmodelPageStep = 10;
 
 - (CGFloat)loadOffsetY {
     return [HSYUserDefaults floatForKey:HSYRestViewmodelOffsetY];
+}
+
+- (void)saveCurrentSection:(NSInteger)section {
+    [HSYUserDefaults setInteger:section forKey:HSYRestViewmodelCurrentSectionID];
+}
+
+- (NSInteger)loadCurrentSection {
+    return [HSYUserDefaults integerForKey:HSYRestViewmodelCurrentSectionID];
 }
 
 #pragma HSYLoadValueProtocol

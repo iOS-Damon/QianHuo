@@ -36,9 +36,9 @@
 - (void)saveOffsetY:(CGFloat)offsetY;
 - (CGFloat)loadOffsetY;
 
-- (NSString*)formatWithYear:(NSString*)year month:(NSString*)month day:(NSString*)day;
+- (void)saveCurrentSection:(NSInteger)section;
+- (NSInteger)loadCurrentSection;
 
-//- (void)addRequestCount;
-//- (void)decRequestCount;
+- (NSString*)formatWithYear:(NSString*)year month:(NSString*)month day:(NSString*)day;
 
 @end

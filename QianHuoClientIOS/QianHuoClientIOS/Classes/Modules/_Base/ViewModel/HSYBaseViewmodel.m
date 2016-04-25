@@ -41,6 +41,14 @@
     return 0;
 }
 
+- (void)saveCurrentSection:(NSInteger)section {
+
+}
+
+- (NSInteger)loadCurrentSection {
+    return 0;
+}
+
 #pragma 标记已读
 - (BOOL)rowHasRead:(NSIndexPath *)indexPath {
     return NO;
