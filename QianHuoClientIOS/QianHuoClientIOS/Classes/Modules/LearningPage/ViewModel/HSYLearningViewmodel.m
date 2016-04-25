@@ -149,9 +149,7 @@ static int const HSYLearningViewmodelPageStep = 10;
 - (void)loadNewValue {
     
     self.isLoadingNew = YES;
-    
     self.page = 0;
-    self.dateModels = [[NSArray alloc] init];
     [self requestHistory];
     [self savePage:self.page];
 }
@@ -159,7 +157,6 @@ static int const HSYLearningViewmodelPageStep = 10;
 - (void)loadMoreValue {
     
     self.isLoadingMore = YES;
-    
     [self takeValueWithPage:self.page length:HSYLearningViewmodelPageStep];
     [self savePage:self.page];
 }
@@ -174,7 +171,12 @@ static int const HSYLearningViewmodelPageStep = 10;
             NSSortDescriptor *dateStrDesc = [NSSortDescriptor sortDescriptorWithKey:@"dateStr" ascending:NO];
             NSArray *tempArr = [observer.tempModels sortedArrayUsingDescriptors:@[dateStrDesc]];
             
-            observer.dateModels = [observer.dateModels arrayByAddingObjectsFromArray:tempArr];
+            if(observer.isLoadingNew) {
+                observer.dateModels = [NSArray arrayWithArray:tempArr];
+            } else {
+                observer.dateModels = [observer.dateModels arrayByAddingObjectsFromArray:tempArr];
+            }
+            
             observer.page = observer.page + HSYLearningViewmodelPageStep;
             
             observer.isLoadingNew = NO;

@@ -157,7 +157,6 @@ static int const HSYRestViewmodelPageStep = 10;
 - (void)loadNewValue {
     self.isLoadingNew = YES;
     self.page = 0;
-    self.dateModels = [[NSArray alloc] init];
     [self requestHistory];
     [self savePage:self.page];
 }
@@ -170,7 +169,6 @@ static int const HSYRestViewmodelPageStep = 10;
 
 #pragma HSYBindingParamProtocol
 - (void)bindingParam {
-    self.KVOController = [FBKVOController controllerWithObserver:self];
     
     [self.KVOController observe:self keyPath:@"tempModels" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(HSYRestViewmodel *observer, id object, NSDictionary *change) {
         // 如果临时数组都组装好了（组装后的个数等于组装前预计的个数）
@@ -180,7 +178,11 @@ static int const HSYRestViewmodelPageStep = 10;
             NSSortDescriptor *dateStrDesc = [NSSortDescriptor sortDescriptorWithKey:@"dateStr" ascending:NO];
             NSArray *tempArr = [observer.tempModels sortedArrayUsingDescriptors:@[dateStrDesc]];
             
-            observer.dateModels = [observer.dateModels arrayByAddingObjectsFromArray:tempArr];
+            if(observer.isLoadingNew) {
+                observer.dateModels = [NSArray arrayWithArray:tempArr];
+            } else {
+                observer.dateModels = [observer.dateModels arrayByAddingObjectsFromArray:tempArr];
+            }
             
             // page 步数增加
             observer.page = observer.page + HSYRestViewmodelPageStep;
