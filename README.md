@@ -4,13 +4,13 @@
 ##三大板块
 ###学习时间
 每日各种教程博客应有尽有。
-![image](https://github.com/deeepthinking/QianHuo/ScreenShoot/learn.gif)
+![image](https://github.com/deeepthinking/QianHuo/tree/master/screenshoot/learn.gif)
 ###休息时间
 每日的干妹子和休息视屏，学习之余放松心情。
-![image](https://github.com/deeepthinking/QianHuo/ScreenShoot/rest.gif)
+![image](https://github.com/deeepthinking/QianHuo/tree/master/screenshoot/rest.gif)
 ###我喜欢的
 收藏你喜欢的文章，让你时刻回忆和复习。
-![image](https://github.com/deeepthinking/QianHuo/ScreenShoot/like.gif)
+![image](https://github.com/deeepthinking/QianHuo/tree/master/screenshoot/like.gif)
 
 ##开发总结 
 - 采用MVVM分层；层与层之间交流使用KVO（FB的KVOController库）
