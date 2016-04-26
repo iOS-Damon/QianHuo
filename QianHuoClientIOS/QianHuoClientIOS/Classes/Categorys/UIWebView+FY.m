@@ -22,9 +22,9 @@
     [self loadHTMLString:@"" baseURL:nil];
     self.delegate = nil;
     [self removeFromSuperview];
-//    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-//    [[NSURLCache sharedURLCache] setDiskCapacity:0];
-//    [[NSURLCache sharedURLCache] setMemoryCapacity:0];
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    [[NSURLCache sharedURLCache] setDiskCapacity:0];
+    [[NSURLCache sharedURLCache] setMemoryCapacity:0];
 }
 
 @end

@@ -147,7 +147,7 @@ static int const HSYRestViewmodelPageStep = 10;
     } else {
         self.page = [self loadPage];
         if (self.page == 0) {
-            [self loadNewValue];
+            [self takeValueWithPage:0 length:HSYRestViewmodelPageStep];
         } else {
             [self takeValueWithPage:0 length:self.page + HSYRestViewmodelPageStep];
         }
